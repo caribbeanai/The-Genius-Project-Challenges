@@ -1,0 +1,901 @@
+tournament,team_a,team_b,goals_a,goals_b,winner
+Qualifier,Switzerland,USA,0,1,USA
+World Cup,Switzerland,Australia,3,0,Switzerland
+Friendly,Japan,Colombia,1,0,Japan
+World Cup,France,Senegal,1,1,Draw
+World Cup,USA,France,1,0,USA
+Qualifier,Switzerland,Argentina,1,3,Argentina
+Nations League,Belgium,Colombia,3,0,Belgium
+Continental Cup,Nigeria,Morocco,0,0,Draw
+Continental Cup,Brazil,Belgium,2,0,Brazil
+Nations League,Croatia,Canada,1,0,Croatia
+Continental Cup,Portugal,England,1,1,Draw
+Nations League,Morocco,Portugal,0,1,Portugal
+Qualifier,Canada,Colombia,2,2,Draw
+Qualifier,Croatia,Japan,0,0,Draw
+Friendly,France,Switzerland,1,0,France
+Friendly,Nigeria,Netherlands,1,1,Draw
+Friendly,Mexico,Brazil,2,1,Mexico
+Continental Cup,Switzerland,Germany,0,0,Draw
+Qualifier,Colombia,Senegal,0,2,Senegal
+Nations League,England,Denmark,0,0,Draw
+Continental Cup,Belgium,France,0,1,France
+Continental Cup,Senegal,Portugal,0,0,Draw
+Qualifier,Spain,Uruguay,1,0,Spain
+Nations League,Morocco,South Korea,2,0,Morocco
+Qualifier,Senegal,Colombia,1,2,Colombia
+World Cup,Belgium,Australia,2,0,Belgium
+Continental Cup,Argentina,Croatia,1,0,Argentina
+World Cup,Netherlands,Nigeria,2,0,Netherlands
+Qualifier,Netherlands,Croatia,2,0,Netherlands
+Friendly,Japan,Mexico,3,0,Japan
+Friendly,Switzerland,Italy,1,1,Draw
+Qualifier,Colombia,Australia,1,0,Colombia
+Friendly,Canada,Uruguay,0,3,Uruguay
+World Cup,Canada,Colombia,2,1,Canada
+Continental Cup,Nigeria,Japan,2,1,Nigeria
+Nations League,Japan,Brazil,0,0,Draw
+Qualifier,Netherlands,Japan,2,0,Netherlands
+Continental Cup,Colombia,Argentina,1,1,Draw
+Friendly,Colombia,Nigeria,0,0,Draw
+World Cup,Spain,Italy,1,0,Spain
+Qualifier,Morocco,Brazil,0,1,Brazil
+World Cup,Portugal,Canada,0,0,Draw
+Nations League,Germany,Spain,0,1,Spain
+Continental Cup,Argentina,Nigeria,2,1,Argentina
+Continental Cup,Nigeria,South Korea,1,1,Draw
+Friendly,Belgium,Colombia,0,1,Colombia
+Qualifier,Portugal,Denmark,1,1,Draw
+Friendly,Switzerland,Japan,1,1,Draw
+World Cup,Belgium,Canada,1,1,Draw
+Nations League,France,Uruguay,0,0,Draw
+World Cup,Belgium,Switzerland,0,0,Draw
+Nations League,France,Nigeria,0,0,Draw
+Nations League,Croatia,Portugal,0,1,Portugal
+Qualifier,Netherlands,Argentina,0,1,Argentina
+Friendly,Netherlands,Colombia,0,0,Draw
+Nations League,Germany,Belgium,0,1,Belgium
+Qualifier,Senegal,Denmark,0,0,Draw
+World Cup,Brazil,England,0,0,Draw
+Qualifier,USA,Japan,1,1,Draw
+Qualifier,Portugal,Colombia,0,2,Colombia
+Qualifier,Colombia,Italy,1,1,Draw
+World Cup,Morocco,Brazil,0,1,Brazil
+Friendly,Denmark,Argentina,0,0,Draw
+World Cup,Belgium,South Korea,1,1,Draw
+World Cup,Senegal,England,0,2,England
+Continental Cup,Mexico,Morocco,1,3,Morocco
+World Cup,France,Japan,1,0,France
+Friendly,Morocco,France,0,1,France
+Nations League,Spain,Morocco,2,2,Draw
+Qualifier,Canada,Croatia,1,1,Draw
+Continental Cup,Croatia,Mexico,0,1,Mexico
+Friendly,Mexico,Canada,1,0,Mexico
+World Cup,USA,Nigeria,1,2,Nigeria
+Friendly,Germany,Switzerland,2,0,Germany
+Continental Cup,Argentina,Italy,1,1,Draw
+Qualifier,Canada,Germany,0,1,Germany
+World Cup,Australia,Uruguay,0,1,Uruguay
+World Cup,Spain,Belgium,0,1,Belgium
+Continental Cup,Italy,Switzerland,0,0,Draw
+World Cup,South Korea,Uruguay,0,0,Draw
+Continental Cup,Uruguay,Argentina,0,1,Argentina
+Continental Cup,England,Canada,6,0,England
+Continental Cup,Morocco,Portugal,1,1,Draw
+Nations League,Italy,Brazil,1,1,Draw
+Qualifier,Croatia,Denmark,1,1,Draw
+Nations League,Australia,Senegal,0,1,Senegal
+Nations League,Italy,France,1,1,Draw
+Qualifier,Senegal,Portugal,0,0,Draw
+Nations League,Nigeria,France,0,2,France
+Qualifier,Germany,Senegal,0,1,Senegal
+World Cup,Australia,England,0,1,England
+Nations League,Colombia,England,0,1,England
+Qualifier,Colombia,Australia,3,0,Colombia
+Friendly,Japan,Spain,0,1,Spain
+Friendly,France,Switzerland,0,1,Switzerland
+Nations League,Australia,Switzerland,1,0,Australia
+Friendly,England,Switzerland,1,1,Draw
+Continental Cup,Senegal,England,0,2,England
+Qualifier,Spain,Colombia,1,0,Spain
+Qualifier,Mexico,Senegal,2,0,Mexico
+Qualifier,Japan,Germany,0,2,Germany
+Nations League,Belgium,Japan,1,0,Belgium
+Continental Cup,Portugal,England,1,1,Draw
+Friendly,Denmark,Brazil,0,1,Brazil
+Friendly,England,Australia,0,0,Draw
+Friendly,Netherlands,Nigeria,0,0,Draw
+Qualifier,Senegal,Canada,0,1,Canada
+Qualifier,Colombia,USA,1,0,Colombia
+Nations League,USA,Canada,2,0,USA
+Qualifier,Italy,Australia,1,2,Australia
+Friendly,Argentina,Senegal,2,0,Argentina
+Continental Cup,Mexico,Senegal,0,1,Senegal
+Continental Cup,Denmark,Mexico,0,0,Draw
+Nations League,Denmark,Italy,1,1,Draw
+Qualifier,Australia,Italy,0,1,Italy
+Qualifier,Spain,Netherlands,0,0,Draw
+Nations League,Netherlands,Portugal,1,1,Draw
+World Cup,South Korea,Colombia,0,4,Colombia
+World Cup,Senegal,Mexico,0,1,Mexico
+Continental Cup,Canada,Germany,0,3,Germany
+World Cup,Portugal,Senegal,2,1,Portugal
+World Cup,Switzerland,Belgium,0,0,Draw
+Qualifier,France,Italy,0,0,Draw
+Qualifier,Germany,Senegal,0,2,Senegal
+Friendly,Brazil,Argentina,1,1,Draw
+Continental Cup,Senegal,Croatia,0,0,Draw
+World Cup,USA,Switzerland,0,0,Draw
+Friendly,Brazil,France,0,1,France
+Friendly,Spain,Italy,3,0,Spain
+Friendly,Canada,Croatia,0,2,Croatia
+Nations League,Italy,Argentina,0,1,Argentina
+Nations League,France,Netherlands,2,0,France
+Continental Cup,Belgium,England,1,0,Belgium
+Nations League,Colombia,USA,1,1,Draw
+Friendly,Canada,Denmark,0,1,Denmark
+Nations League,Argentina,France,0,0,Draw
+World Cup,Spain,Uruguay,1,0,Spain
+Qualifier,Colombia,England,0,1,England
+Friendly,Argentina,Canada,0,0,Draw
+Nations League,Croatia,Brazil,1,3,Brazil
+Qualifier,Belgium,France,0,1,France
+Friendly,Belgium,Nigeria,2,0,Belgium
+Qualifier,Italy,England,0,0,Draw
+Friendly,Belgium,Argentina,0,1,Argentina
+Friendly,Germany,Canada,1,0,Germany
+Nations League,Croatia,Nigeria,2,0,Croatia
+Friendly,Brazil,Colombia,1,0,Brazil
+Friendly,England,Switzerland,0,1,Switzerland
+World Cup,Brazil,Japan,3,0,Brazil
+Qualifier,France,Canada,1,0,France
+Qualifier,Uruguay,Portugal,0,1,Portugal
+World Cup,Australia,Italy,0,0,Draw
+Friendly,Switzerland,Croatia,0,3,Croatia
+Friendly,Uruguay,Australia,1,1,Draw
+World Cup,USA,Australia,1,0,USA
+Qualifier,Morocco,Nigeria,1,0,Morocco
+Friendly,France,Argentina,0,1,Argentina
+Nations League,Brazil,Uruguay,1,0,Brazil
+World Cup,Portugal,Nigeria,0,0,Draw
+Friendly,England,Colombia,1,1,Draw
+World Cup,Canada,South Korea,0,0,Draw
+Qualifier,USA,Spain,2,1,USA
+Qualifier,France,Germany,1,0,France
+Nations League,Canada,Nigeria,1,1,Draw
+Qualifier,France,Canada,1,0,France
+Friendly,Spain,Canada,6,0,Spain
+Nations League,Germany,Morocco,2,0,Germany
+Qualifier,Netherlands,South Korea,1,0,Netherlands
+Continental Cup,Italy,Japan,1,0,Italy
+World Cup,Nigeria,Netherlands,0,3,Netherlands
+Friendly,Germany,England,0,2,England
+World Cup,Denmark,France,0,3,France
+Continental Cup,Portugal,Italy,1,1,Draw
+Friendly,USA,Italy,1,1,Draw
+Nations League,South Korea,Spain,0,0,Draw
+Nations League,Nigeria,Colombia,0,2,Colombia
+Friendly,Nigeria,Italy,0,0,Draw
+Qualifier,USA,France,1,2,France
+Continental Cup,Japan,Mexico,0,2,Mexico
+Nations League,Senegal,Italy,2,1,Senegal
+Continental Cup,Senegal,France,0,1,France
+Qualifier,Italy,Germany,2,0,Italy
+Friendly,England,Switzerland,1,1,Draw
+Continental Cup,South Korea,Spain,0,1,Spain
+Nations League,Belgium,Portugal,1,0,Belgium
+Nations League,Brazil,Portugal,2,1,Brazil
+Continental Cup,Australia,Spain,0,1,Spain
+Continental Cup,Spain,Italy,0,0,Draw
+Qualifier,Denmark,Germany,2,4,Germany
+Nations League,Portugal,Colombia,1,0,Portugal
+Continental Cup,Uruguay,Italy,1,1,Draw
+Friendly,Croatia,Spain,4,1,Croatia
+World Cup,Canada,USA,0,0,Draw
+Qualifier,Portugal,Belgium,0,1,Belgium
+Continental Cup,Argentina,Japan,0,0,Draw
+Qualifier,Spain,Canada,0,0,Draw
+Continental Cup,Croatia,Portugal,1,1,Draw
+World Cup,Netherlands,Switzerland,1,1,Draw
+Nations League,Australia,Morocco,0,0,Draw
+Nations League,Canada,Senegal,0,1,Senegal
+Qualifier,Spain,Portugal,0,0,Draw
+Qualifier,Spain,Colombia,2,0,Spain
+Continental Cup,France,Portugal,1,0,France
+Qualifier,Spain,Japan,1,1,Draw
+Qualifier,USA,Netherlands,0,0,Draw
+World Cup,Colombia,Netherlands,0,1,Netherlands
+World Cup,France,England,1,3,England
+World Cup,USA,South Korea,0,1,South Korea
+Friendly,Switzerland,Brazil,0,2,Brazil
+Continental Cup,Nigeria,France,0,1,France
+Friendly,Belgium,Colombia,1,2,Colombia
+Qualifier,Uruguay,Netherlands,0,0,Draw
+Nations League,Australia,Italy,2,3,Italy
+Qualifier,Japan,USA,0,1,USA
+Friendly,Uruguay,Nigeria,1,0,Uruguay
+Friendly,Netherlands,Canada,0,0,Draw
+Qualifier,Belgium,Morocco,0,0,Draw
+Friendly,Switzerland,Uruguay,0,1,Uruguay
+Continental Cup,Colombia,Netherlands,2,2,Draw
+Nations League,Croatia,Denmark,3,0,Croatia
+Friendly,Italy,Brazil,0,2,Brazil
+Continental Cup,England,USA,3,0,England
+World Cup,Brazil,England,0,1,England
+Nations League,Brazil,Colombia,2,1,Brazil
+World Cup,Senegal,Nigeria,0,0,Draw
+Continental Cup,Italy,Australia,0,0,Draw
+Continental Cup,Switzerland,South Korea,2,1,Switzerland
+Friendly,Belgium,Italy,1,1,Draw
+Friendly,USA,Netherlands,0,0,Draw
+Nations League,USA,Australia,1,0,USA
+Qualifier,Italy,Brazil,0,1,Brazil
+Friendly,Portugal,Uruguay,1,0,Portugal
+Nations League,Japan,Canada,1,1,Draw
+Continental Cup,Japan,Uruguay,1,2,Uruguay
+Qualifier,Portugal,Croatia,0,0,Draw
+World Cup,Brazil,Colombia,0,0,Draw
+Nations League,Brazil,Canada,1,0,Brazil
+Friendly,England,Netherlands,0,1,Netherlands
+Continental Cup,South Korea,Uruguay,0,0,Draw
+Qualifier,Japan,Canada,3,1,Japan
+Qualifier,Spain,Belgium,1,0,Spain
+Friendly,Colombia,Italy,2,0,Colombia
+Continental Cup,Morocco,France,0,2,France
+Continental Cup,Colombia,Uruguay,0,1,Uruguay
+World Cup,Brazil,Switzerland,0,0,Draw
+World Cup,Colombia,Netherlands,0,0,Draw
+Nations League,Nigeria,Morocco,1,1,Draw
+Qualifier,Croatia,Argentina,2,0,Croatia
+Friendly,Belgium,Morocco,0,1,Morocco
+Continental Cup,England,Australia,1,0,England
+Nations League,Senegal,Portugal,0,1,Portugal
+Nations League,France,Morocco,3,0,France
+Nations League,USA,Australia,0,0,Draw
+Qualifier,England,Portugal,0,2,Portugal
+Qualifier,Argentina,Colombia,1,0,Argentina
+Qualifier,Nigeria,Spain,1,0,Nigeria
+Friendly,France,USA,1,0,France
+Qualifier,Senegal,USA,2,1,Senegal
+Nations League,Senegal,Brazil,0,0,Draw
+Qualifier,Germany,USA,1,1,Draw
+World Cup,Switzerland,Portugal,1,2,Portugal
+Nations League,USA,Japan,0,0,Draw
+Qualifier,Switzerland,Senegal,0,1,Senegal
+World Cup,Argentina,Netherlands,2,1,Argentina
+World Cup,England,Netherlands,0,0,Draw
+World Cup,Portugal,Mexico,1,0,Portugal
+Continental Cup,USA,Mexico,1,0,USA
+Friendly,Australia,Germany,0,2,Germany
+Qualifier,England,Argentina,0,1,Argentina
+Qualifier,Uruguay,South Korea,0,0,Draw
+Nations League,South Korea,Netherlands,0,2,Netherlands
+Qualifier,Switzerland,Australia,0,0,Draw
+Qualifier,Argentina,Spain,1,0,Argentina
+Qualifier,Netherlands,Italy,0,0,Draw
+Qualifier,Canada,Netherlands,0,2,Netherlands
+Qualifier,Australia,Uruguay,0,2,Uruguay
+World Cup,Croatia,Denmark,1,0,Croatia
+Friendly,Croatia,Colombia,0,1,Colombia
+Nations League,Germany,Netherlands,0,1,Netherlands
+Qualifier,Germany,Brazil,0,0,Draw
+Continental Cup,Croatia,Germany,0,0,Draw
+Qualifier,Argentina,Japan,0,0,Draw
+Nations League,USA,Portugal,0,2,Portugal
+Qualifier,Japan,Denmark,0,1,Denmark
+Continental Cup,Netherlands,Morocco,0,0,Draw
+Nations League,Denmark,Argentina,0,0,Draw
+Continental Cup,Croatia,Australia,1,0,Croatia
+Qualifier,Belgium,Netherlands,2,1,Belgium
+Qualifier,France,Switzerland,3,0,France
+Qualifier,Uruguay,Denmark,2,1,Uruguay
+Nations League,Senegal,Denmark,1,0,Senegal
+Nations League,South Korea,Morocco,0,0,Draw
+Continental Cup,Italy,Denmark,0,1,Denmark
+Nations League,South Korea,Senegal,0,0,Draw
+Qualifier,France,England,1,1,Draw
+Qualifier,Germany,Argentina,2,1,Germany
+Friendly,USA,Netherlands,1,2,Netherlands
+Friendly,Netherlands,Spain,0,1,Spain
+Friendly,Brazil,Germany,1,0,Brazil
+World Cup,Nigeria,Germany,0,0,Draw
+Qualifier,Japan,Australia,3,0,Japan
+Nations League,Italy,Mexico,0,0,Draw
+World Cup,Croatia,Japan,1,1,Draw
+Qualifier,Spain,Brazil,0,1,Brazil
+Nations League,Senegal,South Korea,0,0,Draw
+Nations League,South Korea,Australia,0,0,Draw
+Friendly,Colombia,Netherlands,0,0,Draw
+Nations League,Belgium,Germany,0,1,Germany
+Nations League,USA,Netherlands,0,2,Netherlands
+Friendly,Canada,Australia,2,1,Canada
+Friendly,Colombia,Argentina,1,4,Argentina
+Continental Cup,Senegal,Japan,2,0,Senegal
+Continental Cup,Australia,Japan,0,2,Japan
+World Cup,Spain,Australia,2,0,Spain
+Qualifier,France,Senegal,0,0,Draw
+Continental Cup,Argentina,Belgium,1,0,Argentina
+Nations League,Switzerland,Colombia,1,1,Draw
+Qualifier,Argentina,Croatia,1,0,Argentina
+Nations League,Switzerland,Uruguay,0,0,Draw
+Continental Cup,Senegal,Nigeria,0,1,Nigeria
+World Cup,Morocco,England,0,1,England
+Friendly,Senegal,Uruguay,1,0,Senegal
+Continental Cup,France,Mexico,0,0,Draw
+World Cup,England,Argentina,0,2,Argentina
+Nations League,South Korea,France,0,2,France
+Nations League,Denmark,Argentina,1,1,Draw
+Nations League,Nigeria,Brazil,0,1,Brazil
+Continental Cup,Mexico,Germany,0,0,Draw
+Friendly,Senegal,Netherlands,0,2,Netherlands
+World Cup,Germany,Australia,0,0,Draw
+Friendly,France,Brazil,1,1,Draw
+Friendly,Senegal,Germany,0,0,Draw
+Friendly,Spain,Australia,0,0,Draw
+Continental Cup,Portugal,USA,4,0,Portugal
+Nations League,South Korea,Belgium,0,2,Belgium
+World Cup,Germany,Nigeria,0,0,Draw
+Qualifier,Denmark,Canada,0,1,Canada
+Friendly,Brazil,Canada,0,0,Draw
+Friendly,Switzerland,Netherlands,0,1,Netherlands
+Qualifier,Denmark,Spain,0,2,Spain
+World Cup,England,Uruguay,1,0,England
+Friendly,Uruguay,Spain,0,2,Spain
+Nations League,Netherlands,Switzerland,2,0,Netherlands
+Continental Cup,USA,Australia,1,0,USA
+Qualifier,Argentina,Senegal,2,0,Argentina
+World Cup,Denmark,Argentina,0,1,Argentina
+Continental Cup,Spain,Germany,2,0,Spain
+Friendly,Germany,Argentina,0,2,Argentina
+Continental Cup,Australia,South Korea,0,3,South Korea
+Continental Cup,Croatia,Senegal,1,2,Senegal
+World Cup,Denmark,France,1,2,France
+Continental Cup,Netherlands,Nigeria,0,1,Nigeria
+Friendly,Nigeria,Morocco,0,1,Morocco
+Friendly,Spain,Belgium,0,3,Belgium
+Nations League,USA,Mexico,0,2,Mexico
+Continental Cup,Belgium,Mexico,1,0,Belgium
+Continental Cup,Portugal,Denmark,2,0,Portugal
+Friendly,Colombia,Morocco,1,1,Draw
+Friendly,Argentina,Canada,1,0,Argentina
+World Cup,Netherlands,Brazil,0,1,Brazil
+Friendly,Brazil,Japan,1,0,Brazil
+World Cup,Mexico,Uruguay,0,2,Uruguay
+Continental Cup,Canada,England,0,0,Draw
+World Cup,Germany,Argentina,0,0,Draw
+Continental Cup,Italy,Spain,2,0,Italy
+Qualifier,Croatia,Senegal,0,0,Draw
+World Cup,Canada,Morocco,1,1,Draw
+Qualifier,Croatia,Uruguay,0,1,Uruguay
+Qualifier,Nigeria,Denmark,1,1,Draw
+Friendly,Uruguay,Morocco,3,2,Uruguay
+Nations League,Germany,Belgium,0,0,Draw
+Continental Cup,Netherlands,Denmark,2,0,Netherlands
+Qualifier,Denmark,Portugal,0,3,Portugal
+Qualifier,Spain,Germany,4,2,Spain
+Qualifier,Croatia,Spain,0,0,Draw
+Nations League,Japan,Morocco,0,0,Draw
+Friendly,Denmark,Colombia,0,1,Colombia
+Nations League,Morocco,South Korea,1,0,Morocco
+World Cup,Brazil,Uruguay,1,1,Draw
+Friendly,Switzerland,Brazil,0,1,Brazil
+Qualifier,Netherlands,England,1,3,England
+Nations League,Morocco,Uruguay,0,2,Uruguay
+World Cup,Japan,Denmark,1,0,Japan
+World Cup,Japan,Morocco,1,0,Japan
+Nations League,Argentina,South Korea,2,0,Argentina
+Friendly,Portugal,Canada,1,0,Portugal
+Continental Cup,Switzerland,Denmark,0,1,Denmark
+Nations League,England,Spain,0,0,Draw
+Qualifier,Spain,Switzerland,2,1,Spain
+Nations League,South Korea,Colombia,1,0,South Korea
+Qualifier,Canada,Argentina,0,1,Argentina
+Continental Cup,Portugal,Croatia,3,2,Portugal
+Qualifier,Argentina,France,0,3,France
+Nations League,Nigeria,Portugal,0,2,Portugal
+Friendly,Brazil,Netherlands,0,0,Draw
+Qualifier,Portugal,England,0,2,England
+Friendly,Italy,Croatia,0,3,Croatia
+Friendly,South Korea,Denmark,3,0,South Korea
+World Cup,Brazil,Morocco,1,0,Brazil
+Friendly,Argentina,Portugal,2,0,Argentina
+Friendly,Uruguay,Netherlands,0,1,Netherlands
+Qualifier,USA,Morocco,3,0,USA
+Friendly,Senegal,Colombia,0,1,Colombia
+World Cup,Portugal,Germany,1,0,Portugal
+Continental Cup,Switzerland,Spain,0,0,Draw
+Qualifier,Croatia,Germany,0,0,Draw
+Friendly,Japan,Croatia,0,1,Croatia
+Nations League,Germany,Netherlands,1,1,Draw
+World Cup,Colombia,Mexico,0,0,Draw
+Friendly,South Korea,Belgium,0,1,Belgium
+Continental Cup,Italy,South Korea,0,0,Draw
+World Cup,Brazil,Argentina,0,1,Argentina
+World Cup,Brazil,Spain,0,1,Spain
+World Cup,Colombia,Uruguay,0,0,Draw
+Friendly,South Korea,Australia,2,1,South Korea
+Qualifier,Morocco,USA,0,1,USA
+World Cup,Uruguay,Croatia,1,2,Croatia
+Continental Cup,USA,Colombia,1,0,USA
+Friendly,Portugal,South Korea,2,0,Portugal
+Friendly,USA,Argentina,0,2,Argentina
+Continental Cup,Uruguay,USA,2,0,Uruguay
+Qualifier,Senegal,Spain,0,0,Draw
+Nations League,Portugal,Denmark,0,0,Draw
+World Cup,England,Switzerland,3,0,England
+Continental Cup,Italy,Nigeria,1,0,Italy
+Friendly,Uruguay,Japan,2,1,Uruguay
+Friendly,Belgium,Australia,1,0,Belgium
+Friendly,Australia,Netherlands,1,4,Netherlands
+Continental Cup,Denmark,Netherlands,0,0,Draw
+Friendly,Uruguay,Brazil,0,0,Draw
+Nations League,Morocco,Switzerland,0,1,Switzerland
+Qualifier,Switzerland,Denmark,0,1,Denmark
+World Cup,Australia,USA,1,2,USA
+Friendly,Portugal,Switzerland,1,0,Portugal
+Continental Cup,Colombia,Netherlands,1,0,Colombia
+Continental Cup,Croatia,Japan,1,0,Croatia
+Continental Cup,England,Croatia,2,1,England
+Continental Cup,Croatia,Netherlands,2,0,Croatia
+Friendly,Morocco,Mexico,2,2,Draw
+Friendly,Germany,Japan,0,1,Japan
+Continental Cup,Argentina,Switzerland,2,0,Argentina
+Qualifier,USA,Portugal,0,0,Draw
+Friendly,Germany,Belgium,0,0,Draw
+Qualifier,France,Italy,0,2,Italy
+World Cup,Argentina,Nigeria,2,0,Argentina
+Nations League,Belgium,Portugal,2,0,Belgium
+World Cup,Senegal,Morocco,4,0,Senegal
+Qualifier,Belgium,Nigeria,0,0,Draw
+Friendly,Spain,Portugal,2,0,Spain
+Friendly,Italy,Canada,1,0,Italy
+Continental Cup,Mexico,Morocco,1,1,Draw
+Nations League,Mexico,Italy,0,0,Draw
+Qualifier,France,Spain,1,2,Spain
+Qualifier,Colombia,Spain,0,3,Spain
+Qualifier,Croatia,Argentina,0,1,Argentina
+Friendly,Netherlands,Croatia,3,0,Netherlands
+World Cup,Netherlands,Germany,0,0,Draw
+Friendly,South Korea,Brazil,1,2,Brazil
+World Cup,USA,France,0,0,Draw
+Qualifier,Mexico,Denmark,4,0,Mexico
+Nations League,Japan,Germany,0,1,Germany
+Friendly,Denmark,Argentina,0,0,Draw
+World Cup,South Korea,England,0,0,Draw
+World Cup,England,Portugal,2,1,England
+World Cup,Morocco,Canada,4,0,Morocco
+Friendly,Portugal,Senegal,0,0,Draw
+World Cup,Canada,Switzerland,0,1,Switzerland
+Qualifier,Denmark,Morocco,0,0,Draw
+Friendly,Switzerland,Argentina,0,2,Argentina
+World Cup,Germany,Mexico,1,0,Germany
+Continental Cup,England,Uruguay,1,0,England
+Friendly,England,Mexico,2,0,England
+Nations League,Germany,Netherlands,1,2,Netherlands
+Friendly,Japan,Switzerland,1,0,Japan
+Continental Cup,France,Spain,1,0,France
+Qualifier,Australia,France,0,2,France
+Continental Cup,USA,Belgium,1,2,Belgium
+World Cup,Canada,USA,1,0,Canada
+Nations League,England,Spain,1,0,England
+Qualifier,Uruguay,USA,2,0,Uruguay
+Continental Cup,Germany,Switzerland,1,1,Draw
+World Cup,Uruguay,South Korea,1,0,Uruguay
+World Cup,USA,Italy,2,1,USA
+Continental Cup,France,Spain,0,0,Draw
+Qualifier,Belgium,Argentina,1,2,Argentina
+World Cup,Croatia,Nigeria,0,1,Nigeria
+Nations League,Portugal,France,0,2,France
+Nations League,Spain,Germany,1,0,Spain
+World Cup,Italy,Japan,2,0,Italy
+Friendly,Nigeria,Switzerland,0,1,Switzerland
+Continental Cup,Nigeria,Uruguay,0,0,Draw
+Continental Cup,Mexico,Netherlands,0,0,Draw
+World Cup,Japan,Morocco,0,1,Morocco
+Nations League,USA,South Korea,0,0,Draw
+Qualifier,USA,Argentina,0,2,Argentina
+Qualifier,Nigeria,Mexico,0,1,Mexico
+Friendly,Italy,Colombia,0,2,Colombia
+Friendly,Netherlands,South Korea,0,0,Draw
+Continental Cup,Italy,Mexico,3,1,Italy
+World Cup,France,Nigeria,0,0,Draw
+Friendly,Colombia,Australia,0,0,Draw
+Qualifier,France,Australia,0,0,Draw
+Nations League,Germany,Uruguay,0,0,Draw
+World Cup,Japan,Mexico,3,2,Japan
+Continental Cup,England,Morocco,1,0,England
+Continental Cup,Switzerland,Belgium,0,1,Belgium
+World Cup,Argentina,Japan,2,0,Argentina
+Nations League,Argentina,Senegal,4,0,Argentina
+Continental Cup,Switzerland,Italy,0,3,Italy
+Nations League,Argentina,Denmark,1,0,Argentina
+Friendly,Germany,Morocco,4,2,Germany
+Nations League,Croatia,Spain,1,0,Croatia
+Friendly,Netherlands,USA,2,1,Netherlands
+Friendly,Germany,Argentina,1,1,Draw
+Qualifier,Senegal,Canada,2,0,Senegal
+Friendly,Morocco,USA,4,0,Morocco
+Nations League,Switzerland,Australia,1,0,Switzerland
+Qualifier,Australia,Uruguay,0,0,Draw
+World Cup,Uruguay,Canada,0,0,Draw
+World Cup,France,Mexico,1,0,France
+Continental Cup,Belgium,Portugal,1,0,Belgium
+Continental Cup,Mexico,South Korea,2,2,Draw
+Friendly,Colombia,England,1,2,England
+Qualifier,Netherlands,USA,1,3,USA
+Nations League,Belgium,Portugal,0,0,Draw
+Qualifier,Netherlands,Senegal,2,1,Netherlands
+Qualifier,USA,Denmark,3,0,USA
+World Cup,Australia,Croatia,0,1,Croatia
+World Cup,France,Netherlands,3,0,France
+World Cup,Canada,Argentina,0,1,Argentina
+Continental Cup,Portugal,Australia,0,0,Draw
+Continental Cup,Spain,Colombia,3,0,Spain
+Friendly,Netherlands,Australia,1,0,Netherlands
+World Cup,USA,Germany,1,1,Draw
+Qualifier,Senegal,Australia,1,0,Senegal
+Qualifier,France,Morocco,2,0,France
+Continental Cup,Spain,Mexico,1,0,Spain
+Continental Cup,France,Italy,0,0,Draw
+Nations League,Colombia,Spain,0,0,Draw
+Qualifier,Belgium,Japan,0,0,Draw
+World Cup,Nigeria,Italy,0,1,Italy
+Friendly,Australia,Mexico,0,0,Draw
+Continental Cup,Belgium,Senegal,2,0,Belgium
+Nations League,Nigeria,Belgium,0,0,Draw
+Qualifier,Uruguay,Japan,0,0,Draw
+World Cup,Spain,USA,1,0,Spain
+World Cup,Morocco,Switzerland,1,0,Morocco
+Friendly,Argentina,Senegal,1,0,Argentina
+Friendly,France,Colombia,1,0,France
+Friendly,England,Senegal,6,1,England
+Friendly,Morocco,Colombia,0,3,Colombia
+Qualifier,Denmark,Brazil,1,2,Brazil
+Continental Cup,Netherlands,Portugal,1,0,Netherlands
+Friendly,Japan,Argentina,0,0,Draw
+World Cup,Spain,Netherlands,0,0,Draw
+Continental Cup,South Korea,Senegal,0,1,Senegal
+World Cup,Netherlands,Uruguay,1,1,Draw
+Continental Cup,Belgium,Netherlands,0,1,Netherlands
+World Cup,Mexico,Portugal,2,3,Portugal
+Nations League,USA,Denmark,1,2,Denmark
+Friendly,Canada,Mexico,0,0,Draw
+Friendly,Argentina,Canada,1,0,Argentina
+Continental Cup,Brazil,Mexico,2,0,Brazil
+World Cup,France,USA,0,0,Draw
+World Cup,Italy,Mexico,3,0,Italy
+Continental Cup,Senegal,USA,0,0,Draw
+Friendly,England,Japan,2,0,England
+Friendly,Denmark,Germany,0,1,Germany
+Nations League,Uruguay,USA,1,0,Uruguay
+Friendly,USA,Senegal,0,1,Senegal
+Continental Cup,Denmark,Mexico,2,2,Draw
+Nations League,Colombia,Mexico,0,0,Draw
+Nations League,USA,Italy,1,1,Draw
+Friendly,Denmark,Portugal,0,2,Portugal
+World Cup,Netherlands,Argentina,0,1,Argentina
+Qualifier,Denmark,USA,1,0,Denmark
+Qualifier,England,Argentina,2,2,Draw
+Friendly,Croatia,Brazil,1,0,Croatia
+World Cup,Uruguay,Colombia,2,0,Uruguay
+Nations League,Morocco,Colombia,0,2,Colombia
+Qualifier,Japan,Uruguay,1,2,Uruguay
+Friendly,Netherlands,Switzerland,1,0,Netherlands
+Qualifier,Germany,Mexico,0,1,Mexico
+Qualifier,France,Croatia,1,1,Draw
+Nations League,USA,Colombia,0,0,Draw
+World Cup,France,Morocco,1,0,France
+Qualifier,Germany,France,0,1,France
+Nations League,Belgium,Spain,0,1,Spain
+Qualifier,Belgium,Australia,1,0,Belgium
+World Cup,Nigeria,England,0,1,England
+World Cup,Brazil,Japan,1,0,Brazil
+Nations League,Spain,Netherlands,0,1,Netherlands
+World Cup,Japan,Spain,0,0,Draw
+Nations League,Japan,France,0,0,Draw
+Continental Cup,Morocco,France,0,0,Draw
+Continental Cup,England,Portugal,3,0,England
+Continental Cup,Portugal,Argentina,0,1,Argentina
+Continental Cup,Argentina,Mexico,2,0,Argentina
+Continental Cup,France,Uruguay,0,0,Draw
+Nations League,Australia,England,1,2,England
+Qualifier,Brazil,Canada,1,0,Brazil
+Qualifier,Japan,Senegal,2,0,Japan
+Nations League,Colombia,Germany,1,0,Colombia
+World Cup,Mexico,Germany,1,2,Germany
+Continental Cup,Mexico,Canada,0,0,Draw
+Qualifier,Germany,Uruguay,3,0,Germany
+Friendly,South Korea,Belgium,1,3,Belgium
+Nations League,Portugal,Netherlands,1,2,Netherlands
+Nations League,Croatia,Mexico,0,0,Draw
+Nations League,Croatia,Italy,1,0,Croatia
+Nations League,Netherlands,Belgium,0,1,Belgium
+World Cup,Japan,Argentina,0,0,Draw
+Continental Cup,Senegal,Switzerland,0,0,Draw
+Friendly,Denmark,Portugal,0,2,Portugal
+Continental Cup,Morocco,Italy,1,3,Italy
+Friendly,Belgium,USA,2,0,Belgium
+Nations League,Germany,South Korea,4,1,Germany
+Nations League,Denmark,Belgium,2,1,Denmark
+Nations League,Colombia,England,0,3,England
+World Cup,Denmark,Argentina,0,1,Argentina
+Nations League,Brazil,Japan,1,0,Brazil
+Nations League,Uruguay,Italy,1,1,Draw
+Friendly,Portugal,Spain,0,1,Spain
+Nations League,Argentina,Colombia,0,0,Draw
+Qualifier,USA,Uruguay,2,2,Draw
+Qualifier,Canada,Australia,2,1,Canada
+Nations League,Canada,Denmark,0,0,Draw
+Nations League,Portugal,Brazil,1,1,Draw
+Continental Cup,Brazil,Nigeria,0,0,Draw
+World Cup,South Korea,France,0,3,France
+Friendly,Colombia,Italy,1,1,Draw
+World Cup,Brazil,Spain,1,2,Spain
+World Cup,Germany,Senegal,0,1,Senegal
+Qualifier,England,Australia,2,0,England
+Qualifier,Japan,France,0,3,France
+Qualifier,Australia,England,0,1,England
+Continental Cup,Belgium,Argentina,1,0,Belgium
+Nations League,Spain,Italy,1,0,Spain
+Nations League,Uruguay,Canada,2,1,Uruguay
+Qualifier,Belgium,Netherlands,2,2,Draw
+Friendly,Brazil,Portugal,0,1,Portugal
+Qualifier,Australia,Argentina,0,1,Argentina
+World Cup,Nigeria,England,0,2,England
+Friendly,Spain,South Korea,2,0,Spain
+World Cup,Colombia,Canada,3,0,Colombia
+Qualifier,Mexico,Croatia,0,2,Croatia
+Qualifier,Portugal,Netherlands,0,2,Netherlands
+Continental Cup,Australia,Switzerland,1,1,Draw
+Nations League,Morocco,South Korea,3,1,Morocco
+World Cup,France,Argentina,0,0,Draw
+Friendly,Switzerland,Colombia,0,0,Draw
+Continental Cup,Brazil,Switzerland,4,0,Brazil
+Nations League,Canada,France,0,3,France
+Friendly,Mexico,Australia,0,0,Draw
+Friendly,South Korea,Australia,0,0,Draw
+Nations League,Italy,Senegal,1,0,Italy
+Qualifier,France,England,0,1,England
+Nations League,Portugal,Morocco,1,0,Portugal
+Friendly,Brazil,South Korea,1,0,Brazil
+Nations League,Colombia,Nigeria,2,0,Colombia
+Friendly,Spain,USA,0,1,USA
+Friendly,Colombia,Senegal,0,0,Draw
+Friendly,Canada,Colombia,1,1,Draw
+World Cup,Portugal,Germany,0,1,Germany
+Friendly,Netherlands,Argentina,0,0,Draw
+World Cup,Portugal,Uruguay,1,0,Portugal
+Friendly,Portugal,England,0,2,England
+World Cup,Argentina,Australia,2,0,Argentina
+Nations League,Belgium,Netherlands,1,1,Draw
+Continental Cup,South Korea,Netherlands,0,4,Netherlands
+Continental Cup,Mexico,England,0,2,England
+World Cup,Morocco,Portugal,0,0,Draw
+Friendly,Germany,Mexico,0,1,Mexico
+Qualifier,France,Canada,2,0,France
+Qualifier,Australia,Croatia,0,1,Croatia
+Nations League,USA,Italy,1,0,USA
+Continental Cup,Canada,Colombia,1,0,Canada
+Nations League,Australia,Denmark,0,2,Denmark
+Nations League,Senegal,USA,0,0,Draw
+Qualifier,South Korea,Italy,1,1,Draw
+Qualifier,Canada,Brazil,0,1,Brazil
+Friendly,Australia,Brazil,0,4,Brazil
+Friendly,Canada,Japan,0,1,Japan
+Friendly,South Korea,Portugal,0,0,Draw
+Qualifier,Croatia,South Korea,1,0,Croatia
+Qualifier,Japan,England,0,0,Draw
+Friendly,Netherlands,Spain,0,0,Draw
+Friendly,Portugal,Japan,1,1,Draw
+Qualifier,Argentina,Croatia,1,0,Argentina
+Friendly,Brazil,Japan,2,0,Brazil
+Qualifier,Belgium,Uruguay,0,0,Draw
+Friendly,Australia,South Korea,1,1,Draw
+Nations League,Mexico,Switzerland,3,3,Draw
+Qualifier,Denmark,Australia,0,0,Draw
+Friendly,Italy,Denmark,0,0,Draw
+World Cup,Spain,Germany,3,1,Spain
+Continental Cup,Australia,Brazil,0,2,Brazil
+Continental Cup,Morocco,Denmark,1,0,Morocco
+Continental Cup,USA,Canada,1,1,Draw
+Nations League,Uruguay,USA,0,0,Draw
+Friendly,USA,Belgium,1,0,USA
+World Cup,Spain,Netherlands,0,0,Draw
+Continental Cup,Uruguay,Argentina,0,2,Argentina
+World Cup,South Korea,Argentina,0,1,Argentina
+Friendly,Mexico,Italy,1,1,Draw
+Friendly,South Korea,Denmark,0,0,Draw
+World Cup,Brazil,Croatia,1,0,Brazil
+Friendly,Italy,Switzerland,0,0,Draw
+Qualifier,England,Mexico,0,0,Draw
+Friendly,Brazil,Senegal,0,0,Draw
+Nations League,Australia,Senegal,0,2,Senegal
+Nations League,Senegal,Germany,1,1,Draw
+Nations League,Uruguay,England,2,0,Uruguay
+Nations League,Netherlands,Colombia,0,0,Draw
+Friendly,Spain,Italy,1,1,Draw
+Nations League,France,Belgium,0,0,Draw
+Continental Cup,England,Belgium,1,1,Draw
+Nations League,Italy,Senegal,0,0,Draw
+Qualifier,Belgium,England,0,0,Draw
+World Cup,Nigeria,Croatia,0,0,Draw
+World Cup,Netherlands,Mexico,0,1,Mexico
+Continental Cup,Portugal,Spain,0,2,Spain
+Qualifier,Colombia,Portugal,0,2,Portugal
+Nations League,Croatia,Germany,1,2,Germany
+Friendly,Mexico,Netherlands,0,0,Draw
+Nations League,Mexico,France,0,0,Draw
+Continental Cup,Nigeria,Argentina,0,0,Draw
+Continental Cup,France,Switzerland,3,1,France
+Continental Cup,Senegal,Japan,1,0,Senegal
+Nations League,England,Canada,1,0,England
+Nations League,Mexico,South Korea,1,0,Mexico
+Friendly,Senegal,Uruguay,1,1,Draw
+Continental Cup,Colombia,Spain,0,2,Spain
+Friendly,Mexico,Senegal,1,1,Draw
+Qualifier,Germany,Japan,1,0,Germany
+Continental Cup,Croatia,Switzerland,1,1,Draw
+World Cup,Mexico,Denmark,0,0,Draw
+Nations League,France,Argentina,0,0,Draw
+Qualifier,Croatia,Netherlands,0,1,Netherlands
+Qualifier,Argentina,Netherlands,2,0,Argentina
+Nations League,Uruguay,Australia,0,0,Draw
+Continental Cup,USA,Brazil,0,2,Brazil
+Friendly,Portugal,Croatia,1,0,Portugal
+Friendly,Italy,Portugal,0,1,Portugal
+Continental Cup,Belgium,Croatia,0,1,Croatia
+Qualifier,Germany,Japan,1,1,Draw
+Friendly,Belgium,Portugal,0,0,Draw
+Qualifier,Spain,Netherlands,0,0,Draw
+Qualifier,Japan,Denmark,0,0,Draw
+Friendly,Uruguay,England,0,1,England
+Qualifier,Italy,Portugal,0,0,Draw
+Nations League,South Korea,Brazil,0,3,Brazil
+Nations League,Mexico,England,1,1,Draw
+Qualifier,Netherlands,Belgium,0,1,Belgium
+Continental Cup,Australia,Netherlands,0,2,Netherlands
+Qualifier,USA,Croatia,0,2,Croatia
+Friendly,USA,France,0,1,France
+Qualifier,USA,Switzerland,1,0,USA
+Nations League,Portugal,Uruguay,1,0,Portugal
+Nations League,Morocco,Germany,0,0,Draw
+Qualifier,Argentina,Belgium,2,0,Argentina
+Qualifier,Argentina,Canada,1,0,Argentina
+Continental Cup,Nigeria,Netherlands,0,1,Netherlands
+World Cup,Spain,South Korea,1,1,Draw
+World Cup,South Korea,Belgium,0,1,Belgium
+Friendly,Australia,Japan,0,1,Japan
+Qualifier,Netherlands,Switzerland,0,0,Draw
+Nations League,England,Japan,1,0,England
+Nations League,France,Spain,0,0,Draw
+Friendly,Switzerland,Japan,1,3,Japan
+World Cup,Belgium,USA,0,0,Draw
+Friendly,Brazil,Italy,1,0,Brazil
+World Cup,Spain,Portugal,0,2,Portugal
+Qualifier,Spain,South Korea,1,1,Draw
+Qualifier,Canada,England,0,2,England
+World Cup,Morocco,Canada,1,0,Morocco
+Qualifier,Colombia,Spain,0,0,Draw
+Nations League,England,Netherlands,1,0,England
+Nations League,Belgium,Germany,0,2,Germany
+Friendly,Uruguay,Belgium,0,1,Belgium
+Qualifier,Italy,Croatia,1,1,Draw
+Qualifier,Denmark,France,0,2,France
+World Cup,Morocco,Argentina,0,3,Argentina
+Continental Cup,Mexico,Nigeria,1,0,Mexico
+World Cup,Morocco,Colombia,0,2,Colombia
+Nations League,Denmark,Argentina,0,1,Argentina
+World Cup,Japan,USA,0,1,USA
+World Cup,Mexico,Belgium,0,2,Belgium
+Continental Cup,Portugal,Mexico,2,0,Portugal
+Qualifier,Italy,Germany,1,0,Italy
+Friendly,Belgium,Portugal,1,1,Draw
+World Cup,England,Denmark,1,0,England
+Qualifier,Croatia,Belgium,0,0,Draw
+Friendly,Morocco,Uruguay,0,0,Draw
+Friendly,Belgium,Senegal,1,0,Belgium
+World Cup,Germany,South Korea,1,0,Germany
+World Cup,Portugal,Spain,1,1,Draw
+Nations League,Argentina,Portugal,0,1,Portugal
+Friendly,Nigeria,Italy,0,1,Italy
+Friendly,Morocco,Brazil,1,1,Draw
+World Cup,Canada,Netherlands,0,1,Netherlands
+Nations League,Australia,England,1,0,Australia
+World Cup,Portugal,Denmark,2,0,Portugal
+Friendly,Germany,Canada,0,0,Draw
+World Cup,Brazil,South Korea,1,0,Brazil
+Nations League,Germany,Brazil,0,2,Brazil
+Nations League,Senegal,Australia,0,0,Draw
+Continental Cup,USA,Mexico,0,0,Draw
+World Cup,South Korea,Netherlands,0,1,Netherlands
+Qualifier,Italy,Japan,1,0,Italy
+Continental Cup,Italy,Switzerland,1,0,Italy
+World Cup,South Korea,Australia,1,1,Draw
+Friendly,Japan,Belgium,1,4,Belgium
+Qualifier,South Korea,Canada,1,2,Canada
+Continental Cup,Spain,Croatia,0,1,Croatia
+Qualifier,Spain,Colombia,1,1,Draw
+World Cup,USA,Canada,0,0,Draw
+World Cup,Canada,Senegal,1,0,Canada
+Continental Cup,Mexico,Germany,0,0,Draw
+Friendly,Croatia,Canada,0,0,Draw
+Continental Cup,Germany,Mexico,0,1,Mexico
+World Cup,Uruguay,Croatia,2,0,Uruguay
+World Cup,USA,Nigeria,1,2,Nigeria
+Continental Cup,Croatia,Nigeria,3,0,Croatia
+Friendly,Japan,France,0,1,France
+Friendly,Denmark,Switzerland,1,2,Switzerland
+Qualifier,Nigeria,Senegal,1,0,Nigeria
+Qualifier,Nigeria,Croatia,0,0,Draw
+World Cup,Nigeria,Uruguay,0,2,Uruguay
+Continental Cup,Nigeria,Uruguay,0,2,Uruguay
+Continental Cup,Senegal,Japan,1,2,Japan
+Nations League,Spain,France,0,0,Draw
+Nations League,Canada,Netherlands,0,2,Netherlands
+Friendly,Belgium,Colombia,0,1,Colombia
+Continental Cup,Portugal,Spain,0,1,Spain
+Qualifier,England,Germany,0,1,Germany
+Qualifier,Mexico,Belgium,1,0,Mexico
+Qualifier,Italy,Spain,0,1,Spain
+Friendly,Argentina,Australia,5,0,Argentina
+Qualifier,Belgium,Nigeria,1,1,Draw
+Nations League,England,Senegal,4,1,England
+Qualifier,Mexico,Brazil,0,2,Brazil
+Friendly,Colombia,USA,1,0,Colombia
+Qualifier,Mexico,Spain,0,1,Spain
+Friendly,Denmark,England,0,0,Draw
+Continental Cup,Mexico,England,1,1,Draw
+Continental Cup,Brazil,Italy,1,0,Brazil
+Continental Cup,Canada,Morocco,3,1,Canada
+Qualifier,Nigeria,Mexico,0,1,Mexico
+World Cup,Belgium,Portugal,0,0,Draw
+Nations League,USA,Colombia,2,0,USA
+Nations League,Brazil,South Korea,1,0,Brazil
+World Cup,Belgium,Japan,1,0,Belgium
+Friendly,Brazil,USA,1,0,Brazil
+Qualifier,France,Netherlands,0,0,Draw
+Continental Cup,Nigeria,Australia,0,1,Australia
+World Cup,South Korea,Croatia,0,1,Croatia
+Continental Cup,Senegal,Brazil,0,2,Brazil
+Continental Cup,France,Australia,2,0,France
+Continental Cup,Australia,USA,1,0,Australia
+World Cup,Japan,Belgium,1,0,Japan
+Continental Cup,England,Canada,1,0,England
+World Cup,Nigeria,Morocco,0,2,Morocco
+Continental Cup,England,Brazil,2,1,England
+Nations League,Nigeria,Senegal,2,1,Nigeria
+Qualifier,Japan,USA,1,1,Draw
+Qualifier,Croatia,Argentina,0,1,Argentina
+Friendly,Morocco,Italy,0,1,Italy
+Friendly,Italy,Colombia,0,1,Colombia
+World Cup,Japan,Italy,0,2,Italy
+Qualifier,Italy,USA,2,1,Italy
+World Cup,France,Belgium,0,0,Draw
+Continental Cup,Italy,Canada,0,0,Draw
+Qualifier,France,Brazil,0,1,Brazil
+Nations League,Switzerland,USA,1,1,Draw
+Continental Cup,Netherlands,Germany,1,1,Draw
+Friendly,Canada,Spain,0,0,Draw
+Continental Cup,Senegal,South Korea,0,1,South Korea
+Friendly,Canada,Japan,2,2,Draw
+Friendly,Portugal,Australia,1,0,Portugal
+Nations League,Germany,Australia,1,0,Germany
+Qualifier,Australia,Denmark,0,0,Draw
+World Cup,Nigeria,Brazil,0,3,Brazil
+World Cup,Colombia,USA,1,1,Draw
+Friendly,Canada,Switzerland,0,2,Switzerland
+Continental Cup,Colombia,Morocco,2,0,Colombia
+Qualifier,Denmark,Uruguay,0,0,Draw
+Qualifier,Belgium,Canada,0,1,Canada
+Qualifier,Senegal,Mexico,1,0,Senegal
+Qualifier,Belgium,England,1,2,England
+Continental Cup,Croatia,England,1,2,England
+Friendly,Japan,Canada,2,0,Japan
+Nations League,Switzerland,Belgium,0,0,Draw
+Qualifier,Italy,France,0,0,Draw
+Friendly,Senegal,Belgium,0,1,Belgium
+Continental Cup,Mexico,Nigeria,3,0,Mexico
+Qualifier,Germany,Argentina,0,1,Argentina
+Friendly,Japan,South Korea,1,0,Japan
+World Cup,Switzerland,Nigeria,1,2,Nigeria
+Nations League,Switzerland,Nigeria,1,2,Nigeria
