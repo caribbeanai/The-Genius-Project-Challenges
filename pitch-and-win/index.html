@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pitch &amp; Win Results | The Genius Project Teens</title>
+<meta name="description" content="Official results of the Genius Project Pitch & Win competition: winner J-Pop, the full leaderboard, the 10-judge scorecard, and feedback for every team.">
+<style>
+  :root {
+    --paper:   #F6F3EA;
+    --card:    #FFFFFF;
+    --card-2:  #FBF9F2;
+    --ink:     #191A2C;
+    --muted:   #5C5D70;
+    --line:    #E5DFCF;
+    --gold:    #B4831E;
+    --gold-2:  #C9902B;
+    --violet:  #5646C9;
+    --stage:   #0E1026;
+    --shadow:  0 1px 2px rgba(20,20,40,.06), 0 10px 30px rgba(20,20,40,.07);
+    --shadow-lg: 0 20px 60px rgba(20,20,40,.16);
+    --radius:  16px;
+    --maxw:    1080px;
+    --font-display: "Palatino Linotype","Book Antiqua",Palatino,"Iowan Old Style",Georgia,serif;
+    --font-body: system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --font-mono: ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:  #0F1124;
+      --card:   #171A33;
+      --card-2: #1C2040;
+      --ink:    #F1EDE1;
+      --muted:  #A7A8BE;
+      --line:   #2B2F50;
+      --gold:   #E8B23A;
+      --gold-2: #F0C25C;
+      --violet: #9385F2;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 34px rgba(0,0,0,.34);
+      --shadow-lg: 0 24px 70px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="light"] {
+    --paper:#F6F3EA; --card:#FFFFFF; --card-2:#FBF9F2; --ink:#191A2C; --muted:#5C5D70;
+    --line:#E5DFCF; --gold:#B4831E; --gold-2:#C9902B; --violet:#5646C9;
+    --shadow:0 1px 2px rgba(20,20,40,.06),0 10px 30px rgba(20,20,40,.07);
+    --shadow-lg:0 20px 60px rgba(20,20,40,.16);
+  }
+  :root[data-theme="dark"] {
+    --paper:#0F1124; --card:#171A33; --card-2:#1C2040; --ink:#F1EDE1; --muted:#A7A8BE;
+    --line:#2B2F50; --gold:#E8B23A; --gold-2:#F0C25C; --violet:#9385F2;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 34px rgba(0,0,0,.34);
+    --shadow-lg:0 24px 70px rgba(0,0,0,.5);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body.reveal-lock { overflow: hidden; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+  h1,h2,h3 { text-wrap: balance; line-height: 1.12; margin: 0; }
+  p { margin: 0; }
+  a { color: var(--violet); }
+  .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  .eyebrow {
+    font-size: .74rem; letter-spacing: .18em; text-transform: uppercase;
+    font-weight: 700; color: var(--gold);
+  }
+
+  /* ---------- Confetti canvas ---------- */
+  #confetti {
+    position: fixed; inset: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 60;
+  }
+
+  /* ---------- Reveal overlay (always a dark stage) ---------- */
+  #reveal {
+    position: fixed; inset: 0; z-index: 50;
+    display: grid; place-items: center; text-align: center;
+    padding: 24px;
+    color: #F5EFE0;
+    background:
+      radial-gradient(120% 90% at 50% -10%, rgba(232,178,58,.20), transparent 55%),
+      radial-gradient(80% 60% at 50% 120%, rgba(86,70,201,.28), transparent 60%),
+      #0B0D22;
+    transition: opacity .6s ease, transform .6s ease, visibility .6s;
+  }
+  #reveal.dismissed { opacity: 0; transform: scale(1.06); visibility: hidden; pointer-events: none; }
+  .reveal-inner { max-width: 560px; }
+  .trophy {
+    font-size: clamp(72px, 16vw, 128px); line-height: 1;
+    filter: drop-shadow(0 10px 24px rgba(232,178,58,.45));
+    animation: trophyIn .9s cubic-bezier(.2,.9,.25,1.3) both;
+  }
+  .reveal-champion {
+    margin-top: 8px; font-size: .78rem; letter-spacing: .32em; text-transform: uppercase;
+    font-weight: 700; color: #E8B23A;
+    animation: riseIn .6s ease .35s both;
+  }
+  .reveal-name {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: clamp(3.2rem, 13vw, 6rem); margin-top: 6px;
+    color: #F7EFDD; letter-spacing: -.01em;
+    animation: riseIn .7s ease .5s both;
+  }
+  .reveal-tag {
+    margin: 14px auto 0; max-width: 40ch; color: #CDC8DE; font-size: 1.02rem;
+    animation: riseIn .7s ease .68s both;
+  }
+  .reveal-score {
+    margin-top: 20px; display: inline-flex; align-items: baseline; gap: 10px;
+    font-family: var(--font-mono); animation: riseIn .7s ease .84s both;
+  }
+  .reveal-score b { font-size: 2.6rem; color: #E8B23A; font-weight: 700; }
+  .reveal-score span { font-size: 1rem; color: #9FA0BC; letter-spacing: .06em; }
+  .enter-btn {
+    margin-top: 28px; display: inline-block; cursor: pointer;
+    font: inherit; font-weight: 600; letter-spacing: .02em;
+    color: #0B0D22; background: linear-gradient(180deg,#F0C25C,#E0A72E);
+    border: 0; border-radius: 999px; padding: 13px 26px;
+    box-shadow: 0 10px 28px rgba(232,178,58,.4);
+    animation: riseIn .7s ease 1s both;
+  }
+  .enter-btn:hover { filter: brightness(1.05); }
+  .skip {
+    position: absolute; top: 18px; right: 20px; z-index: 2;
+    background: transparent; border: 1px solid rgba(245,239,224,.28);
+    color: #CDC8DE; border-radius: 999px; padding: 7px 15px; font: inherit;
+    font-size: .82rem; cursor: pointer;
+  }
+  .skip:hover { border-color: rgba(245,239,224,.6); color: #F5EFE0; }
+
+  @keyframes trophyIn { from { transform: scale(.3) rotate(-12deg); opacity: 0; } to { transform: scale(1) rotate(0); opacity: 1; } }
+  @keyframes riseIn { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  /* ---------- Header / hero ---------- */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 0; gap: 12px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .01em; }
+  .brand .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px color-mix(in srgb, var(--gold) 22%, transparent); }
+  .brand small { color: var(--muted); font-weight: 500; }
+  .theme-toggle {
+    background: var(--card); border: 1px solid var(--line); color: var(--ink);
+    border-radius: 999px; padding: 8px 14px; font: inherit; font-size: .85rem; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 7px;
+  }
+  .theme-toggle:hover { border-color: var(--gold); }
+
+  .hero { padding: 26px 0 8px; }
+  .hero .eyebrow { margin-bottom: 14px; display: inline-block; }
+  .hero h1 {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: clamp(2.9rem, 9vw, 5.4rem); letter-spacing: -.015em;
+  }
+  .hero h1 .amp { color: var(--gold); font-style: italic; }
+  .hero .lede { margin-top: 16px; max-width: 60ch; color: var(--muted); font-size: 1.12rem; }
+  .brief {
+    margin-top: 20px; display: inline-flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 999px;
+    padding: 10px 18px; box-shadow: var(--shadow);
+  }
+  .brief b { color: var(--ink); }
+  .brief .tag { color: var(--gold); font-weight: 700; letter-spacing: .01em; }
+
+  section { padding: 46px 0; }
+  .section-head { margin-bottom: 22px; }
+  .section-head h2 {
+    font-family: var(--font-display); font-weight: 800; font-size: clamp(1.6rem, 4.4vw, 2.3rem);
+    letter-spacing: -.01em;
+  }
+  .section-head p { color: var(--muted); margin-top: 8px; max-width: 64ch; }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--line), transparent); border: 0; margin: 0; }
+
+  /* reveal-on-scroll */
+  .rise { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+  .rise.in { opacity: 1; transform: none; }
+
+  /* ---------- Podium ---------- */
+  .podium { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: end; }
+  .pcard {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 20px 18px 22px; box-shadow: var(--shadow); position: relative; overflow: hidden;
+  }
+  .pcard .medal { font-size: 2rem; line-height: 1; }
+  .pcard .rank-label { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-top: 10px; }
+  .pcard h3 { font-family: var(--font-display); font-size: 1.7rem; margin-top: 4px; }
+  .pcard .one-line { color: var(--muted); font-size: .95rem; margin-top: 8px; min-height: 3em; }
+  .pcard .pscore { font-family: var(--font-mono); font-size: 2.3rem; font-weight: 700; margin-top: 14px; }
+  .pcard .pscore span { font-size: .9rem; color: var(--muted); font-weight: 400; }
+  .pcard.first {
+    border-color: color-mix(in srgb, var(--gold) 55%, var(--line));
+    background: linear-gradient(180deg, color-mix(in srgb, var(--gold) 12%, var(--card)), var(--card));
+    box-shadow: var(--shadow-lg);
+  }
+  .pcard.first .pscore { color: var(--gold); }
+  .pcard .crown-glow { position: absolute; inset: -40% 30% auto; height: 120px; background: radial-gradient(closest-side, color-mix(in srgb, var(--gold) 40%, transparent), transparent); filter: blur(10px); opacity: .5; }
+  @media (max-width: 720px) {
+    .podium { grid-template-columns: 1fr; }
+    .pcard .one-line { min-height: 0; }
+  }
+
+  /* ---------- Leaderboard ---------- */
+  .board { display: flex; flex-direction: column; gap: 10px; }
+  .row {
+    display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 16px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 13px;
+    padding: 14px 18px; box-shadow: var(--shadow);
+  }
+  .row .rk { font-family: var(--font-mono); font-size: 1.1rem; font-weight: 700; color: var(--muted); text-align: center; }
+  .row .info .name { font-weight: 700; font-size: 1.06rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .row .info .desc { color: var(--muted); font-size: .9rem; margin-top: 3px; }
+  .row .bar-wrap { display: flex; align-items: center; gap: 14px; }
+  .bar { width: min(46vw, 320px); height: 10px; background: color-mix(in srgb, var(--muted) 18%, transparent); border-radius: 999px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, var(--violet), var(--gold)); transition: width 1.1s cubic-bezier(.2,.8,.2,1); }
+  .row.win .bar > i { background: linear-gradient(90deg, var(--gold-2), var(--gold)); }
+  .row .val { font-family: var(--font-mono); font-weight: 700; font-size: 1.3rem; min-width: 2.4ch; text-align: right; }
+  .row.win { border-color: color-mix(in srgb, var(--gold) 50%, var(--line)); background: linear-gradient(90deg, color-mix(in srgb, var(--gold) 9%, var(--card)), var(--card)); }
+  .row.win .val { color: var(--gold); }
+  .row.last { border-color: color-mix(in srgb, #d2544a 34%, var(--line)); }
+  .tie { font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; font-weight: 700; }
+  @media (max-width: 720px) {
+    .row { grid-template-columns: 34px 1fr; }
+    .row .bar-wrap { grid-column: 1 / -1; justify-content: space-between; }
+    .bar { width: 100%; }
+  }
+  .tie-note { margin-top: 16px; color: var(--muted); font-size: .95rem; max-width: 70ch; }
+
+  /* ---------- Scorecard ---------- */
+  .scroll-x { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); background: var(--card); }
+  table.score { border-collapse: collapse; width: 100%; min-width: 720px; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  table.score th, table.score td { padding: 11px 8px; text-align: center; border-bottom: 1px solid var(--line); }
+  table.score thead th { position: sticky; top: 0; background: var(--card-2); font-size: .8rem; color: var(--muted); letter-spacing: .04em; z-index: 1; }
+  table.score tbody th { text-align: left; font-family: var(--font-body); font-weight: 700; white-space: nowrap; padding-left: 16px; position: sticky; left: 0; background: var(--card); }
+  table.score td b { font-weight: 700; }
+  table.score .total { font-weight: 700; font-size: 1.05rem; border-left: 1px solid var(--line); }
+  table.score tr.win th, table.score tr.win .total { color: var(--gold); }
+  .cell { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 26px; border-radius: 7px; font-weight: 600; }
+  .legend { display: flex; align-items: center; gap: 12px; margin-top: 14px; flex-wrap: wrap; color: var(--muted); font-size: .84rem; }
+  .legend .scale { display: inline-flex; height: 12px; width: 160px; border-radius: 999px; overflow: hidden; }
+  .legend .scale i { flex: 1; }
+
+  /* ---------- Council ---------- */
+  .judges { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .judge { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; box-shadow: var(--shadow); }
+  .judge .n { font-family: var(--font-mono); font-weight: 700; color: var(--gold); }
+  .judge .jname { font-weight: 700; }
+  .judge .jweight { color: var(--muted); font-size: .9rem; margin-top: 2px; }
+  @media (max-width: 720px) { .judges { grid-template-columns: 1fr; } }
+
+  /* ---------- Feedback ---------- */
+  .fb { display: flex; flex-direction: column; gap: 16px; }
+  .fcard { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+  .fhead { display: flex; align-items: center; gap: 14px; padding: 16px 20px; border-bottom: 1px solid var(--line); background: var(--card-2); }
+  .fhead .medal { font-size: 1.5rem; }
+  .fhead .rk { font-family: var(--font-mono); font-weight: 700; color: var(--muted); }
+  .fhead h3 { font-family: var(--font-display); font-size: 1.4rem; flex: 1; }
+  .fhead .fscore { font-family: var(--font-mono); font-weight: 700; font-size: 1.5rem; }
+  .fcard.win .fhead { background: linear-gradient(90deg, color-mix(in srgb, var(--gold) 14%, var(--card)), var(--card-2)); }
+  .fcard.win .fscore { color: var(--gold); }
+  .fbody { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .fitem { padding: 16px 20px; border-right: 1px solid var(--line); }
+  .fitem:last-child { border-right: 0; }
+  .fitem .lab { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; display: inline-flex; align-items: center; gap: 7px; }
+  .fitem.s .lab { color: #2f9e6b; }
+  .fitem.r .lab { color: #d2794a; }
+  .fitem.m .lab { color: var(--violet); }
+  .fitem p { margin-top: 8px; font-size: .95rem; color: var(--ink); }
+  @media (max-width: 760px) {
+    .fbody { grid-template-columns: 1fr; }
+    .fitem { border-right: 0; border-bottom: 1px solid var(--line); }
+    .fitem:last-child { border-bottom: 0; }
+  }
+
+  /* ---------- Spotlight ---------- */
+  .spotlight { background: var(--card); border: 1px solid color-mix(in srgb, var(--gold) 40%, var(--line)); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
+  .spotlight::before { content: ""; position: absolute; inset: -50% 40% auto -10%; height: 200px; background: radial-gradient(closest-side, color-mix(in srgb, var(--gold) 26%, transparent), transparent); filter: blur(20px); }
+  .spotlight .sp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; position: relative; }
+  .sp-stat { background: var(--card-2); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+  .sp-stat .lab { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+  .sp-stat p { margin-top: 6px; font-size: .95rem; color: var(--muted); }
+  .sp-next { margin-top: 20px; padding: 16px 18px; border-radius: 12px; background: color-mix(in srgb, var(--gold) 10%, var(--card-2)); border: 1px solid color-mix(in srgb, var(--gold) 30%, var(--line)); position: relative; }
+  @media (max-width: 720px) { .spotlight .sp-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- Notes ---------- */
+  .notes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .note { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; box-shadow: var(--shadow); }
+  .note h4 { margin: 0 0 6px; font-size: 1rem; }
+  .note p { color: var(--muted); font-size: .93rem; }
+  @media (max-width: 720px) { .notes { grid-template-columns: 1fr; } }
+
+  footer { padding: 40px 0 60px; color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .rise { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<div id="reveal" role="dialog" aria-label="Competition winner announcement">
+  <button class="skip" id="skipBtn" type="button">Skip intro</button>
+  <div class="reveal-inner">
+    <div class="trophy" aria-hidden="true">&#127942;</div>
+    <div class="reveal-champion">Champion &middot; Pitch &amp; Win</div>
+    <div class="reveal-name">J-Pop</div>
+    <p class="reveal-tag">A WhatsApp bot for hurricane prep and insurance-claim photos, the only pitch to top both the money brief and impact.</p>
+    <div class="reveal-score"><b>85</b><span>/ 100</span></div>
+    <br>
+    <button class="enter-btn" id="enterBtn" type="button">See the full results</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand"><span class="dot"></span> The Genius Project <small>&middot; Teens</small></div>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch colour theme"><span id="themeIcon">&#9790;</span> <span id="themeLabel">Theme</span></button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Pitch &amp; Win &middot; Judging Report</span>
+    <h1>Pitch <span class="amp">&amp;</span> Win</h1>
+    <p class="lede">Ten high-school teams pitched an AI startup. A council of ten judges scored every pitch against one blunt brief, then argued out the ranking. Here is who won, who came close, and exactly why.</p>
+    <div class="brief">
+      <span class="tag">The brief</span>
+      <span><b>Make as much money as possible, and be profitable.</b> Feasibility, differentiation, impact and risk shaped the rest.</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap"><hr class="divider"></div>
+
+<section id="podium-sec">
+  <div class="wrap">
+    <div class="section-head rise">
+      <h2>The podium</h2>
+      <p>J-Pop was the only pitch that scored at the top on the actual brief (most money, clearly profitable) and at the top on impact at the same time.</p>
+    </div>
+    <div class="podium" id="podium"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head rise">
+      <h2>Final leaderboard</h2>
+      <p>Every team, ranked out of 100. Bars show the total score. The north star for the panel was the two things the competition asked for, most money and profitability, which broke every tie.</p>
+    </div>
+    <div class="board" id="board"></div>
+    <p class="tie-note rise" id="tieNote"></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head rise">
+      <h2>The full scorecard</h2>
+      <p>Ten judges, each scoring 1 to 10 through their own professional lens. Warmer cells are weaker scores, greener cells are stronger. Scroll sideways to see all ten judges.</p>
+    </div>
+    <div class="scroll-x rise">
+      <table class="score" id="scoreTable">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="legend rise">
+      <span>Weak</span>
+      <span class="scale" id="legendScale" aria-hidden="true"></span>
+      <span>Strong</span>
+      <span style="margin-left:auto">For Privacy and Legal, a lower score means more danger.</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head rise">
+      <h2>The council</h2>
+      <p>Ten judges, ten different lenses. Each scored every pitch through their professional view.</p>
+    </div>
+    <div class="judges" id="judges"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head rise">
+      <h2>Feedback for every team</h2>
+      <p>What worked, what puts it at risk, and the single move that would change the game.</p>
+    </div>
+    <div class="fb" id="feedback"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head rise">
+      <h2>Winner spotlight: J-Pop</h2>
+      <p>It wins on the exact thing the competition asked for.</p>
+    </div>
+    <div class="spotlight rise">
+      <div class="sp-grid">
+        <div class="sp-stat">
+          <div class="lab">Most money</div>
+          <p>Insurers are a motivated business buyer with a clear return: fewer disputed and fraudulent claims. Disaster agencies, government and telecoms are further routes.</p>
+        </div>
+        <div class="sp-stat">
+          <div class="lab">Profitable</div>
+          <p>Near-zero cost to reach a customer through WhatsApp, plus software margins, over a market that runs the length of the hurricane belt and beyond.</p>
+        </div>
+        <div class="sp-stat">
+          <div class="lab">And it protects people</div>
+          <p>It shields the most vulnerable while it earns. Top money and top impact together is rare, and it is why J-Pop took the top spot.</p>
+        </div>
+      </div>
+      <div class="sp-next">
+        <strong>Next step for the team:</strong> one insurer letter of intent and a twenty-household pilot in a single parish before the next storm season.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head rise">
+      <h2>Cross-cutting notes for the room</h2>
+      <p>Patterns the whole council saw across the field.</p>
+    </div>
+    <div class="notes" id="notes"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    The Genius Project Year 3 &middot; Pitch &amp; Win teen competition. Scores reflect the judging council's view against the stated brief. Every team was given real, specific feedback so the next build is stronger than the last.
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ----- Data ----- */
+  var JUDGE_KEYS = ["AI","Biz","Fin","Soc","VC","UX","Sec","Mkt","Law","Cust"];
+  var teams = [
+    { rank:1, name:"J-Pop", desc:"WhatsApp bot: personalized hurricane prep plus before/after home photos for fair insurance claims", total:85, tie:false,
+      scores:[8,9,9,10,9,9,7,8,7,9] },
+    { rank:2, name:"NextStep AI", desc:"AI subject-and-career navigator built for CSEC/CAPE students, not the US system", total:79, tie:false,
+      scores:[8,8,7,9,7,8,7,8,8,9] },
+    { rank:3, name:"Nest", desc:"AI smart-glasses assistant that guides, reads and organizes for the visually impaired", total:65, tie:false,
+      scores:[7,5,5,10,6,7,6,6,5,8] },
+    { rank:4, name:"Elle", desc:"Gamified memory app to find keys, documents, food and borrowed items", total:63, tie:false,
+      scores:[6,6,4,5,5,9,6,7,8,7] },
+    { rank:5, name:"D'Janoah", desc:"AI that spots struggling students early and curates help for them", total:62, tie:false,
+      scores:[7,6,6,9,6,6,4,6,5,7] },
+    { rank:6, name:"GSchedule", desc:"AI scheduler with clash resolution and group sharing", total:52, tie:false,
+      scores:[5,6,5,3,4,6,6,4,8,5] },
+    { rank:7, name:"Next Wave", desc:"“LinkedIn for teens 16 to 19” for first jobs (tiebreak)", total:50, tie:true,
+      scores:[4,5,5,7,5,5,4,5,4,6] },
+    { rank:8, name:"Rick and Morty", desc:"Decision simulator plus anti-scam marketing education (tiebreak)", total:50, tie:true,
+      scores:[5,4,4,7,4,4,6,5,6,5] },
+    { rank:9, name:"BloodTrace AI", desc:"Blood test for genetic-disease risk, ancestry and relatives (tiebreak)", total:50, tie:true,
+      scores:[6,4,5,6,6,5,3,6,3,6] },
+    { rank:10, name:"Triple T", desc:"Buy concert tickets and resell them for more", total:26, tie:false,
+      scores:[2,3,3,1,2,4,5,3,1,2] }
+  ];
+  var medals = { 1:"🥇", 2:"🥈", 3:"🥉" };
+
+  var judges = [
+    ["AI Expert","Is AI at the core (not bolted on)? Technically sound? A data or model moat? Buildable today?"],
+    ["Business Owner","Clear customer, path to the first dollar, operational complexity, can it actually be run?"],
+    ["Finance Expert","Revenue model, margins, capital needed, and an honest path to profit."],
+    ["Social Warrior","Depth and breadth of positive impact, equity, and whether it harms anyone."],
+    ["Venture Capitalist","Market size, scalability, defensibility, and ten-times potential."],
+    ["Product & UX Designer","Usability, adoption friction, delight, and whether people will actually use it."],
+    ["Privacy, Security & Trust","Data sensitivity, safeguarding, breach and misuse risk. A lower score means more danger."],
+    ["Growth Marketer","Differentiation, positioning, and the cost to acquire a customer."],
+    ["Regulatory & Legal Counsel","Legality, compliance burden, and liability. A lower score means more legal danger."],
+    ["Customer Advocate","Would the real end user love it, and pay for it?"]
+  ];
+
+  var feedback = {
+    "J-Pop": {
+      s:"You found real money hiding in a real emergency. The insurance-documentation loop, before-and-after photos sitting ready for an adjuster, is the part investors lean forward for, because insurers will pay to cut disputed claims. WhatsApp with offline storage is exactly the right delivery for the person who actually needs it.",
+      r:"Storm-time advice carries liability, and insurer deals are slow to close. If a family follows the bot and gets hurt, that becomes your problem to design around.",
+      m:"Get one letter of intent from a single Caribbean insurer or broker before you build anything else. That one signature turns a school project into a company."
+    },
+    "NextStep AI": {
+      s:"You picked a problem you clearly live inside, and you fenced off ground the giants ignore: CSEC and CAPE, not the American system. That local specificity is your moat.",
+      r:"Schools and parents in the region have thin budgets, so willingness to pay is your ceiling. Wrong advice about a child's future also carries real weight.",
+      m:"Decide who pays. Test whether parents will pay directly, the fastest cash, before betting on slow Ministry procurement."
+    },
+    "Nest": {
+      s:"The biggest heart in the room and the clearest problem statement. Guiding someone who cannot see is genuinely worth doing.",
+      r:"You are proposing hardware against Meta, Envision and OrCam, in a market that is price-sensitive and hard to monetize, with safety liability if the guidance fails.",
+      m:"Drop the hardware. Ship as an app on phones or existing smart glasses first, prove people rely on it, then earn the right to build a device."
+    },
+    "Elle": {
+      s:"The best-designed product in the field. Nesty, the quests, and the ask-a-question-get-the-answer framing show real product taste. People would enjoy this.",
+      r:"It is a vitamin, not a painkiller. Almost nobody pays real money to find their keys, and consumer memory apps struggle to keep users past week two.",
+      m:"Find the one user who will pay (a traveller before a trip, a carer managing someone else's things) and build for them, not for everyone."
+    },
+    "D'Janoah": {
+      s:"The right instinct: catch struggling students early, before anyone writes them off, and put opportunities in front of them.",
+      r:"You are handling minors' academic and socioeconomic data, which means consent, bias, and the danger of labelling a child. “This student is struggling” is a sensitive verdict to automate.",
+      m:"Flip the framing from “identify weak students” to “surface opportunities for students who ask for help,” opt-in, so the tool empowers instead of profiles."
+    },
+    "GSchedule": {
+      s:"Clean and buildable, and you clearly understand the pain of clashing events and group sharing.",
+      r:"Google, Microsoft and Calendly already do most of this, much of it free. Thin AI on top of a solved problem is a feature, not a business.",
+      m:"Pick one group that scheduling actively fails today (church rotas, sports teams, informal work crews) and own it, instead of fighting the default calendar."
+    },
+    "Next Wave": {
+      s:"You are the customer, which is a real advantage. Teens genuinely cannot find first work, and “LinkedIn for 16 to 19” is an honest framing.",
+      r:"Your submission was unfinished, with a blank section, so the panel could not judge half of it. Two-sided marketplaces are hard to start, and putting minors in front of employers brings serious safeguarding duties.",
+      m:"Finish the pitch, and solve one side first. Line up ten local employers who want teen workers before chasing teen sign-ups."
+    },
+    "Rick and Morty": {
+      s:"The mission of protecting seniors and first-timers from being scammed is real and under-served.",
+      r:"You pitched two products at once, a business-outcome simulator and a scam-education tool, for two very different customers, and the simulator promises accuracy nobody can deliver.",
+      m:"Pick one. The scam-protection angle for older people is the sharper, more fundable idea. Cut the rest."
+    },
+    "BloodTrace AI": {
+      s:"The privacy stance, “we do not sell your data,” is a smart and timely wedge in a post-23andMe world, and the ambition is real.",
+      r:"A physical blood test is a regulated medical and lab business, and genetic data is the most sensitive class there is. This is close to un-buildable for a small team, and legally heavy.",
+      m:"Drop the blood test. Start software-only, helping people understand genetic risk from data they already have, no lab and no needles, until you have earned the trust and capital for more."
+    },
+    "Triple T": {
+      s:"You spotted a real, painful problem: getting fair tickets is broken, and fans hate it.",
+      r:"Your solution is to buy tickets and resell them for more, which is scalping. It is illegal in many places, banned by the ticket platforms, needs capital you cannot get, and uses no AI in an AI competition. Worst of all, it makes the problem worse for the fans you want to help.",
+      m:"Flip it completely. Build the anti-scalper: AI that spots fake or marked-up tickets and helps fans resell at fair face value. Same passion, right side of the line."
+    }
+  };
+
+  var notes = [
+    ["Was AI actually the core?","This was an AI competition. J-Pop, NextStep, Nest, Elle, D'Janoah and BloodTrace put AI at the centre. GSchedule and Rick and Morty used it lightly. Next Wave and Triple T barely used it at all, and it cost them with the AI Expert."],
+    ["Two teams, one name","Teams called “NEST” twice, for two completely different ideas. Both should rename to avoid the collision."],
+    ["Finishing matters","Next Wave's blank fields cost real points. A strong idea left half-written cannot be scored on the half you did not write."],
+    ["Legal exposure","Triple T (scalping) and BloodTrace (medical and lab regulation) carry the heaviest legal risk. D'Janoah and Next Wave both touch minors' data and need real safeguarding thinking."],
+    ["The single sharpest lesson","The teams that won found a motivated payer. J-Pop found insurers. That is the whole difference between a nice app and a business."]
+  ];
+
+  /* ----- Colour for a 1..10 score (red -> amber -> green), theme-safe tint ----- */
+  function scoreHue(v) { return Math.round(((v - 1) / 9) * 140); } // 0 red .. 140 green
+  function scoreBg(v) { return "hsla(" + scoreHue(v) + ",68%,45%,0.20)"; }
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+
+  /* ----- Podium (top 3) ----- */
+  var podium = $("#podium");
+  [teams[0], teams[1], teams[2]].forEach(function (t) {
+    var c = el("div", "pcard" + (t.rank === 1 ? " first" : ""));
+    if (t.rank === 1) c.appendChild(el("div", "crown-glow"));
+    c.innerHTML += '<div class="medal">' + medals[t.rank] + '</div>' +
+      '<div class="rank-label">' + (t.rank === 1 ? "Winner" : t.rank === 2 ? "Runner-up" : "Third place") + '</div>' +
+      '<h3>' + t.name + '</h3>' +
+      '<p class="one-line">' + t.desc + '</p>' +
+      '<div class="pscore">' + t.total + '<span>&thinsp;/ 100</span></div>';
+    podium.appendChild(c);
+  });
+
+  /* ----- Leaderboard ----- */
+  var board = $("#board");
+  teams.forEach(function (t) {
+    var cls = "row" + (t.rank === 1 ? " win" : "") + (t.rank === 10 ? " last" : "");
+    var row = el("div", cls);
+    var medal = medals[t.rank] ? '<span aria-hidden="true">' + medals[t.rank] + '</span> ' : "";
+    var tie = t.tie ? ' <span class="tie">tiebreak</span>' : "";
+    row.innerHTML =
+      '<div class="rk">' + t.rank + '</div>' +
+      '<div class="info"><div class="name">' + medal + t.name + tie + '</div>' +
+        '<div class="desc">' + t.desc + '</div></div>' +
+      '<div class="bar-wrap"><div class="bar"><i data-w="' + t.total + '"></i></div>' +
+        '<div class="val">' + t.total + '</div></div>';
+    board.appendChild(row);
+  });
+  $("#tieNote").textContent = "Three teams tied on 50. The tie broke on the competition's own criterion, the nearest credible path to real profit: Next Wave (a buildable marketplace with a paying employer side) edged Rick and Morty (fundable only once narrowed), which edged BloodTrace (the biggest vision but the most blocked by capital and medical regulation).";
+
+  /* ----- Scorecard ----- */
+  var thead = $("#scoreTable thead"), tbody = $("#scoreTable tbody");
+  var htr = el("tr");
+  htr.innerHTML = "<th>Team</th>" + JUDGE_KEYS.map(function (k) { return "<th>" + k + "</th>"; }).join("") + '<th class="total">Total</th>';
+  thead.appendChild(htr);
+  teams.forEach(function (t) {
+    var tr = el("tr", t.rank === 1 ? "win" : "");
+    var cells = t.scores.map(function (v) {
+      return '<td><span class="cell" style="background:' + scoreBg(v) + '">' + v + "</span></td>";
+    }).join("");
+    tr.innerHTML = "<th>" + (medals[t.rank] ? medals[t.rank] + " " : "") + t.name + "</th>" + cells + '<td class="total">' + t.total + "</td>";
+    tbody.appendChild(tr);
+  });
+  // legend gradient
+  var scale = $("#legendScale");
+  for (var v = 1; v <= 10; v++) { var i = el("i"); i.style.background = "hsl(" + scoreHue(v) + ",68%,48%)"; scale.appendChild(i); }
+
+  /* ----- Council ----- */
+  var jwrap = $("#judges");
+  judges.forEach(function (j, idx) {
+    var d = el("div", "judge");
+    d.innerHTML = '<div class="n">' + (idx + 1) + '</div><div><div class="jname">' + j[0] + '</div><div class="jweight">' + j[1] + '</div></div>';
+    jwrap.appendChild(d);
+  });
+
+  /* ----- Feedback ----- */
+  var fwrap = $("#feedback");
+  teams.forEach(function (t) {
+    var f = feedback[t.name];
+    var card = el("div", "fcard" + (t.rank === 1 ? " win" : ""));
+    card.innerHTML =
+      '<div class="fhead">' +
+        '<span class="medal">' + (medals[t.rank] || "") + '</span>' +
+        '<span class="rk">#' + t.rank + '</span>' +
+        '<h3>' + t.name + '</h3>' +
+        '<span class="fscore">' + t.total + '</span>' +
+      '</div>' +
+      '<div class="fbody">' +
+        '<div class="fitem s"><div class="lab">Strength</div><p>' + f.s + '</p></div>' +
+        '<div class="fitem r"><div class="lab">Risk</div><p>' + f.r + '</p></div>' +
+        '<div class="fitem m"><div class="lab">The one move</div><p>' + f.m + '</p></div>' +
+      '</div>';
+    fwrap.appendChild(card);
+  });
+
+  /* ----- Notes ----- */
+  var nwrap = $("#notes");
+  notes.forEach(function (n) {
+    var d = el("div", "note");
+    d.innerHTML = "<h4>" + n[0] + "</h4><p>" + n[1] + "</p>";
+    nwrap.appendChild(d);
+  });
+
+  /* ----- Theme toggle ----- */
+  var root = document.documentElement;
+  function currentDark() {
+    var attr = root.getAttribute("data-theme");
+    if (attr) return attr === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function paintToggle() {
+    var dark = currentDark();
+    $("#themeIcon").innerHTML = dark ? "&#9728;" : "&#9790;";
+    $("#themeLabel").textContent = dark ? "Light" : "Dark";
+  }
+  $("#themeToggle").addEventListener("click", function () {
+    root.setAttribute("data-theme", currentDark() ? "light" : "dark");
+    paintToggle();
+  });
+  paintToggle();
+
+  /* ----- Scroll reveal + animated bars ----- */
+  function fillBars() {
+    Array.prototype.forEach.call(document.querySelectorAll(".bar > i"), function (i) {
+      i.style.width = i.getAttribute("data-w") + "%";
+    });
+  }
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    Array.prototype.forEach.call(document.querySelectorAll(".rise"), function (n) { n.classList.add("in"); });
+    fillBars();
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    Array.prototype.forEach.call(document.querySelectorAll(".rise"), function (n) { io.observe(n); });
+    var boardIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { fillBars(); boardIO.disconnect(); } });
+    }, { threshold: 0.2 });
+    boardIO.observe(board);
+  }
+
+  /* ----- Confetti ----- */
+  var canvas = $("#confetti"), ctx = canvas.getContext("2d");
+  var pieces = [], raf = null, W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var COLORS = ["#E8B23A", "#F0C25C", "#8B7CF0", "#38C6A4", "#FF6B6B", "#FFFFFF"];
+  function sizeCanvas() {
+    W = canvas.clientWidth; H = canvas.clientHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function rand(a, b) { return a + Math.random() * (b - a); }
+  function burst(n) {
+    for (var k = 0; k < n; k++) {
+      pieces.push({
+        x: rand(0, W), y: rand(-H * 0.3, 0),
+        w: rand(6, 11), h: rand(9, 16),
+        vx: rand(-1.1, 1.1), vy: rand(2.2, 5.2),
+        rot: rand(0, Math.PI * 2), vr: rand(-0.22, 0.22),
+        color: COLORS[(Math.random() * COLORS.length) | 0],
+        life: rand(90, 180)
+      });
+    }
+  }
+  function tick() {
+    ctx.clearRect(0, 0, W, H);
+    for (var i = pieces.length - 1; i >= 0; i--) {
+      var p = pieces[i];
+      p.x += p.vx; p.y += p.vy; p.vy += 0.03; p.rot += p.vr; p.life--;
+      if (p.y > H + 30 || p.life <= 0) { pieces.splice(i, 1); continue; }
+      ctx.save();
+      ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+      ctx.globalAlpha = Math.max(0, Math.min(1, p.life / 40));
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    }
+    if (pieces.length) { raf = requestAnimationFrame(tick); }
+    else { cancelAnimationFrame(raf); raf = null; ctx.clearRect(0, 0, W, H); }
+  }
+  function celebrate(n) {
+    if (reduceMotion) return;
+    sizeCanvas();
+    burst(n || 140);
+    if (!raf) raf = requestAnimationFrame(tick);
+  }
+  window.addEventListener("resize", function () { if (raf) sizeCanvas(); });
+
+  /* ----- Reveal control ----- */
+  var reveal = $("#reveal"), dismissed = false;
+  function dismiss() {
+    if (dismissed) return; dismissed = true;
+    reveal.classList.add("dismissed");
+    document.body.classList.remove("reveal-lock");
+    setTimeout(function () { reveal.style.display = "none"; }, 650);
+  }
+  $("#enterBtn").addEventListener("click", dismiss);
+  $("#skipBtn").addEventListener("click", dismiss);
+
+  if (reduceMotion) {
+    // No animated intro: reveal the page immediately.
+    reveal.style.display = "none";
+  } else {
+    document.body.classList.add("reveal-lock");
+    // Confetti bursts timed to the trophy landing, then a couple of follow-ups.
+    setTimeout(function () { celebrate(160); }, 350);
+    setTimeout(function () { celebrate(90); }, 1100);
+    // Auto-dismiss so nobody is stuck on the splash.
+    setTimeout(dismiss, 5200);
+  }
+})();
+</script>
+</body>
+</html>
