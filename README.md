@@ -112,6 +112,16 @@ but not records of any real person or company. Every column is explained in
 `Week 3/data/variable_dictionary.md`. Week 3 needs only the core libraries above, no
 TensorFlow required.
 
+## Teens: Pitch & Win competition
+
+Ten high-school teams pitched an AI startup, and a council of ten judges scored every
+pitch against one brief: make as much money as possible, and be profitable. The results
+subpage announces the winner, then lays out the full leaderboard, the ten-judge
+scorecard, and specific feedback for every team.
+
+Open **`pitch-and-win/index.html`** in a browser to see it (winner reveal, leaderboard,
+scorecard, and judge feedback). It is a single self-contained page, so no setup is needed.
+
 ## License
 
 Released under the MIT License. See `LICENSE`.
