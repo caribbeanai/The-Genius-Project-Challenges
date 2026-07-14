@@ -10,8 +10,9 @@
 
 Welcome. This repository teaches you to build real artificial intelligence models with no
 prior experience. You start by learning Python from scratch, then you train five different
-models to predict the winners of upcoming World Cup matches. By the end you will have used
-the same tools that professional AI engineers use every day.
+models to predict the winners of upcoming World Cup matches. From there you turn the same
+tools on money &mdash; budgeting, simulation, and forecasting the markets. By the end you
+will have used the same tools that professional AI engineers use every day.
 
 **Football note:** this course uses the word *football* for the sport played with a round ball
 and a net (called *soccer* in some countries). Every stat is explained in plain words, so you
@@ -25,6 +26,7 @@ do not need to follow football to take part.
 - **Train five prediction models.** A logic model, a decision tree, a neural network, a cluster model, and a bonus deep learning model.
 - **Predict real fixtures.** Every model outputs the win chance for each team, the expected scoreline, and the stats that decided it.
 - **Submit your call.** Enter your prediction on the Week 2 quiz and prediction page.
+- **Take on finance.** In Week 3 you use statistics, Monte Carlo simulation, time-series forecasting, and machine learning on budgets and market prices.
 
 ## Where to start
 
@@ -58,6 +60,21 @@ Full details are in `Week 2/README.md`.
 | Cluster model | `04-cluster-model.ipynb` | Group teams by style, predict from history |
 | Deep learning (bonus) | `05-bonus-deep-learning.ipynb` | The tools used in real AI labs |
 
+### 3. Week 3: Machine Learning for Finance and Budgeting
+
+Ready for a new challenge? Open the **`Week 3`** folder. No football this time &mdash; you
+point the same tools at money, from reading a budget to forecasting the markets. Full
+details are in `Week 3/README.md`.
+
+| Notebook | The big idea |
+| --- | --- |
+| `01-money-and-statistics.ipynb` | Read a budget with average, spread, and seasonality |
+| `02-monte-carlo-simulation.ipynb` | Simulate thousands of futures to find your savings odds |
+| `03-time-series-and-stationarity.ipynb` | Why prices drift and returns do not |
+| `04-time-series-forecasting.ipynb` | Forecast tomorrow, and grade the guess honestly |
+| `05-machine-learning-for-finance.ipynb` | Predict spending and the stock's next move |
+| `06-bonus-neural-network.ipynb` | A neural network takes on a near-random market |
+
 ## Submit your prediction
 
 After you run a model, enter your prediction on the Week 2 page:
@@ -88,6 +105,12 @@ then try changing something. You cannot break anything by running code.
 The football data in `Week 2/data` is a realistic teaching dataset. The numbers are believable
 and the patterns are real, so the models learn genuine football logic, but they are not official
 statistics. Every column is explained in `Week 2/data/variable_dictionary.md`.
+
+The Week 3 money data in `Week 3/data` (a personal budget and a made-up company's share price)
+works the same way: believable numbers with real patterns, generated from a fixed random seed,
+but not records of any real person or company. Every column is explained in
+`Week 3/data/variable_dictionary.md`. Week 3 needs only the core libraries above &mdash; no
+TensorFlow required.
 
 ## License
 
