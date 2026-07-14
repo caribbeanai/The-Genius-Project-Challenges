@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spycraft &middot; Organizer</title>
+<meta name="robots" content="noindex">
+<style>
+  :root {
+    --bg:#0A0C10; --panel:#12151C; --ink:#E7EAF0; --muted:#8A90A0; --line:#232833;
+    --accent:#38C6A4; --spy:#E23A3A;
+    --font: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+    --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); padding:24px; }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  h1 { font-family:var(--font); letter-spacing:.06em; font-size:1.5rem; }
+  .muted { color: var(--muted); }
+  .bar { display:flex; gap:10px; flex-wrap:wrap; margin:18px 0; }
+  input[type=password], input[type=text] {
+    font:inherit; background:#0C0F15; color:var(--ink); border:1px solid var(--line); border-radius:10px; padding:11px 13px; min-width: 200px;
+  }
+  button {
+    font:inherit; font-weight:600; cursor:pointer; border:0; border-radius:10px; padding:11px 16px;
+    background:var(--accent); color:#04120D;
+  }
+  button.ghost { background:transparent; border:1px solid var(--line); color:var(--ink); }
+  .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:16px 0; }
+  .stat { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px; }
+  .stat .n { font-family:var(--font); font-size:1.8rem; font-weight:700; }
+  .stat .l { color:var(--muted); font-size:.78rem; text-transform:uppercase; letter-spacing:.1em; }
+  table { width:100%; border-collapse:collapse; margin-top:8px; font-family:var(--font); font-size:.92rem; }
+  th, td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--line); }
+  th { color:var(--muted); font-weight:600; font-size:.78rem; text-transform:uppercase; letter-spacing:.08em; }
+  .tag { font-size:.72rem; font-weight:700; padding:2px 8px; border-radius:6px; }
+  .tag.spy { background:color-mix(in srgb, var(--spy) 22%, transparent); color:#ff8f8f; }
+  .tag.clean { background:color-mix(in srgb, var(--accent) 18%, transparent); color:#7fe6c8; }
+  .err { color:#ff9a9a; min-height:1.2em; margin:8px 0; }
+  .section-title { font-family:var(--font); letter-spacing:.14em; text-transform:uppercase; font-size:.78rem; color:var(--accent); margin:22px 0 6px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Spycraft &middot; Organizer</h1>
+    <p class="muted">Enter the admin key (the value of <code>SPYCRAFT_ADMIN_KEY</code> in Netlify) to see who is a spy. Players never see this page's data.</p>
+    <div class="bar">
+      <input id="key" type="password" placeholder="Admin key" autocomplete="off">
+      <button id="load" type="button">Show spies</button>
+      <button id="reset" class="ghost" type="button">Reset round</button>
+    </div>
+    <div class="err" id="err"></div>
+    <div id="out" hidden>
+      <div class="stats">
+        <div class="stat"><div class="n" id="sTotal">&#8226;</div><div class="l">Player slots</div></div>
+        <div class="stat"><div class="n" id="sRevealed">&#8226;</div><div class="l">Revealed</div></div>
+        <div class="stat"><div class="n" id="sSpies">&#8226;</div><div class="l">Spies revealed</div></div>
+      </div>
+      <div class="section-title">The spies</div>
+      <table><thead><tr><th>#</th><th>Agent</th><th>Revealed at</th></tr></thead><tbody id="spyRows"></tbody></table>
+      <div class="section-title">Everyone</div>
+      <table><thead><tr><th>Agent</th><th>Role</th><th>Revealed at</th></tr></thead><tbody id="allRows"></tbody></table>
+    </div>
+  </div>
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var err = $("err"), out = $("out");
+
+  function fmt(iso) { try { return new Date(iso).toLocaleTimeString(); } catch (e) { return iso; } }
+
+  function load() {
+    err.textContent = "";
+    var key = $("key").value.trim();
+    if (!key) { err.textContent = "Enter the admin key."; return; }
+    fetch("/.netlify/functions/results?key=" + encodeURIComponent(key))
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (r) {
+        if (!r.ok) throw new Error(r.d.error || "Could not load results.");
+        var d = r.d;
+        $("sTotal").textContent = d.totalPlayers;
+        $("sRevealed").textContent = d.revealed;
+        $("sSpies").textContent = d.spiesRevealed + " / " + d.spyCount;
+        $("spyRows").innerHTML = d.spies.length
+          ? d.spies.map(function (p, i) { return "<tr><td>" + (i + 1) + "</td><td>" + esc(p.name) + "</td><td>" + fmt(p.at) + "</td></tr>"; }).join("")
+          : "<tr><td colspan='3' class='muted'>No spies revealed yet.</td></tr>";
+        $("allRows").innerHTML = d.everyone.map(function (p) {
+          var tag = p.spy ? "<span class='tag spy'>SPY</span>" : "<span class='tag clean'>clean</span>";
+          return "<tr><td>" + esc(p.name) + "</td><td>" + tag + "</td><td>" + fmt(p.at) + "</td></tr>";
+        }).join("");
+        out.hidden = false;
+      })
+      .catch(function (ex) { err.textContent = ex.message; out.hidden = true; });
+  }
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  $("load").addEventListener("click", load);
+  $("key").addEventListener("keydown", function (e) { if (e.key === "Enter") load(); });
+  $("reset").addEventListener("click", function () {
+    err.textContent = "";
+    var key = $("key").value.trim();
+    if (!key) { err.textContent = "Enter the admin key."; return; }
+    if (!confirm("Reset the round? Everyone will get a new random role on their next tap.")) return;
+    fetch("/.netlify/functions/reset?key=" + encodeURIComponent(key))
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (r) { if (!r.ok) throw new Error(r.d.error || "Reset failed."); err.textContent = "Round reset."; out.hidden = true; })
+      .catch(function (ex) { err.textContent = ex.message; });
+  });
+})();
+</script>
+</body>
+</html>
