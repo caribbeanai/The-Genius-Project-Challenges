@@ -1,0 +1,27 @@
+# Netlify configuration for the Spycraft game.
+# Deploy this folder as its own Netlify site (set the site's base directory to
+# "spycraft" if the repo root is the site root).
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Friendly URLs for the organizer tools (optional, the default
+# /.netlify/functions/* paths keep working too).
+[[redirects]]
+  from = "/api/role"
+  to = "/.netlify/functions/role"
+  status = 200
+
+[[redirects]]
+  from = "/api/results"
+  to = "/.netlify/functions/results"
+  status = 200
+
+[[redirects]]
+  from = "/api/reset"
+  to = "/.netlify/functions/reset"
+  status = 200
