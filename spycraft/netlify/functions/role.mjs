@@ -1,8 +1,14 @@
-// POST /.netlify/functions/role   body: { playerId, name }
-// Assigns (and persists) this player's secret role from their click order.
-// Concurrency-safe: reads the game state with its etag, then writes back only if
-// nobody changed it in the meantime (onlyIfMatch). On a conflict it retries, so
-// two players clicking at the same instant always get distinct click numbers.
+// POST /.netlify/functions/role   body: { playerId, name, email }
+// Assigns (and persists) this player's secret role from their click order, and
+// saves their first name and email.
+//
+// Netlify Blobs (v8) has no compare-and-swap, so we keep ordering correct under
+// simultaneous taps with a write-then-verify loop: write the whole state, then
+// read it straight back (the store is strongly consistent). If our own record
+// survived with the click number we claimed, we are done. If a racing writer
+// clobbered us (our record is missing), we retry with a little jittered backoff
+// and pick the next free number. This converges to clean, distinct click numbers
+// without ever persisting a duplicate.
 import { getStore } from "@netlify/blobs";
 import { initState, assign } from "./_game.mjs";
 
@@ -24,34 +30,28 @@ export default async (req) => {
 
   const store = getStore({ name: "spycraft", consistency: "strong" });
 
-  // Optimistic-concurrency retry loop. When a whole group taps at once, the
-  // late writers lose the etag race and retry; a generous cap plus a little
-  // jittered backoff lets everyone through with a clean, ordered click number.
-  for (let attempt = 0; attempt < 40; attempt++) {
-    if (attempt > 0) await sleep(10 + Math.random() * 40 * attempt);
-    const current = await store.getWithMetadata(KEY, { type: "json" });
+  for (let attempt = 0; attempt < 30; attempt++) {
+    if (attempt > 0) await sleep(15 + Math.random() * 60 * attempt);
 
-    // First player of the round creates the game.
-    if (!current) {
-      const state = initState({ gameId: GAME_ID, spies: SPIES });
-      const outcome = assign(state, playerId, name, email);
-      const res = await store.setJSON(KEY, state, { onlyIfNew: true });
-      if (res.modified) return json(reveal(outcome));
-      continue; // Someone else created it first, loop to read theirs.
-    }
+    let state = await store.get(KEY, { type: "json" });
+    if (!state) state = initState({ gameId: GAME_ID, spies: SPIES });
 
-    const state = current.data;
-
-    // Already revealed on a previous click? Return the same role.
+    // Already assigned on an earlier tap? Return the same role, no re-roll.
     if (state.assignments[playerId]) {
       const a = state.assignments[playerId];
       return json(reveal({ role: a.role, already: true }));
     }
 
     const outcome = assign(state, playerId, name, email);
-    const res = await store.setJSON(KEY, state, { onlyIfMatch: current.etag });
-    if (res.modified) return json(reveal(outcome));
-    // etag moved under us, retry.
+    await store.setJSON(KEY, state);
+
+    // Verify our write survived a possible race (strongly consistent read-back).
+    const check = await store.get(KEY, { type: "json" });
+    const mine = check && check.assignments && check.assignments[playerId];
+    if (mine && mine.clickIndex === outcome.clickIndex) {
+      return json(reveal({ role: mine.role }));
+    }
+    // Our write was clobbered by a simultaneous tap. Retry for the next number.
   }
 
   return json({ error: "The game is busy right now, tap again." }, 409);

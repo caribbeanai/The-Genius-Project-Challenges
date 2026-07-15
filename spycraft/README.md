@@ -1,5 +1,7 @@
 # Spycraft
 
+**Live:** https://tgp-spycraft-teens.netlify.app (organizer view at `/admin.html`).
+
 A one-tap party game. Each player opens the page and taps once to get a secret
 role. **Spies see a red screen. Everyone else sees a green screen.** Five spies
 are chosen by tap order, and every assignment is saved on the server (Netlify

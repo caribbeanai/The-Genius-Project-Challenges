@@ -1,5 +1,7 @@
 # The Hurricane Melissa App Challenge
 
+**Live:** https://tgp-hurricane-melissa.netlify.app
+
 A subpage for the teen competition where every team builds its own version of the
 same app, **Melissa Relief Connector**, and plans it first on an **AI App Canvas**
 that they save to Netlify.
