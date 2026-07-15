@@ -21,6 +21,7 @@ export default async (req) => {
   const people = Object.entries(state.assignments).map(([playerId, a]) => ({
     playerId,
     name: a.name || "(no name)",
+    email: a.email || "",
     role: a.role,
     spy: a.role === "spy",
     clickIndex: a.clickIndex,

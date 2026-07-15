@@ -16,8 +16,11 @@ export default async (req) => {
   let body = {};
   try { body = await req.json(); } catch { /* empty body is fine */ }
   const playerId = String(body.playerId || "").slice(0, 80);
-  const name = String(body.name || "");
+  const name = String(body.name || "").trim();
+  const email = String(body.email || "").trim();
   if (!playerId) return json({ error: "Missing playerId" }, 400);
+  if (!name) return json({ error: "Enter your first name." }, 400);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ error: "Enter a valid email address." }, 400);
 
   const store = getStore({ name: "spycraft", consistency: "strong" });
 
@@ -31,7 +34,7 @@ export default async (req) => {
     // First player of the round creates the game.
     if (!current) {
       const state = initState({ gameId: GAME_ID, spies: SPIES });
-      const outcome = assign(state, playerId, name);
+      const outcome = assign(state, playerId, name, email);
       const res = await store.setJSON(KEY, state, { onlyIfNew: true });
       if (res.modified) return json(reveal(outcome));
       continue; // Someone else created it first, loop to read theirs.
@@ -45,7 +48,7 @@ export default async (req) => {
       return json(reveal({ role: a.role, already: true }));
     }
 
-    const outcome = assign(state, playerId, name);
+    const outcome = assign(state, playerId, name, email);
     const res = await store.setJSON(KEY, state, { onlyIfMatch: current.etag });
     if (res.modified) return json(reveal(outcome));
     // etag moved under us, retry.

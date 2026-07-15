@@ -35,8 +35,9 @@ export function initState({ gameId, spies = 5 }) {
 
 // Assigns a role to a player, mutating `state`. Idempotent: a player who has
 // already tapped keeps the same role forever. The role is decided purely by the
-// player's click order, so no randomness and no re-rolling.
-export function assign(state, playerId, name) {
+// player's click order, so no randomness and no re-rolling. Their first name and
+// email are saved alongside the role.
+export function assign(state, playerId, name, email) {
   const existing = state.assignments[playerId];
   if (existing) {
     return { role: existing.role, clickIndex: existing.clickIndex, already: true };
@@ -48,6 +49,7 @@ export function assign(state, playerId, name) {
     role,
     clickIndex,
     name: String(name || "").slice(0, 60),
+    email: String(email || "").slice(0, 120),
     ts: Date.now(),
   };
   return { role, clickIndex, already: false };

@@ -59,7 +59,7 @@
       <div class="section-title">The spies</div>
       <table><thead><tr><th>Tap #</th><th>Agent</th><th>Revealed at</th></tr></thead><tbody id="spyRows"></tbody></table>
       <div class="section-title">Everyone</div>
-      <table><thead><tr><th>Agent</th><th>Role</th><th>Revealed at</th></tr></thead><tbody id="allRows"></tbody></table>
+      <table><thead><tr><th>Agent</th><th>Email</th><th>Role</th><th>Revealed at</th></tr></thead><tbody id="allRows"></tbody></table>
     </div>
   </div>
 <script>
@@ -87,7 +87,7 @@
           : "<tr><td colspan='3' class='muted'>No spies yet. Spies appear at click positions " + (d.spyClickPositions || []).join(", ") + ".</td></tr>";
         $("allRows").innerHTML = d.everyone.map(function (p) {
           var tag = p.spy ? "<span class='tag spy'>SPY</span>" : "<span class='tag clean'>clean</span>";
-          return "<tr><td>#" + p.clickIndex + " " + esc(p.name) + "</td><td>" + tag + "</td><td>" + fmt(p.at) + "</td></tr>";
+          return "<tr><td>#" + p.clickIndex + " " + esc(p.name) + "</td><td>" + esc(p.email || "") + "</td><td>" + tag + "</td><td>" + fmt(p.at) + "</td></tr>";
         }).join("");
         out.hidden = false;
       })

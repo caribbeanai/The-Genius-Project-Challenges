@@ -71,8 +71,11 @@ That's it. Share the site URL with the players.
 
 ## Running the game
 
-- **Players:** open the site, type a name (optional), tap **Reveal my role**.
-  Red screen means spy, green means clean. They tap **Hide** and pass the phone on.
+- **Players:** open the site, enter their **first name and email** (both required),
+  then tap **Reveal my role**. The screen flashes bright and turns red for a spy or
+  green for a clean player. Name, email and role are saved to Netlify. They tap
+  **Hide** and pass the phone on. The reveal goes full screen and holds a screen
+  wake lock so the phone stays bright and does not dim.
 - **Organizer:** open `/admin.html`, enter your `SPYCRAFT_ADMIN_KEY`, and tap
   **Show spies** to see exactly who the 5 spies are and the full roster with times.
 - **New round:** on the admin page tap **Reset round** (or bump
