@@ -1,0 +1,20 @@
+# Netlify configuration for the Hurricane Melissa App Challenge page.
+# Deploy this folder as its own Netlify site (set the site's base directory to
+# "hurricane-melissa" if the repo root is the site root).
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/api/canvas"
+  to = "/.netlify/functions/canvas"
+  status = 200
+
+[[redirects]]
+  from = "/api/canvases"
+  to = "/.netlify/functions/canvases"
+  status = 200
