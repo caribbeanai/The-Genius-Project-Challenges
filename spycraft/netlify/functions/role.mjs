@@ -1,12 +1,11 @@
 // POST /.netlify/functions/role   body: { playerId, name }
-// Assigns (and persists) this player's secret role. Concurrency-safe: reads the
-// game state with its etag, then writes back only if nobody changed it in the
-// meantime (onlyIfMatch). On a conflict it retries, so two players clicking at
-// the same instant can never grab the same card.
+// Assigns (and persists) this player's secret role from their click order.
+// Concurrency-safe: reads the game state with its etag, then writes back only if
+// nobody changed it in the meantime (onlyIfMatch). On a conflict it retries, so
+// two players clicking at the same instant always get distinct click numbers.
 import { getStore } from "@netlify/blobs";
 import { initState, assign } from "./_game.mjs";
 
-const TOTAL = parseInt(process.env.SPYCRAFT_TOTAL_PLAYERS || "20", 10);
 const SPIES = parseInt(process.env.SPYCRAFT_SPIES || "5", 10);
 const GAME_ID = process.env.SPYCRAFT_GAME_ID || "default";
 const KEY = `game:${GAME_ID}`;
@@ -24,14 +23,14 @@ export default async (req) => {
 
   // Optimistic-concurrency retry loop. When a whole group taps at once, the
   // late writers lose the etag race and retry; a generous cap plus a little
-  // jittered backoff lets everyone through without ever double-assigning a card.
+  // jittered backoff lets everyone through with a clean, ordered click number.
   for (let attempt = 0; attempt < 40; attempt++) {
     if (attempt > 0) await sleep(10 + Math.random() * 40 * attempt);
     const current = await store.getWithMetadata(KEY, { type: "json" });
 
-    // First player of the round creates the deck.
+    // First player of the round creates the game.
     if (!current) {
-      const state = initState({ gameId: GAME_ID, total: TOTAL, spies: SPIES });
+      const state = initState({ gameId: GAME_ID, spies: SPIES });
       const outcome = assign(state, playerId, name);
       const res = await store.setJSON(KEY, state, { onlyIfNew: true });
       if (res.modified) return json(reveal(outcome));
@@ -43,7 +42,7 @@ export default async (req) => {
     // Already revealed on a previous click? Return the same role.
     if (state.assignments[playerId]) {
       const a = state.assignments[playerId];
-      return json(reveal({ role: a.role, index: a.index, already: true, overflow: a.index === -1 }));
+      return json(reveal({ role: a.role, already: true }));
     }
 
     const outcome = assign(state, playerId, name);
@@ -58,7 +57,7 @@ export default async (req) => {
 function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
 
 function reveal(o) {
-  return { role: o.role, isSpy: o.role === "spy", already: !!o.already, overflow: !!o.overflow };
+  return { role: o.role, isSpy: o.role === "spy", already: !!o.already };
 }
 
 function json(obj, status = 200) {

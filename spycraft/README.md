@@ -1,28 +1,37 @@
 # Spycraft
 
 A one-tap party game. Each player opens the page and taps once to get a secret
-role. **Spies see a red screen. Everyone else sees a green screen.** Exactly
-**5 spies** are chosen at random from the group, and every assignment is saved
-on the server (Netlify Blobs) so nobody can re-roll and the organizer can see
-who the spies are.
+role. **Spies see a red screen. Everyone else sees a green screen.** Five spies
+are chosen by tap order, and every assignment is saved on the server (Netlify
+Blobs) so nobody can re-roll and the organizer can see who the spies are.
 
 ## How it works
 
-The trick that guarantees "exactly 5 spies, chosen at random" is a **deck**.
-When the first player taps, the server builds a deck of `N` cards with exactly
-5 marked `spy`, shuffles it, and saves it. Every player who taps is dealt the
-next card in order. Because the deck is fixed and shuffled once, the spies are
-random and there are always exactly five (as long as at least 5 players play).
+The spies are the players whose **tap order lands on a Fibonacci number, starting
+from the 3rd tap**. The Fibonacci numbers from 3 up are 3, 5, 8, 13, 21, and the
+first five of them are the spy slots:
 
-- **Saved in Netlify:** the deck, who has been dealt in, and each player's role
-  live in a Netlify Blobs store, so the state survives page reloads and is shared
-  across everyone's phones.
+```
+tap #:  1  2 [3] 4 [5] 6  7 [8] 9 ... [13] ... [21]
+role:   .  .  S  .  S  .  .  S  .       S        S
+```
+
+So the **3rd, 5th, 8th, 13th and 21st** people to tap are the spies. Everyone
+else is clean. This gives exactly five spies once at least 21 people have tapped.
+
+- **Saved in Netlify:** the tap counter and each player's role live in a Netlify
+  Blobs store, so the state survives page reloads and is shared across everyone's
+  phones.
 - **One role per player, forever:** each device gets a random id (kept in
   `localStorage`) and the server records its role. Reloading shows the same role,
   so no re-rolling.
 - **Race-safe:** if a whole group taps at the same instant, the server uses
-  conditional writes (etag `onlyIfMatch`) and retries, so two players can never be
-  dealt the same card and you never end up with 4 or 6 spies.
+  conditional writes (etag `onlyIfMatch`) and retries, so every tap gets a clean,
+  ordered number and no position is ever used twice.
+
+**Group size (20 to 30 works well).** The 5th spy appears on the 21st tap, so any
+group of 21 or more gets all five spies. With exactly 20 people there are four
+spies (positions 3, 5, 8, 13); add one more tap for the fifth.
 
 ## Files
 
@@ -51,8 +60,7 @@ spycraft/
 
    | Variable | Meaning | Default |
    | --- | --- | --- |
-   | `SPYCRAFT_TOTAL_PLAYERS` | How many people are playing. **Set this to your group size** so all cards get dealt and exactly 5 are spies. | `20` |
-   | `SPYCRAFT_SPIES` | How many spies. | `5` |
+   | `SPYCRAFT_SPIES` | How many spies (how many Fibonacci positions to use). | `5` |
    | `SPYCRAFT_ADMIN_KEY` | A secret you choose. Needed to view the spy list or reset. | none |
    | `SPYCRAFT_GAME_ID` | Change this to force a brand new game. | `default` |
 
@@ -68,15 +76,14 @@ That's it. Share the site URL with the players.
 - **Organizer:** open `/admin.html`, enter your `SPYCRAFT_ADMIN_KEY`, and tap
   **Show spies** to see exactly who the 5 spies are and the full roster with times.
 - **New round:** on the admin page tap **Reset round** (or bump
-  `SPYCRAFT_GAME_ID`). The next tap reshuffles a fresh deck with new spies.
+  `SPYCRAFT_GAME_ID`). The tap counter resets and a fresh game begins.
 
 Notes:
 
-- Set `SPYCRAFT_TOTAL_PLAYERS` to match your group. If more people play than that,
-  the extras are dealt in as clean players (green) and flagged in the admin view,
-  so the game never breaks, it just still has exactly 5 spies among the first `N`.
-- If fewer than 5 people play, everyone who plays could be a spy (the deck clamps
-  the spy count to the number of players).
+- Roles are decided purely by tap order (positions 3, 5, 8, 13, 21), so the order
+  people tap in is what matters. Ask everyone to tap around the same time.
+- With 21 or more players you get all five spies. With exactly 20 you get four
+  (the 21st position is never reached), so one extra tap gives the fifth spy.
 
 ## Local development
 
@@ -88,9 +95,9 @@ npx netlify dev        # serves the page and functions, with local Blobs
 Run the logic tests (no Netlify needed):
 
 ```bash
-node --input-type=module -e "import('./netlify/functions/_game.mjs').then(async g => { \
-  const s = g.initState({gameId:'t', total:20, spies:5}); \
-  for (let i=0;i<20;i++) g.assign(s,'p'+i,'N'+i); \
-  const spies = Object.values(s.assignments).filter(a=>a.role==='spy').length; \
-  console.log('spies dealt:', spies); })"
+node --input-type=module -e "import('./netlify/functions/_game.mjs').then(g => { \
+  const s = g.initState({gameId:'t', spies:5}); \
+  for (let i=0;i<25;i++) g.assign(s,'p'+i,'N'+i); \
+  const spies = Object.entries(s.assignments).filter(([,a])=>a.role==='spy').map(([,a])=>a.clickIndex); \
+  console.log('spy tap positions:', spies.sort((x,y)=>x-y)); })"
 ```

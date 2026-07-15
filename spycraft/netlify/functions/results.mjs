@@ -23,16 +23,16 @@ export default async (req) => {
     name: a.name || "(no name)",
     role: a.role,
     spy: a.role === "spy",
-    overflow: a.index === -1,
+    clickIndex: a.clickIndex,
     at: new Date(a.ts).toISOString(),
   }));
-  people.sort((x, y) => (x.at < y.at ? -1 : x.at > y.at ? 1 : 0));
+  people.sort((x, y) => (x.clickIndex || 0) - (y.clickIndex || 0));
   const spies = people.filter((p) => p.spy);
 
   return json({
     gameId: GAME_ID,
-    totalPlayers: state.total,
     spyCount: state.spies,
+    spyClickPositions: state.spyIndices,
     revealed: people.length,
     spiesRevealed: spies.length,
     spies,

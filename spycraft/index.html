@@ -126,17 +126,15 @@
   var savedName = localStorage.getItem("spycraft_name");
   if (savedName) nameInput.value = savedName;
 
-  function showRole(isSpy, overflow) {
+  function showRole(isSpy) {
     reveal.classList.remove("spy", "clean");
     reveal.classList.add("show", isSpy ? "spy" : "clean");
     $("rIcon").innerHTML = isSpy ? "&#129399;" : "&#128737;"; // masked face / shield
-    $("rKicker").textContent = isSpy ? "Identity confirmed" : "Identity confirmed";
+    $("rKicker").textContent = "Identity confirmed";
     $("rRole").textContent = isSpy ? "YOU ARE A SPY" : "NOT A SPY";
     $("rMsg").textContent = isSpy
       ? "Blend in. Complete your mission without being caught."
-      : (overflow
-          ? "You joined after the spies were set, so you are clean. Help find them."
-          : "You are clean. Watch closely and help find the 5 spies.");
+      : "You are clean. Watch closely and help find the 5 spies.";
     document.title = isSpy ? "SPY" : "CLEAN";
   }
 
@@ -148,7 +146,7 @@
 
   // If this device already has a role, show it immediately.
   var cached = cachedRole();
-  if (cached) showRole(cached === "spy", localStorage.getItem("spycraft_overflow") === "1");
+  if (cached) showRole(cached === "spy");
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -166,8 +164,7 @@
     .then(function (r) {
       if (!r.ok) throw new Error(r.d && r.d.error ? r.d.error : "Something went wrong.");
       localStorage.setItem("spycraft_role", r.d.isSpy ? "spy" : "civilian");
-      localStorage.setItem("spycraft_overflow", r.d.overflow ? "1" : "0");
-      showRole(!!r.d.isSpy, !!r.d.overflow);
+      showRole(!!r.d.isSpy);
     })
     .catch(function (ex) {
       err.textContent = ex.message || "Network error, try again.";
