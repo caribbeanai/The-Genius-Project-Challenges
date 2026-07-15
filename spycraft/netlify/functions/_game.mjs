@@ -1,61 +1,56 @@
 // Pure game logic for Spycraft, kept free of any Netlify APIs so it can be
-// unit-tested on its own. The whole design rests on one idea: build a deck of
-// N cards with exactly `spies` spy cards, shuffle it once, then hand the cards
-// out in order. Sequential hand-out from a fixed shuffled deck is what
-// guarantees "exactly 5 spies, chosen at random" no matter how the clicks race.
+// unit-tested on its own.
+//
+// Selection rule (simple, instant, saved by click order): spies are the players
+// whose click order lands on a Fibonacci number, starting from the 3rd click.
+// The Fibonacci numbers from 3 up are 3, 5, 8, 13, 21, ... and the first five of
+// them are the 5 spy slots:
+//
+//     click #:  1  2 [3] 4 [5] 6 7 [8] 9 10 11 12 [13] ... [21]
+//     role:     .  .  S  .  S  . .  S  .  .  .  .   S       S
+//
+// So the 3rd, 5th, 8th, 13th and 21st people to tap are the spies. Everyone else
+// is clean. This gives exactly five spies once at least 21 people have tapped.
 
-export function makeDeck(total, spies) {
-  const t = Math.max(0, Math.floor(total) || 0);
-  const s = Math.max(0, Math.min(Math.floor(spies) || 0, t));
-  const deck = [];
-  for (let i = 0; i < t; i++) deck.push(i < s ? "spy" : "civilian");
-  // Fisher-Yates shuffle.
-  for (let i = deck.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const tmp = deck[i];
-    deck[i] = deck[j];
-    deck[j] = tmp;
+export function spyIndices(count = 5) {
+  const fib = [1, 1];
+  while (fib[fib.length - 1] < 100000) fib.push(fib[fib.length - 1] + fib[fib.length - 2]);
+  const fromThird = [];
+  for (const f of fib) {
+    if (f >= 3 && !fromThird.includes(f)) fromThird.push(f);
   }
-  return deck;
+  return fromThird.slice(0, Math.max(0, count)); // e.g. [3, 5, 8, 13, 21]
 }
 
-export function initState({ gameId, total, spies }) {
-  const t = Math.max(0, Math.floor(total) || 0);
-  const s = Math.max(0, Math.min(Math.floor(spies) || 0, t));
+export function initState({ gameId, spies = 5 }) {
   return {
     gameId,
-    total: t,
-    spies: s,
-    deck: makeDeck(t, s),
-    nextIndex: 0,
-    assignments: {}, // playerId -> { role, index, name, ts }
+    spies,
+    spyIndices: spyIndices(spies),
+    assigned: 0, // how many players have tapped so far
+    assignments: {}, // playerId -> { role, clickIndex, name, ts }
     createdAt: Date.now(),
   };
 }
 
 // Assigns a role to a player, mutating `state`. Idempotent: a player who has
-// already been assigned keeps the same role forever. Returns the outcome.
-export function assign(state, playerId, name) {
+// already tapped keeps the same role forever. The role is decided purely by the
+// player's click order, so no randomness and no re-rolling. Their first name and
+// email are saved alongside the role.
+export function assign(state, playerId, name, email) {
   const existing = state.assignments[playerId];
   if (existing) {
-    return { role: existing.role, index: existing.index, already: true, overflow: existing.index === -1 };
+    return { role: existing.role, clickIndex: existing.clickIndex, already: true };
   }
-  let role, index;
-  if (state.nextIndex < state.deck.length) {
-    index = state.nextIndex;
-    role = state.deck[index];
-    state.nextIndex += 1;
-  } else {
-    // More players than the deck was built for. They play as civilians, and
-    // the record is flagged so the organizer knows the game was over-subscribed.
-    index = -1;
-    role = "civilian";
-  }
+  const clickIndex = state.assigned + 1; // 1-based position in the tap order
+  state.assigned = clickIndex;
+  const role = state.spyIndices.includes(clickIndex) ? "spy" : "civilian";
   state.assignments[playerId] = {
     role,
-    index,
+    clickIndex,
     name: String(name || "").slice(0, 60),
+    email: String(email || "").slice(0, 120),
     ts: Date.now(),
   };
-  return { role, index, already: false, overflow: index === -1 };
+  return { role, clickIndex, already: false };
 }

@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Hurricane Melissa App Challenge</title>
+<meta name="description" content="Build Melissa Relief Connector: a mobile-friendly app that helps people affected by Hurricane Melissa find and offer help. Includes the AI App Canvas your team saves to Netlify.">
+<style>
+  :root {
+    --paper:#F4F2EC; --card:#FFFFFF; --card-2:#FBF8F1; --ink:#152230; --muted:#586576; --line:#E4DFD3;
+    --storm:#12233A; --signal:#B26C10; --signal-2:#E4922B; --relief:#137A78; --alert:#C2352F;
+    --shadow:0 1px 2px rgba(18,35,58,.05), 0 12px 30px rgba(18,35,58,.08);
+    --radius:16px; --maxw:1080px;
+    --font: system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono: ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:#0B1420; --card:#12202F; --card-2:#152534; --ink:#EAF1F8; --muted:#9EB1C2; --line:#243a4e;
+      --storm:#0A1626; --signal:#F2A94A; --signal-2:#F6BC6E; --relief:#39C2BE; --alert:#FF6B60;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 14px 34px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="light"] { --paper:#F4F2EC; --card:#FFFFFF; --card-2:#FBF8F1; --ink:#152230; --muted:#586576; --line:#E4DFD3; --storm:#12233A; --signal:#B26C10; --signal-2:#E4922B; --relief:#137A78; --alert:#C2352F; --shadow:0 1px 2px rgba(18,35,58,.05),0 12px 30px rgba(18,35,58,.08); }
+  :root[data-theme="dark"] { --paper:#0B1420; --card:#12202F; --card-2:#152534; --ink:#EAF1F8; --muted:#9EB1C2; --line:#243a4e; --storm:#0A1626; --signal:#F2A94A; --signal-2:#F6BC6E; --relief:#39C2BE; --alert:#FF6B60; --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 34px rgba(0,0,0,.4); }
+
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:var(--font); line-height:1.6; font-size:17px; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width: var(--maxw); margin:0 auto; padding:0 22px; }
+  h1,h2,h3,h4 { line-height:1.15; margin:0; text-wrap:balance; }
+  p { margin:0; }
+  a { color: var(--relief); }
+  .eyebrow { font-family:var(--mono); font-size:.74rem; letter-spacing:.2em; text-transform:uppercase; font-weight:700; color:var(--signal); }
+
+  /* Hero */
+  .hero { position:relative; color:#F4EFE6; overflow:hidden; }
+  .hero .bg { position:absolute; inset:0; background:#0A1626 center/cover no-repeat; }
+  .hero .bg img { width:100%; height:100%; object-fit:cover; opacity:.55; display:block; }
+  .hero .scrim { position:absolute; inset:0; background: linear-gradient(180deg, rgba(8,14,26,.55) 0%, rgba(8,14,26,.72) 55%, rgba(8,14,26,.92) 100%); }
+  .hero .inner { position:relative; padding:64px 0 44px; }
+  .hero h1 { font-size:clamp(2.3rem,6.4vw,4rem); font-weight:800; letter-spacing:-.015em; margin-top:14px; }
+  .hero .lede { margin-top:16px; max-width:60ch; font-size:1.12rem; color:#DCE4EC; }
+  .hero .credit { position:absolute; right:12px; bottom:8px; font-size:.68rem; color:rgba(244,239,230,.6); font-family:var(--mono); }
+  .hero .pill-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:22px; }
+  .pill { font-family:var(--mono); font-size:.78rem; letter-spacing:.03em; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.22); color:#F4EFE6; border-radius:999px; padding:7px 13px; }
+
+  .topbar { display:flex; align-items:center; justify-content:space-between; padding:16px 0; }
+  .brand { display:flex; align-items:center; gap:9px; font-weight:700; color:#F4EFE6; }
+  .brand .dot { width:11px;height:11px;border-radius:50%; background:var(--signal-2); box-shadow:0 0 0 4px rgba(226,146,43,.25); }
+  .theme-toggle { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.25); color:#F4EFE6; border-radius:999px; padding:7px 13px; font:inherit; font-size:.82rem; cursor:pointer; }
+
+  section { padding:44px 0; }
+  .section-head { margin-bottom:20px; }
+  .section-head h2 { font-size:clamp(1.5rem,4vw,2.1rem); font-weight:800; letter-spacing:-.01em; }
+  .section-head p { color:var(--muted); margin-top:8px; max-width:66ch; }
+  .divider { height:1px; background:var(--line); border:0; margin:0; }
+
+  .card { background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); }
+  .pad { padding:22px; }
+
+  /* Safety notice */
+  .notice { display:flex; gap:14px; align-items:flex-start; border:1px solid color-mix(in srgb, var(--alert) 45%, var(--line)); background:color-mix(in srgb, var(--alert) 9%, var(--card)); border-radius:14px; padding:16px 18px; }
+  .notice .ic { font-size:1.5rem; line-height:1.2; }
+  .notice b { color:var(--alert); }
+
+  .two { display:grid; grid-template-columns:1.1fr .9fr; gap:20px; }
+  @media (max-width:820px){ .two { grid-template-columns:1fr; } }
+  ul.clean { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:9px; }
+  ul.clean li { padding-left:26px; position:relative; }
+  ul.clean li::before { content:""; position:absolute; left:6px; top:.62em; width:8px;height:8px;border-radius:2px; background:var(--relief); }
+
+  .chips { display:flex; flex-wrap:wrap; gap:9px; }
+  .chip { background:var(--card-2); border:1px solid var(--line); border-radius:999px; padding:8px 14px; font-size:.92rem; }
+  .chip .e { margin-right:7px; }
+
+  .grid { display:grid; gap:14px; }
+  .cols-2 { grid-template-columns:repeat(2,1fr); }
+  .cols-3 { grid-template-columns:repeat(3,1fr); }
+  @media (max-width:820px){ .cols-2,.cols-3 { grid-template-columns:1fr; } }
+  .feat { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; box-shadow:var(--shadow); }
+  .feat.dim { background:transparent; box-shadow:none; border-style:dashed; }
+  .feat .k { font-weight:700; }
+
+  .qcards { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+  @media (max-width:820px){ .qcards { grid-template-columns:1fr; } }
+  .q { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; box-shadow:var(--shadow); display:grid; grid-template-columns:34px 1fr; gap:12px; }
+  .q .num { font-family:var(--mono); font-weight:700; color:var(--signal); font-size:1.1rem; }
+  .q .qq { font-weight:700; }
+  .q .qh { color:var(--muted); font-size:.92rem; margin-top:2px; }
+  .core-lesson { background:var(--storm); color:#EAF1F8; border-radius:var(--radius); padding:22px 24px; }
+  .core-lesson .eyebrow { color:var(--signal-2); }
+  .core-lesson p { margin-top:8px; font-size:1.08rem; }
+
+  /* Canvas */
+  .canvas-head { display:flex; flex-wrap:wrap; gap:14px; align-items:flex-end; justify-content:space-between; }
+  .team-fields { display:flex; gap:12px; flex-wrap:wrap; flex:1; }
+  .field { display:flex; flex-direction:column; gap:6px; }
+  .field label, .canvas-card label { font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:700; color:var(--muted); }
+  input[type=text], textarea, select { font:inherit; color:var(--ink); background:var(--card); border:1px solid var(--line); border-radius:10px; padding:11px 13px; width:100%; }
+  textarea { min-height:76px; resize:vertical; line-height:1.5; }
+  input:focus, textarea:focus, select:focus { outline:2px solid var(--relief); outline-offset:1px; border-color:var(--relief); }
+  .team-fields .field { min-width:190px; }
+
+  .canvas-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:20px; }
+  @media (max-width:820px){ .canvas-grid { grid-template-columns:1fr; } }
+  .canvas-card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:12px; }
+  .canvas-card.wide { grid-column:1 / -1; }
+  .cc-head { display:flex; align-items:center; gap:11px; }
+  .cc-head .n { font-family:var(--mono); font-weight:700; color:#fff; background:var(--signal); width:28px;height:28px; border-radius:8px; display:grid; place-items:center; font-size:.9rem; }
+  .cc-head h3 { font-size:1.12rem; }
+  .cc-hint { color:var(--muted); font-size:.9rem; margin-top:-4px; }
+  .subfield { display:flex; flex-direction:column; gap:6px; }
+  .checks { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+  @media (max-width:520px){ .checks { grid-template-columns:1fr; } }
+  .check { display:flex; gap:9px; align-items:flex-start; font-size:.92rem; background:var(--card-2); border:1px solid var(--line); border-radius:9px; padding:9px 11px; cursor:pointer; }
+  .check input { margin-top:3px; }
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  @media (max-width:520px){ .pair { grid-template-columns:1fr; } }
+
+  .savebar { position:sticky; bottom:0; z-index:5; margin-top:22px; background:color-mix(in srgb, var(--card) 92%, transparent); backdrop-filter:blur(8px); border:1px solid var(--line); border-radius:14px; padding:12px 16px; display:flex; gap:12px; align-items:center; flex-wrap:wrap; box-shadow:var(--shadow); }
+  .btn { font:inherit; font-weight:700; cursor:pointer; border:0; border-radius:10px; padding:11px 18px; }
+  .btn.primary { background:var(--relief); color:#fff; }
+  .btn.primary:disabled { opacity:.5; cursor:default; }
+  .btn.ghost { background:transparent; border:1px solid var(--line); color:var(--ink); }
+  .status { color:var(--muted); font-size:.9rem; margin-left:auto; }
+  .status.ok { color:var(--relief); }
+  .status.err { color:var(--alert); }
+
+  /* Prompt */
+  pre.prompt { margin:0; background:var(--storm); color:#E9F0F7; border-radius:14px; padding:18px 20px; overflow:auto; font-family:var(--mono); font-size:.9rem; line-height:1.55; white-space:pre-wrap; }
+  .copy { margin-top:12px; }
+
+  table.judge { width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); }
+  table.judge th, table.judge td { padding:12px 16px; text-align:left; border-bottom:1px solid var(--line); }
+  table.judge thead th { background:var(--card-2); font-size:.8rem; letter-spacing:.04em; text-transform:uppercase; color:var(--muted); }
+  table.judge td.pts { text-align:right; font-family:var(--mono); font-weight:700; }
+  table.judge tr.total td { font-weight:700; border-bottom:0; }
+  table.judge tr.total td.pts { color:var(--signal); }
+
+  .roles { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+  @media (max-width:820px){ .roles { grid-template-columns:1fr; } }
+  .role { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; box-shadow:var(--shadow); }
+  .role .r { font-weight:700; color:var(--signal); }
+
+  footer { padding:36px 0 60px; color:var(--muted); font-size:.9rem; border-top:1px solid var(--line); }
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior:auto; } }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="bg"><img src="https://images.unsplash.com/photo-1457327289196-f38b88d97147?auto=format&fit=crop&w=1600&q=80" alt="A hurricane seen from space" loading="eager"></div>
+  <div class="scrim"></div>
+  <div class="inner">
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand"><span class="dot"></span> The Genius Project &middot; Teens</div>
+        <button class="theme-toggle" id="themeToggle" type="button">Theme</button>
+      </div>
+      <span class="eyebrow" style="color:var(--signal-2)">Activity One</span>
+      <h1>The Hurricane Melissa App Challenge</h1>
+      <p class="lede">Every team builds its own version of the same app: <strong>Melissa Relief Connector</strong>, a mobile-friendly tool that helps people affected by Hurricane Melissa work out what support they need and connects them with the right help.</p>
+      <div class="pill-row">
+        <span class="pill">Shared brief</span>
+        <span class="pill">Build sprint</span>
+        <span class="pill">2-minute demo</span>
+        <span class="pill">Judged out of 100</span>
+      </div>
+    </div>
+  </div>
+  <span class="credit">Photo: NASA via Unsplash</span>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="notice">
+      <span class="ic" aria-hidden="true">&#9888;&#65039;</span>
+      <div><b>Safety first.</b> Melissa Relief Connector is a coordination tool, not an emergency service. Every prototype must warn users that life-threatening emergencies go to official emergency services, and that all matches require human verification.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">The app</span>
+      <h2>Melissa Relief Connector</h2>
+      <p>A mobile-friendly application that helps people affected by Hurricane Melissa identify what support they need and connects them with appropriate assistance.</p>
+    </div>
+    <div class="two">
+      <div class="card pad">
+        <h3 style="margin-bottom:12px">The app should help a user</h3>
+        <ul class="clean">
+          <li>Select whether they are requesting help or offering help.</li>
+          <li>Enter their general location.</li>
+          <li>Select the type of assistance needed or available.</li>
+          <li>Indicate the level of urgency.</li>
+          <li>Receive a recommended next step or suggested match.</li>
+          <li>See an emergency warning not to rely on the app for life-threatening situations.</li>
+          <li>Submit information for human verification.</li>
+        </ul>
+      </div>
+      <div class="card pad">
+        <h3 style="margin-bottom:12px">Suggested assistance categories</h3>
+        <div class="chips" id="catChips"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Required</span>
+      <h2>Required app features</h2>
+      <p>Each prototype must include all of these.</p>
+    </div>
+    <div class="grid cols-3" id="required"></div>
+
+    <div class="section-head" style="margin-top:34px">
+      <span class="eyebrow">Stretch</span>
+      <h2>Stretch features</h2>
+      <p>Teams that finish early may add any of these.</p>
+    </div>
+    <div class="grid cols-3" id="stretch"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Mini lesson</span>
+      <h2>Seven questions before building an AI app</h2>
+      <p>Before opening the app builder, every team must answer these.</p>
+    </div>
+    <div class="qcards" id="sevenQ"></div>
+    <div class="core-lesson" style="margin-top:16px">
+      <span class="eyebrow">Core lesson</span>
+      <p>A polished interface is not proof that an application works. Teams are assessed on usefulness, reasoning and safety, not only appearance.</p>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><hr class="divider"></div>
+
+<section id="canvas">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Complete this first</span>
+      <h2>Melissa Relief Connector: AI App Canvas</h2>
+      <p>Every group must complete this canvas before building. Type your answers, then <strong>Save to Netlify</strong> so your facilitator can see them and you can reopen them on any device. Enter your team name first, and use the same name to reload your work.</p>
+    </div>
+
+    <div class="card pad">
+      <div class="canvas-head">
+        <div class="team-fields">
+          <div class="field">
+            <label for="teamName">Team name (required)</label>
+            <input id="teamName" type="text" placeholder="e.g. Blue Tarp Crew" maxlength="60" autocomplete="off">
+          </div>
+          <div class="field" style="flex:2; min-width:240px">
+            <label for="teamMembers">Team members</label>
+            <input id="teamMembers" type="text" placeholder="First names, comma separated" maxlength="200" autocomplete="off">
+          </div>
+        </div>
+        <button class="btn ghost" id="loadBtn" type="button">Reload saved work</button>
+      </div>
+    </div>
+
+    <div class="canvas-grid" id="canvasGrid"></div>
+
+    <div class="savebar">
+      <button class="btn primary" id="saveBtn" type="button">Save to Netlify</button>
+      <button class="btn ghost" id="clearBtn" type="button">Clear this device</button>
+      <span class="status" id="saveStatus">Not saved yet</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><hr class="divider"></div>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Teamwork</span>
+      <h2>Build-sprint roles</h2>
+      <p>Assign these roles. For teams of three, the presenter may also serve as product lead. Only the builder operates the development tool, and the builder cannot add a feature until another member explains why it is necessary.</p>
+    </div>
+    <div class="roles" id="roles"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Copy into your app builder</span>
+      <h2>Suggested app-building prompt</h2>
+      <p>A starting prompt for your development platform. Adapt it to your team's decisions on the canvas.</p>
+    </div>
+    <pre class="prompt" id="promptText">Create a mobile-friendly prototype called "Melissa Relief Connector."
+The application helps people affected by Hurricane Melissa request assistance and helps volunteers or organisations offer support.
+Include:
+- A home screen with "Request Help" and "Offer Help" options.
+- A form for general location, assistance category, urgency, number of people and a short description.
+- Assistance categories for food, water, shelter, medical support, clothing, transportation, electricity, clean-up and building materials.
+- A results screen that recommends a next step.
+- A priority flag for urgent cases.
+- A confirmation reference number.
+- A privacy notice.
+- A warning that life-threatening emergencies must be directed to official emergency services.
+- A message explaining that all matches require human verification.
+- A clean, simple interface that can be used easily on a phone.
+Do not display private contact information publicly. Do not describe unverified matches as confirmed assistance.</pre>
+    <button class="btn ghost copy" id="copyPrompt" type="button">Copy prompt</button>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="two">
+      <div>
+        <div class="section-head">
+          <span class="eyebrow">Two minutes</span>
+          <h2>Presentation format</h2>
+        </div>
+        <div class="card pad">
+          <p style="margin-bottom:12px">Each team has about two minutes and must demonstrate:</p>
+          <ul class="clean">
+            <li>The user and the problem.</li>
+            <li>The information the app collects.</li>
+            <li>One working user journey.</li>
+            <li>The AI or decision logic.</li>
+            <li>One risk and its safeguard.</li>
+            <li>One improvement they would make with more time.</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="section-head">
+          <span class="eyebrow">Out of 100</span>
+          <h2>Judging criteria</h2>
+        </div>
+        <table class="judge">
+          <thead><tr><th>Criterion</th><th style="text-align:right">Points</th></tr></thead>
+          <tbody id="judgeRows"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    The Genius Project Year 3 &middot; Hurricane Melissa AI App Development Competition. Build for usefulness, reasoning and safety, and keep a human in the loop.
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var API = "/.netlify/functions/canvas";
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  function el(t, c, h) { var e = document.createElement(t); if (c) e.className = c; if (h != null) e.innerHTML = h; return e; }
+
+  /* ---------- Static content data ---------- */
+  var categories = [
+    ["🍚","Food"],["🚰","Drinking water"],["🏠","Temporary shelter"],["🩺","Medical support"],
+    ["👕","Clothing"],["🚗","Transportation"],["🔌","Electricity or charging"],["🧹","Home clean-up"],
+    ["🧱","Building materials"],["✅","Welfare check"],["🙋","Volunteer support"],["🔎","Missing-person information"]
+  ];
+  var required = [
+    "A clear home screen","A help request form","An offer-to-help form","Location and urgency fields",
+    "A recommendation or matching result","A confirmation screen","An emergency safety notice",
+    "A privacy message","A human-review or verification step"
+  ];
+  var stretch = [
+    "A map or location view","A supply inventory","An accessibility option","A status tracker",
+    "A volunteer dashboard","Multiple languages","A low-data or offline-friendly mode","A way to report false information"
+  ];
+  var seven = [
+    ["Who is the user?","Who will use this application?"],
+    ["What is the problem?","What specific difficulty is the person experiencing?"],
+    ["What information is required?","What must the app know before it can help?"],
+    ["What decision will the system make?","Will it classify, recommend, prioritise, match or summarise?"],
+    ["What will the user receive?","What is the useful output?"],
+    ["How could it fail?","What happens if the information is wrong, incomplete or dishonest?"],
+    ["Where is the human?","Which decisions require verification or approval by a person?"]
+  ];
+  var roles = [
+    ["Product Lead","Keeps the team focused on the user and the problem."],
+    ["Builder","Operates the selected app-development platform."],
+    ["Data and Safety Lead","Checks the inputs, decision rules, privacy and risks."],
+    ["Presenter and Tester","Tests the app and prepares the demonstration."]
+  ];
+  var judging = [
+    ["Understanding of the user and problem",20],["Usefulness of the application",20],
+    ["Quality of data and decision logic",20],["Working prototype",15],
+    ["Safety, privacy and human oversight",15],["Clarity of presentation",10]
+  ];
+
+  categories.forEach(function (c) { var d = el("span","chip",'<span class="e">'+c[0]+'</span>'+c[1]); $("#catChips").appendChild(d); });
+  required.forEach(function (t) { $("#required").appendChild(el("div","feat",'<span class="k">'+t+'</span>')); });
+  stretch.forEach(function (t) { $("#stretch").appendChild(el("div","feat dim",t)); });
+  seven.forEach(function (q, i) { $("#sevenQ").appendChild(el("div","q",'<div class="num">'+(i+1)+'</div><div><div class="qq">'+q[0]+'</div><div class="qh">'+q[1]+'</div></div>')); });
+  roles.forEach(function (r) { $("#roles").appendChild(el("div","role",'<div class="r">'+r[0]+'</div><div class="muted" style="color:var(--muted);margin-top:4px">'+r[1]+'</div>')); });
+  var jr = $("#judgeRows");
+  judging.forEach(function (r) { jr.appendChild(el("tr",null,"<td>"+r[0]+"</td><td class='pts'>"+r[1]+"</td>")); });
+  jr.appendChild(el("tr","total","<td>Total</td><td class='pts'>100</td>"));
+
+  /* ---------- Canvas form ---------- */
+  var SECTIONS = [
+    { n:1, title:"User", fields:[
+      { id:"primary_user", label:"Primary user", hint:"Who is experiencing the problem?" },
+      { id:"secondary_user", label:"Secondary user", hint:"Who provides assistance or reviews requests?" },
+      { id:"user_limitations", label:"User limitations", hint:"Internet access, battery, literacy, disability, language, stress." }
+    ]},
+    { n:2, title:"Problem", fields:[
+      { id:"trying_to", label:"The user is trying to" },
+      { id:"main_difficulty", label:"The main difficulty is" },
+      { id:"consequence", label:"The consequence of not solving it is" }
+    ]},
+    { n:3, title:"Proposed Solution", fields:[
+      { id:"will_do", label:"Our app will" },
+      { id:"will_not", label:"It will not attempt to", hint:"It should not claim to replace emergency services, medical professionals or disaster-response authorities." }
+    ]},
+    { n:4, title:"Inputs and Data", wide:true, fields:[
+      { id:"inputs", label:"Information the app collects", type:"checks", options:[
+        "Name or temporary ID","General location","Contact method","Type of assistance","Number of people affected",
+        "Urgency level","Vulnerable persons involved","Mobility or accessibility needs","Description of the situation",
+        "Date and time","Available supplies or skills","Evidence or verification status","Consent to share" ]},
+      { id:"data_minimisation", label:"Data minimisation", hint:"Which information is genuinely required, and which is unnecessary or too sensitive? Avoid exact addresses or medical details unless clearly safe." }
+    ]},
+    { n:5, title:"AI Task", fields:[
+      { id:"ai_task", label:"Our selected AI task", type:"select", options:[
+        "Classification: identify the category of assistance",
+        "Prioritisation: which requests to review first",
+        "Matching: connect requests with available support",
+        "Recommendation: suggest an appropriate next step",
+        "Summarisation: long description into short case summary",
+        "Translation: present information in another language" ]},
+      { id:"why_ai", label:"Why AI is useful here" },
+      { id:"simpler_rule", label:"Could a simpler rule work instead?" }
+    ]},
+    { n:6, title:"Output", fields:[
+      { id:"output_provides", label:"The app will provide", hint:"e.g. a recommended action, an assistance category, a possible match, a priority level, a case summary, a reference number." },
+      { id:"user_understand", label:"The user should understand" },
+      { id:"user_next", label:"The user should do next" }
+    ]},
+    { n:7, title:"Rules and Decision Logic", wide:true, hint:"Write at least three rules. Example: if a person reports an immediate threat to life, show emergency instructions instead of an ordinary recommendation.", fields:[
+      { id:"rule1", label:"Rule 1" },
+      { id:"rule2", label:"Rule 2" },
+      { id:"rule3", label:"Rule 3" }
+    ]},
+    { n:8, title:"Testing", wide:true, hint:"For each case, record what the app recommended, whether it was useful, what went wrong and what you changed.", fields:[
+      { id:"test_normal", label:"Normal case", hint:"A family needs drinking water within 24 hours." },
+      { id:"test_difficult", label:"Difficult case", hint:"A user enters incomplete, confusing or contradictory information." },
+      { id:"test_highrisk", label:"High-risk case", hint:"A person reports a medical emergency or immediate danger." }
+    ]},
+    { n:9, title:"Risks and Safeguards", wide:true, hint:"Identify at least three risks, each with a safeguard.", fields:[
+      { id:"risk1", type:"pair", label:"Risk 1", pairLabel:"Safeguard 1", pairId:"safeguard1" },
+      { id:"risk2", type:"pair", label:"Risk 2", pairLabel:"Safeguard 2", pairId:"safeguard2" },
+      { id:"risk3", type:"pair", label:"Risk 3", pairLabel:"Safeguard 3", pairId:"safeguard3" }
+    ]},
+    { n:10, title:"Success Measure", wide:true, fields:[
+      { id:"success_measure", label:"We will know the app is useful when", hint:"e.g. users submit a request in under two minutes; most requests land in the correct category; high-risk cases escalate correctly; the app collects no unnecessary personal information." }
+    ]}
+  ];
+
+  var grid = $("#canvasGrid");
+  SECTIONS.forEach(function (sec) {
+    var card = el("div", "canvas-card" + (sec.wide ? " wide" : ""));
+    card.appendChild(el("div","cc-head",'<span class="n">'+sec.n+'</span><h3>'+sec.title+'</h3>'));
+    if (sec.hint) card.appendChild(el("div","cc-hint", sec.hint));
+    sec.fields.forEach(function (f) {
+      var sub = el("div","subfield");
+      if (f.type === "checks") {
+        sub.appendChild(el("label", null, f.label));
+        var checks = el("div","checks");
+        f.options.forEach(function (opt, i) {
+          var id = f.id + "_" + i;
+          var lab = el("label","check");
+          lab.setAttribute("for", id);
+          lab.innerHTML = '<input type="checkbox" id="'+id+'" data-field="'+f.id+'" value="'+opt+'"><span>'+opt+'</span>';
+          checks.appendChild(lab);
+        });
+        sub.appendChild(checks);
+        if (f.hint) sub.appendChild(el("div","cc-hint", f.hint));
+      } else if (f.type === "select") {
+        sub.appendChild(el("label", null, f.label));
+        var sel = el("select"); sel.setAttribute("data-field", f.id);
+        sel.appendChild(el("option", null, "")); sel.firstChild.value = "";
+        f.options.forEach(function (opt) { var o = el("option", null, opt); o.value = opt; sel.appendChild(o); });
+        sub.appendChild(sel);
+      } else if (f.type === "pair") {
+        var pair = el("div","pair");
+        var a = el("div","subfield"); a.innerHTML = '<label>'+f.label+'</label>';
+        var ta = el("textarea"); ta.setAttribute("data-field", f.id); a.appendChild(ta);
+        var b = el("div","subfield"); b.innerHTML = '<label>'+f.pairLabel+'</label>';
+        var tb = el("textarea"); tb.setAttribute("data-field", f.pairId); b.appendChild(tb);
+        pair.appendChild(a); pair.appendChild(b); sub.appendChild(pair);
+      } else {
+        sub.appendChild(el("label", null, f.label));
+        var t = el("textarea"); t.setAttribute("data-field", f.id); sub.appendChild(t);
+        if (f.hint) sub.appendChild(el("div","cc-hint", f.hint));
+      }
+      card.appendChild(sub);
+    });
+    grid.appendChild(card);
+  });
+
+  /* ---------- Collect / populate ---------- */
+  function collect() {
+    var data = {};
+    document.querySelectorAll("[data-field]").forEach(function (elm) {
+      var f = elm.getAttribute("data-field");
+      if (elm.type === "checkbox") {
+        if (!Array.isArray(data[f])) data[f] = [];
+        if (elm.checked) data[f].push(elm.value);
+      } else {
+        data[f] = elm.value;
+      }
+    });
+    return data;
+  }
+  function populate(data) {
+    if (!data) return;
+    document.querySelectorAll("[data-field]").forEach(function (elm) {
+      var f = elm.getAttribute("data-field");
+      var v = data[f];
+      if (elm.type === "checkbox") { elm.checked = Array.isArray(v) && v.indexOf(elm.value) !== -1; }
+      else if (v != null) { elm.value = v; }
+    });
+  }
+
+  var teamName = $("#teamName"), teamMembers = $("#teamMembers"), status = $("#saveStatus"), saveBtn = $("#saveBtn");
+  function slug(s) { return String(s).trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
+  function setStatus(msg, kind) { status.textContent = msg; status.className = "status" + (kind ? " " + kind : ""); }
+
+  // Restore last-used team + a local backup so nothing is lost on refresh.
+  teamName.value = localStorage.getItem("melissa_team") || "";
+  teamMembers.value = localStorage.getItem("melissa_members") || "";
+  try { var backup = JSON.parse(localStorage.getItem("melissa_backup") || "null"); if (backup) populate(backup); } catch (e) {}
+
+  function save(manual) {
+    var team = teamName.value.trim();
+    if (!team) { setStatus("Enter a team name first", "err"); teamName.focus(); return; }
+    var payload = { team: team, members: teamMembers.value.trim(), data: collect() };
+    localStorage.setItem("melissa_team", team);
+    localStorage.setItem("melissa_members", payload.members);
+    localStorage.setItem("melissa_backup", JSON.stringify(payload.data));
+    setStatus("Saving...", null);
+    saveBtn.disabled = true;
+    fetch(API, { method:"POST", headers:{ "content-type":"application/json" }, body: JSON.stringify(payload) })
+      .then(function (r) { return r.json().then(function (d) { return { ok:r.ok, d:d }; }); })
+      .then(function (r) {
+        if (!r.ok) throw new Error(r.d && r.d.error ? r.d.error : "Save failed");
+        var t = new Date(r.d.savedAt || Date.now()).toLocaleTimeString();
+        setStatus("Saved to Netlify at " + t, "ok");
+      })
+      .catch(function (ex) { setStatus(ex.message + " (kept a copy on this device)", "err"); })
+      .finally(function () { saveBtn.disabled = false; });
+  }
+
+  function load() {
+    var team = teamName.value.trim();
+    if (!team) { setStatus("Enter your team name to reload", "err"); return; }
+    setStatus("Loading...", null);
+    fetch(API + "?team=" + encodeURIComponent(slug(team)))
+      .then(function (r) { return r.json().then(function (d) { return { ok:r.ok, d:d }; }); })
+      .then(function (r) {
+        if (!r.ok) throw new Error(r.d && r.d.error ? r.d.error : "Load failed");
+        if (!r.d || !r.d.found) { setStatus("No saved canvas for that team yet", null); return; }
+        populate(r.d.data || {});
+        if (r.d.members) teamMembers.value = r.d.members;
+        localStorage.setItem("melissa_backup", JSON.stringify(r.d.data || {}));
+        var t = r.d.updatedAt ? new Date(r.d.updatedAt).toLocaleTimeString() : "";
+        setStatus("Loaded your saved canvas" + (t ? " from " + t : ""), "ok");
+      })
+      .catch(function (ex) { setStatus(ex.message, "err"); });
+  }
+
+  // Debounced autosave once a team name exists.
+  var timer = null;
+  function scheduleSave() {
+    if (!teamName.value.trim()) { setStatus("Enter a team name to enable saving", null); return; }
+    localStorage.setItem("melissa_backup", JSON.stringify(collect()));
+    clearTimeout(timer);
+    setStatus("Editing...", null);
+    timer = setTimeout(function () { save(false); }, 1500);
+  }
+  document.querySelectorAll("[data-field]").forEach(function (elm) {
+    elm.addEventListener(elm.tagName === "SELECT" || elm.type === "checkbox" ? "change" : "input", scheduleSave);
+  });
+  teamMembers.addEventListener("input", function () { localStorage.setItem("melissa_members", teamMembers.value.trim()); });
+
+  $("#saveBtn").addEventListener("click", function () { save(true); });
+  $("#loadBtn").addEventListener("click", load);
+  $("#clearBtn").addEventListener("click", function () {
+    if (!confirm("Clear the answers on this device? Anything saved to Netlify stays safe and can be reloaded.")) return;
+    document.querySelectorAll("[data-field]").forEach(function (elm) { if (elm.type === "checkbox") elm.checked = false; else elm.value = ""; });
+    localStorage.removeItem("melissa_backup");
+    setStatus("Cleared on this device", null);
+  });
+
+  /* ---------- Prompt copy + theme ---------- */
+  $("#copyPrompt").addEventListener("click", function () {
+    var txt = $("#promptText").textContent;
+    if (navigator.clipboard) navigator.clipboard.writeText(txt).then(function () { $("#copyPrompt").textContent = "Copied"; setTimeout(function () { $("#copyPrompt").textContent = "Copy prompt"; }, 1500); });
+  });
+
+  var root = document.documentElement;
+  function dark() { var a = root.getAttribute("data-theme"); return a ? a === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches; }
+  $("#themeToggle").addEventListener("click", function () { root.setAttribute("data-theme", dark() ? "light" : "dark"); });
+})();
+</script>
+</body>
+</html>

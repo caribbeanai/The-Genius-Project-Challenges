@@ -52,14 +52,14 @@
     <div class="err" id="err"></div>
     <div id="out" hidden>
       <div class="stats">
-        <div class="stat"><div class="n" id="sTotal">&#8226;</div><div class="l">Player slots</div></div>
-        <div class="stat"><div class="n" id="sRevealed">&#8226;</div><div class="l">Revealed</div></div>
-        <div class="stat"><div class="n" id="sSpies">&#8226;</div><div class="l">Spies revealed</div></div>
+        <div class="stat"><div class="n" id="sTotal">&#8226;</div><div class="l">Players tapped</div></div>
+        <div class="stat"><div class="n" id="sSpies">&#8226;</div><div class="l">Spies found</div></div>
+        <div class="stat"><div class="n" id="sPos" style="font-size:1.15rem">&#8226;</div><div class="l">Spy click positions</div></div>
       </div>
       <div class="section-title">The spies</div>
-      <table><thead><tr><th>#</th><th>Agent</th><th>Revealed at</th></tr></thead><tbody id="spyRows"></tbody></table>
+      <table><thead><tr><th>Tap #</th><th>Agent</th><th>Revealed at</th></tr></thead><tbody id="spyRows"></tbody></table>
       <div class="section-title">Everyone</div>
-      <table><thead><tr><th>Agent</th><th>Role</th><th>Revealed at</th></tr></thead><tbody id="allRows"></tbody></table>
+      <table><thead><tr><th>Agent</th><th>Email</th><th>Role</th><th>Revealed at</th></tr></thead><tbody id="allRows"></tbody></table>
     </div>
   </div>
 <script>
@@ -79,15 +79,15 @@
       .then(function (r) {
         if (!r.ok) throw new Error(r.d.error || "Could not load results.");
         var d = r.d;
-        $("sTotal").textContent = d.totalPlayers;
-        $("sRevealed").textContent = d.revealed;
+        $("sTotal").textContent = d.revealed;
         $("sSpies").textContent = d.spiesRevealed + " / " + d.spyCount;
+        $("sPos").textContent = (d.spyClickPositions || []).join(", ");
         $("spyRows").innerHTML = d.spies.length
-          ? d.spies.map(function (p, i) { return "<tr><td>" + (i + 1) + "</td><td>" + esc(p.name) + "</td><td>" + fmt(p.at) + "</td></tr>"; }).join("")
-          : "<tr><td colspan='3' class='muted'>No spies revealed yet.</td></tr>";
+          ? d.spies.map(function (p) { return "<tr><td>#" + p.clickIndex + "</td><td>" + esc(p.name) + "</td><td>" + fmt(p.at) + "</td></tr>"; }).join("")
+          : "<tr><td colspan='3' class='muted'>No spies yet. Spies appear at click positions " + (d.spyClickPositions || []).join(", ") + ".</td></tr>";
         $("allRows").innerHTML = d.everyone.map(function (p) {
           var tag = p.spy ? "<span class='tag spy'>SPY</span>" : "<span class='tag clean'>clean</span>";
-          return "<tr><td>" + esc(p.name) + "</td><td>" + tag + "</td><td>" + fmt(p.at) + "</td></tr>";
+          return "<tr><td>#" + p.clickIndex + " " + esc(p.name) + "</td><td>" + esc(p.email || "") + "</td><td>" + tag + "</td><td>" + fmt(p.at) + "</td></tr>";
         }).join("");
         out.hidden = false;
       })
