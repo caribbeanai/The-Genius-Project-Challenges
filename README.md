@@ -122,6 +122,17 @@ scorecard, and specific feedback for every team.
 Open **`pitch-and-win/index.html`** in a browser to see it (winner reveal, leaderboard,
 scorecard, and judge feedback). It is a single self-contained page, so no setup is needed.
 
+## Live activities
+
+Two teen activities are deployed and ready to use:
+
+| Activity | Live link | What it does |
+| --- | --- | --- |
+| **Spycraft** | https://tgp-spycraft-teens.netlify.app | A one-tap party game. Each player enters their first name and email, then sees a bright red screen (spy) or green screen (clean). Five spies are chosen by tap order and saved to Netlify. Organizer view at `/admin.html`. |
+| **Hurricane Melissa App Challenge** | https://tgp-hurricane-melissa.netlify.app | The full event brief plus an interactive AI App Canvas that each team fills in and saves to Netlify. |
+
+The code for these lives in the `spycraft/` and `hurricane-melissa/` folders.
+
 ## License
 
 Released under the MIT License. See `LICENSE`.
