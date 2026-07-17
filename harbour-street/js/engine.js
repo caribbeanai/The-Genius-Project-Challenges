@@ -506,7 +506,7 @@ class MarketSim {
     sim.gauss = makeGauss(sim.rng);
     sim.seed = data.seed;
     sim.date = new Date(data.date); sim.dayCount = data.dayCount;
-    sim.macro = data.macro; sim.macroAnchor = { ...JSE_DATA.macro, global: 0 };
+    sim.macro = data.macro; sim.macroAnchor = { ...JSE_DATA.macroAnchor, global: 0 };
     sim.regime = data.regime; sim.regimeDays = data.regimeDays;
     sim.mktVol = data.mktVol; sim.volBoost = data.volBoost; sim.volBoostDecay = data.volBoostDecay;
     sim.pendingMarketShock = 0; sim.pendingSectorShocks = {};

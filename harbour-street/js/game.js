@@ -31,6 +31,7 @@
   let chartOpts = { sma20: true, sma50: false, boll: false, rsi: true };
   let lastFrame = 0;
   let daysSinceSave = 0;
+  let rafId = null;
   let city = null;
   let tickerItems = [];
   let uiDirty = true;
@@ -148,14 +149,16 @@
       acc.achievements.welcomed = true;
       showBanner('Welcome to Harbour Street', `${acc.name}, you have ${fmt(START_CASH)} to invest on the Jamaica Stock Exchange. Click any tower to meet a company. Start here.`, 'info');
     }
-    requestAnimationFrame(loop);
+    if (rafId !== null) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(loop);
   }
 
   function exitToLogin() {
     setSpeed(0);
-    saveAccounts();
     player.lastNetWorth = netWorth(player, sim);
     saveAccounts();
+    if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+    player = null;
     $('game-ui').style.display = 'none';
     $('login-screen').style.display = 'flex';
     renderLogin();
@@ -193,7 +196,7 @@
     // charts redraw cheaply only when a window is open
     if (selectedSym && $('stock-window').style.display !== 'none') renderStockWindow(false);
 
-    requestAnimationFrame(loop);
+    rafId = requestAnimationFrame(loop);
   }
 
   // per-day bookkeeping after each sim step
@@ -437,6 +440,7 @@
       const h = player.holdings[st.sym];
       if (!h || h.shares < qty) { toast(`You only hold ${h ? h.shares : 0} shares of ${st.sym}.`, 'bad'); return; }
       const proceeds = value - fees.total;
+      if (proceeds <= 0) { toast(`⛔ Order too small: fees (minimum ${fmt(500)} commission) would eat the whole ${fmt(value)} sale. Sell more shares at once.`, 'bad'); return; }
       const costOut = h.cost * (qty / h.shares);
       player.cash += proceeds;
       player.realized += proceeds - costOut;
