@@ -21,17 +21,21 @@
 // ---- deterministic RNG (mulberry32) --------------------------------------
 function makeRng(seed) {
   let a = seed >>> 0;
-  return function () {
+  const f = function () {
     a |= 0; a = (a + 0x6D2B79F5) | 0;
     let t = Math.imul(a ^ (a >>> 15), 1 | a);
     t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
+  // expose internal state so save/load can resume the exact stream
+  f.getState = () => a >>> 0;
+  f.setState = (s) => { a = s >>> 0; };
+  return f;
 }
 // Standard normal via Box-Muller
 function makeGauss(rng) {
   let spare = null;
-  return function () {
+  const f = function () {
     if (spare !== null) { const s = spare; spare = null; return s; }
     let u = 0, v = 0;
     while (u === 0) u = rng();
@@ -40,6 +44,9 @@ function makeGauss(rng) {
     spare = m * Math.sin(2 * Math.PI * v);
     return m * Math.cos(2 * Math.PI * v);
   };
+  f.getSpare = () => spare;
+  f.setSpare = (s) => { spare = s; };
+  return f;
 }
 
 const TRADING_DAYS = 252;
@@ -489,6 +496,7 @@ class MarketSim {
   toJSON() {
     return {
       seed: this.seed, date: this.date.getTime(), dayCount: this.dayCount,
+      rngState: this.rng.getState(), gaussSpare: this.gauss.getSpare(),
       macro: this.macro, regime: this.regime, regimeDays: this.regimeDays,
       mktVol: this.mktVol, volBoost: this.volBoost, volBoostDecay: this.volBoostDecay,
       stocks: Object.fromEntries(Object.entries(this.stocks).map(([k, s]) => [k, {
@@ -502,8 +510,12 @@ class MarketSim {
   }
   static fromJSON(data) {
     const sim = Object.create(MarketSim.prototype);
-    sim.rng = makeRng((data.seed ^ data.dayCount) >>> 0);   // re-derive stream
+    // resume the exact RNG stream where the save left off (fall back to a
+    // seed-derived stream for saves made before rngState was stored)
+    sim.rng = makeRng(data.rngState != null ? 0 : (data.seed ^ data.dayCount) >>> 0);
+    if (data.rngState != null) sim.rng.setState(data.rngState);
     sim.gauss = makeGauss(sim.rng);
+    if (data.gaussSpare !== undefined) sim.gauss.setSpare(data.gaussSpare);
     sim.seed = data.seed;
     sim.date = new Date(data.date); sim.dayCount = data.dayCount;
     sim.macro = data.macro; sim.macroAnchor = { ...JSE_DATA.macroAnchor, global: 0 };
