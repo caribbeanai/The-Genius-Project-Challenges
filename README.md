@@ -164,6 +164,18 @@ scorecard, and specific feedback for every team.
 Open **`pitch-and-win/index.html`** in a browser to see it (winner reveal, leaderboard,
 scorecard, and judge feedback). It is a single self-contained page, so no setup is needed.
 
+## Harbour Street: the JSE stock market game
+
+A voxel 3D simulation of the **Jamaica Stock Exchange**, named after the JSE's real address at
+40 Harbour Street, Kingston. Players open an account with J$1,000,000 in virtual cash and trade
+**49 real JSE companies** (NCB Financial, GraceKennedy, Wisynco, Fontana, EduFocal and more),
+seeded with real mid-2026 prices, market caps and index levels. The simulation models the real
+rules — the 15% circuit breaker, T+1 settlement, broker fees, cess and GCT, dividend withholding —
+plus an economic engine (BOJ rate, inflation, FX, tourism seasons, hurricane risk), market-moving
+news, and worst-case scenarios from hurricanes to global crashes. Fast-forward a month per second,
+read the charts (SMA, Bollinger bands, RSI), beat the index, and learn why diversification is your
+umbrella. Serve the **`harbour-street/`** folder statically or deploy it to Netlify — no build step.
+
 ## Live activities
 
 Two teen activities are deployed and ready to use:

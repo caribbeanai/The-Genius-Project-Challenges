@@ -1,0 +1,7 @@
+# Netlify configuration for Harbour Street — the JSE stock market game.
+# Deploy this folder as its own Netlify site (set the site's base directory to
+# "harbour-street" if the repo root is the site root). Pure static site — no
+# build step, no functions.
+
+[build]
+  publish = "."

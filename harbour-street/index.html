@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harbour Street — The JSE Stock Market Game | The Genius Project</title>
+<meta name="description" content="Trade real Jamaica Stock Exchange companies in a voxel 3D Kingston. Real prices, real rules, simulated markets: hurricanes, rate decisions, bull runs and crashes. An edutainment game by The Genius Project.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600;700&family=Nunito:wght@800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#0A1A3A; --navy2:#142B5C; --ink:#080F1F;
+    --teal:#1FC8C8; --sky:#4FB5E6; --royal:#2563EB;
+    --coral:#EE5A52; --mango:#F5A623; --sun:#FFD93D;
+    --up:#2ECC71; --down:#EE5A52; --flat:#8B9DC3;
+    --text:#EAF1F8; --muted:#9EB1C2;
+    --panel:rgba(10,26,58,0.88); --panel-line:rgba(79,181,230,0.22);
+    --font:'Inter',system-ui,sans-serif; --disp:'Montserrat',system-ui,sans-serif;
+  }
+  * { box-sizing:border-box; margin:0; }
+  html,body { height:100%; }
+  body { background:var(--navy); color:var(--text); font-family:var(--font); overflow:hidden; }
+  button { font-family:inherit; cursor:pointer; }
+  canvas { display:block; }
+  .up{color:var(--up)!important} .down{color:var(--down)!important} .flat{color:var(--flat)!important}
+  .halt{color:var(--sun)!important;font-weight:700} .muted{color:var(--muted)}
+  sup{color:var(--mango);font-size:.65em}
+
+  /* ============ LOGIN ============ */
+  #login-screen {
+    position:fixed; inset:0; z-index:100; display:flex; flex-direction:column; align-items:center;
+    overflow-y:auto; background:
+      radial-gradient(ellipse at 50% 30%, #142B5C 0%, #0A1A3A 55%, #080F1F 100%);
+  }
+  .login-inner { max-width:680px; width:100%; padding:34px 22px 20px; display:flex; flex-direction:column; align-items:center; }
+  .login-hero { position:relative; text-align:center; margin-bottom:6px; }
+  .paint-stroke { position:absolute; left:50%; top:78%; transform:translate(-50%,-50%) rotate(-2deg); width:110%; height:40px; z-index:0; opacity:.92; }
+  .login-hero h1 {
+    position:relative; z-index:1; font-family:var(--disp); font-weight:800; letter-spacing:-0.01em;
+    font-size:clamp(34px,6.5vw,62px); color:#fff; line-height:.95; text-transform:uppercase; white-space:nowrap;
+  }
+  .login-hero h1 .accent { color:var(--sun); }
+  .login-sub { font-size:15px; color:var(--muted); margin-top:14px; max-width:520px; }
+  .login-sub b { color:var(--sun); font-weight:600; }
+  .eyebrow { font-family:var(--disp); font-weight:700; font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--teal); margin-bottom:10px; }
+  .login-card {
+    width:100%; margin-top:22px; background:rgba(20,43,92,.35); border:1px solid var(--panel-line);
+    border-radius:16px; padding:20px 22px;
+  }
+  .login-card h2 { font-family:var(--disp); font-size:15px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--sky); margin-bottom:12px; }
+  #account-list { display:flex; flex-direction:column; gap:8px; }
+  .login-empty { color:var(--muted); font-size:14px; }
+  .account-row {
+    display:flex; align-items:center; gap:12px; background:rgba(10,26,58,.7); border:1px solid var(--panel-line);
+    padding:10px 14px; border-radius:12px; cursor:pointer; transition:border-color .15s, transform .1s;
+  }
+  .account-row:hover { border-color:var(--teal); transform:translateY(-1px); }
+  .acc-medal { width:20px; }
+  .acc-avatar { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; color:#08152A; }
+  .acc-name { flex:1; font-weight:600; }
+  .acc-worth { font-size:14px; font-weight:600; }
+  .acc-worth small { color:inherit; opacity:.8; }
+  .acc-del { background:none; border:none; color:var(--muted); font-size:14px; padding:4px 8px; border-radius:8px; }
+  .acc-del:hover { color:var(--coral); background:rgba(238,90,82,.12); }
+  .create-row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  #new-name {
+    flex:1; min-width:180px; background:rgba(8,15,31,.8); border:1px solid var(--panel-line); border-radius:999px;
+    color:var(--text); font-family:inherit; font-size:15px; padding:12px 18px; outline:none;
+  }
+  #new-name:focus { border-color:var(--teal); }
+  .color-swatch { width:26px; height:26px; border-radius:50%; border:2px solid transparent; padding:0; }
+  .color-swatch.active { border-color:#fff; transform:scale(1.15); }
+  .cta-pill {
+    background:linear-gradient(90deg,#FFD93D 0%,#F5A623 100%); border:none; border-radius:999px;
+    padding:12px 26px; box-shadow:0 0 24px rgba(255,217,61,.35); color:var(--navy);
+    font-family:var(--disp); font-weight:800; font-size:15px; letter-spacing:.04em; text-transform:uppercase;
+  }
+  .cta-pill:hover { filter:brightness(1.06); }
+  .login-facts { display:flex; gap:18px; margin-top:20px; flex-wrap:wrap; justify-content:center; }
+  .fact { text-align:center; min-width:120px; }
+  .fact b { display:block; font-family:var(--disp); font-weight:800; font-size:22px; color:var(--sun); }
+  .fact span { font-size:11.5px; color:var(--muted); letter-spacing:.04em; }
+  .sponsor-row { border-top:1px solid rgba(31,200,200,.4); margin-top:26px; padding:18px 40px 8px; display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .sponsor-row__label { font-family:var(--disp); font-weight:700; font-size:11px; letter-spacing:.3em; color:rgba(255,255,255,.7); text-transform:uppercase; }
+  .sponsor-row__logos { display:flex; align-items:center; gap:16px; font-family:var(--disp); font-weight:700; font-size:13px; color:#fff; flex-wrap:wrap; justify-content:center; }
+  .sponsor-row__sep { width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,.6); }
+  .gp-wordmark { margin-top:16px; width:200px; opacity:.95; }
+  .login-disclaimer { font-size:11px; color:var(--muted); opacity:.75; margin-top:14px; text-align:center; max-width:520px; line-height:1.5; padding-bottom:20px; }
+
+  /* ============ GAME ============ */
+  #game-ui { display:none; position:fixed; inset:0; }
+  #scene-canvas { position:absolute; inset:0; width:100%; height:100%; }
+
+  /* top bar */
+  #topbar {
+    position:absolute; top:0; left:0; right:0; z-index:48; display:flex; align-items:center; gap:10px;
+    padding:8px 12px; background:linear-gradient(180deg, rgba(8,15,31,.94), rgba(8,15,31,.72) 75%, transparent);
+    flex-wrap:wrap;
+  }
+  .brand-mini { font-family:var(--disp); font-weight:800; font-size:14px; letter-spacing:.02em; color:#fff; white-space:nowrap; }
+  .brand-mini span { color:var(--sun); }
+  .chip {
+    background:rgba(20,43,92,.6); border:1px solid var(--panel-line); border-radius:999px;
+    padding:4px 11px; font-size:12px; font-weight:600; white-space:nowrap;
+  }
+  #hud-date { color:var(--sky); }
+  .idx { display:flex; gap:6px; align-items:baseline; }
+  .idx-name { color:var(--muted); font-size:11px; }
+  .idx-val { font-weight:700; font-size:12.5px; }
+  .idx-chg { font-size:11.5px; font-weight:600; }
+  .speed-group { display:flex; gap:4px; align-items:center; background:rgba(8,15,31,.75); border:1px solid var(--panel-line); border-radius:999px; padding:3px; }
+  .speed-btn {
+    background:none; border:none; color:var(--muted); font-size:13px; border-radius:999px; padding:4px 10px; font-weight:700;
+  }
+  .speed-btn.active { background:var(--teal); color:var(--navy); }
+  #speed-label { font-size:11px; color:var(--muted); margin-left:2px; margin-right:6px; }
+  .hud-money { display:flex; flex-direction:column; align-items:flex-end; line-height:1.15; }
+  .hud-money .lbl { font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+  #hud-cash, #hud-networth { font-weight:700; font-size:13.5px; }
+  .hud-sub { font-size:10.5px; font-weight:600; }
+  .bar-btn {
+    background:rgba(20,43,92,.6); border:1px solid var(--panel-line); color:var(--text);
+    border-radius:10px; padding:6px 12px; font-size:12.5px; font-weight:600;
+  }
+  .bar-btn:hover { border-color:var(--teal); }
+  .spacer { flex:1; }
+
+  /* ticker */
+  #ticker-bar {
+    position:absolute; bottom:0; left:0; right:0; z-index:48; overflow:hidden;
+    background:rgba(8,15,31,.92); border-top:1px solid var(--panel-line); height:34px; display:flex; align-items:center;
+  }
+  .tick-label { font-family:var(--disp); font-weight:800; font-size:11px; color:var(--navy); background:var(--sun); padding:9px 12px; letter-spacing:.1em; z-index:2; }
+  #ticker-track { display:flex; gap:44px; white-space:nowrap; animation:tick 60s linear infinite; padding-left:20px; }
+  #ticker-track:hover { animation-play-state:paused; }
+  @keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .tick-item { font-size:12.5px; color:var(--muted); cursor:pointer; }
+  .tick-item.good{color:var(--up)} .tick-item.bad{color:var(--coral)} .tick-item.severe{color:var(--sun);font-weight:700}
+  .tick-item:hover { text-decoration:underline; }
+
+  /* market panel */
+  #market-panel {
+    position:absolute; top:88px; right:10px; bottom:44px; width:250px; z-index:15;
+    background:var(--panel); border:1px solid var(--panel-line); border-radius:14px;
+    display:flex; flex-direction:column; overflow:hidden; backdrop-filter:blur(6px);
+  }
+  .panel-head { padding:10px 12px 8px; font-family:var(--disp); font-weight:700; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--sky); }
+  #market-search {
+    margin:0 10px 8px; background:rgba(8,15,31,.8); border:1px solid var(--panel-line); border-radius:8px;
+    color:var(--text); font-size:12.5px; padding:7px 10px; outline:none;
+  }
+  #market-list { overflow-y:auto; flex:1; padding:0 6px 10px; }
+  .market-sector { font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); padding:9px 6px 3px; border-left:3px solid; margin:4px 0 2px; }
+  .market-row {
+    display:grid; grid-template-columns:1fr auto auto; gap:8px; padding:5px 8px; border-radius:8px;
+    font-size:12.5px; cursor:pointer; align-items:baseline;
+  }
+  .market-row:hover { background:rgba(79,181,230,.12); }
+  .market-row.selected { background:rgba(31,200,200,.16); outline:1px solid rgba(31,200,200,.4); }
+  .market-row.held .m-sym::after { content:'●'; color:var(--sun); font-size:8px; vertical-align:middle; margin-left:4px; }
+  .m-sym { font-weight:700; }
+  .m-price { color:var(--text); font-variant-numeric:tabular-nums; }
+  .m-chg { font-weight:600; font-size:11.5px; font-variant-numeric:tabular-nums; min-width:52px; text-align:right; }
+
+  /* windows */
+  .window {
+    position:absolute; z-index:30; background:var(--panel); border:1px solid var(--panel-line);
+    border-radius:14px; display:none; flex-direction:column; backdrop-filter:blur(8px);
+    box-shadow:0 18px 50px rgba(0,0,0,.5); overflow:hidden;
+  }
+  .win-title {
+    display:flex; align-items:center; gap:10px; padding:10px 14px; cursor:grab; user-select:none;
+    background:rgba(20,43,92,.5); border-bottom:1px solid var(--panel-line);
+    font-family:var(--disp); font-weight:700; font-size:13px;
+  }
+  .win-title:active { cursor:grabbing; }
+  .win-close { margin-left:auto; background:none; border:none; color:var(--muted); font-size:15px; padding:2px 8px; border-radius:6px; }
+  .win-close:hover { color:var(--coral); background:rgba(238,90,82,.12); }
+  .win-body { padding:12px 14px; overflow-y:auto; }
+
+  #stock-window { top:60px; left:16px; width:min(520px, calc(100vw - 32px)); max-height:calc(100vh - 120px); }
+  #sw-sym { color:var(--sun); }
+  #sw-name { font-weight:600; color:var(--text); font-size:13px; }
+  .sw-pricebar { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:2px; }
+  #sw-price { font-family:var(--disp); font-weight:800; font-size:26px; }
+  .sw-chg { font-weight:700; font-size:14px; }
+  #sw-halt { display:none; background:var(--sun); color:var(--navy); font-size:10px; font-weight:800; letter-spacing:.08em; padding:3px 8px; border-radius:6px; }
+  #sw-sector { font-size:11.5px; color:var(--teal); margin-bottom:6px; }
+  #sw-blurb { font-size:12.5px; color:var(--muted); margin-bottom:10px; line-height:1.5; }
+  .chart-controls { display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-bottom:6px; font-size:11px; }
+  .range-btn, .ov-label {
+    background:rgba(8,15,31,.7); border:1px solid var(--panel-line); color:var(--muted);
+    border-radius:7px; padding:3px 9px; font-size:11px; font-weight:600;
+  }
+  .range-btn.active { color:var(--navy); background:var(--sky); border-color:var(--sky); }
+  .ov-label { display:inline-flex; gap:5px; align-items:center; cursor:pointer; }
+  .ov-label input { accent-color:var(--teal); margin:0; }
+  #sw-chart { width:100%; height:240px; background:rgba(8,15,31,.55); border-radius:10px; }
+  #sw-stats { display:grid; grid-template-columns:1fr 1fr; gap:3px 18px; margin:10px 0; }
+  .stat { display:flex; justify-content:space-between; font-size:12px; color:var(--muted); }
+  .stat b { color:var(--text); font-weight:600; }
+  #sw-pos { font-size:12.5px; background:rgba(31,200,200,.08); border:1px solid rgba(31,200,200,.25); border-radius:10px; padding:9px 12px; margin-bottom:10px; }
+  .trade-box { background:rgba(8,15,31,.6); border:1px solid var(--panel-line); border-radius:12px; padding:12px; }
+  .trade-row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  #trade-qty {
+    width:130px; background:rgba(10,26,58,.9); border:1px solid var(--panel-line); border-radius:8px;
+    color:var(--text); font-size:14px; padding:8px 12px; outline:none; font-variant-numeric:tabular-nums;
+  }
+  .qty-preset { background:none; border:1px solid var(--panel-line); color:var(--muted); border-radius:7px; padding:6px 9px; font-size:11px; font-weight:700; }
+  .qty-preset:hover { border-color:var(--teal); color:var(--text); }
+  .btn-trade { border:none; border-radius:9px; padding:9px 22px; font-family:var(--disp); font-weight:800; font-size:13px; letter-spacing:.05em; }
+  #btn-buy { background:var(--up); color:#05240F; }
+  #btn-sell { background:var(--coral); color:#2B0503; }
+  .btn-trade:hover { filter:brightness(1.1); }
+  #trade-quote { margin-top:10px; font-size:12px; }
+  .quote-row { display:flex; justify-content:space-between; padding:2px 0; }
+  .quote-fees { color:var(--muted); font-size:11px; margin-top:4px; }
+
+  #portfolio-window { top:70px; left:50%; transform:translateX(-50%); width:min(680px, calc(100vw - 24px)); max-height:calc(100vh - 130px); }
+  #pf-summary { display:grid; grid-template-columns:repeat(auto-fit,minmax(96px,1fr)); gap:8px; margin-bottom:10px; }
+  .sum-card { background:rgba(8,15,31,.6); border:1px solid var(--panel-line); border-radius:10px; padding:8px 10px; display:flex; flex-direction:column; }
+  .sum-card span { font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+  .sum-card b { font-size:14px; margin-top:2px; }
+  .sum-card small { font-size:10.5px; font-weight:600; }
+  #pf-bench { font-size:12.5px; background:rgba(37,99,235,.12); border:1px solid rgba(37,99,235,.3); border-radius:10px; padding:9px 12px; margin-bottom:10px; }
+  #pf-chart { width:100%; height:110px; background:rgba(8,15,31,.55); border-radius:10px; margin-bottom:12px; }
+  .pf-section { font-family:var(--disp); font-weight:700; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--sky); margin:8px 0 6px; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  th { text-align:left; color:var(--muted); font-weight:600; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; padding:4px 6px; border-bottom:1px solid var(--panel-line); }
+  td { padding:5px 6px; border-bottom:1px solid rgba(79,181,230,.08); font-variant-numeric:tabular-nums; }
+
+  #news-window { top:80px; right:280px; width:min(430px, calc(100vw - 24px)); max-height:calc(100vh - 140px); }
+  .news-item { border-bottom:1px solid rgba(79,181,230,.12); padding:8px 2px; }
+  .news-head { font-size:12.5px; font-weight:600; cursor:pointer; line-height:1.4; }
+  .news-item.good .news-head{color:var(--up)} .news-item.bad .news-head{color:var(--coral)}
+  .news-item.severe .news-head{color:var(--sun)} .news-item.info .news-head{color:var(--text)}
+  .news-date { color:var(--muted); font-weight:500; font-size:11px; margin-right:6px; }
+  .news-body { font-size:12px; color:var(--muted); line-height:1.55; padding:6px 2px 2px; }
+  .news-lesson { margin-top:6px; color:var(--teal); font-size:11.5px; background:rgba(31,200,200,.08); border-radius:8px; padding:6px 9px; }
+
+  #learn-window { top:70px; left:50%; transform:translateX(-50%); width:min(640px, calc(100vw - 24px)); max-height:calc(100vh - 130px); }
+  .learn-tabs { display:flex; gap:6px; margin-bottom:12px; }
+  .learn-tab { background:rgba(8,15,31,.7); border:1px solid var(--panel-line); color:var(--muted); border-radius:8px; padding:6px 13px; font-size:12px; font-weight:600; }
+  .learn-tab.active { color:var(--navy); background:var(--teal); border-color:var(--teal); }
+  .learn-page h3 { font-family:var(--disp); font-size:16px; margin-bottom:8px; color:var(--sun); }
+  .learn-page p, .learn-page li { font-size:13px; color:var(--text); line-height:1.65; }
+  .learn-page ul { padding-left:20px; margin:8px 0; }
+  .learn-page li { margin-bottom:6px; }
+  .learn-page b { color:var(--sky); }
+  .gloss { display:flex; gap:12px; padding:6px 0; border-bottom:1px solid rgba(79,181,230,.1); font-size:12.5px; }
+  .gloss b { min-width:130px; color:var(--sun); font-weight:700; }
+  .gloss span { color:var(--muted); line-height:1.5; }
+
+  /* toasts + banner */
+  #toasts { position:absolute; left:50%; transform:translateX(-50%); bottom:46px; z-index:60; display:flex; flex-direction:column; gap:8px; align-items:center; pointer-events:none; }
+  .toast {
+    background:rgba(8,15,31,.95); border:1px solid var(--panel-line); color:var(--text);
+    border-radius:12px; padding:10px 18px; font-size:13px; max-width:min(560px, 90vw);
+    opacity:0; transform:translateY(10px); transition:all .3s;
+  }
+  .toast.show { opacity:1; transform:translateY(0); }
+  .toast.good { border-color:rgba(46,204,113,.5); }
+  .toast.bad { border-color:rgba(238,90,82,.6); }
+  .toast.achieve { border-color:var(--sun); box-shadow:0 0 24px rgba(255,217,61,.25); }
+  #event-banner {
+    position:absolute; inset:0; z-index:70; display:none; align-items:center; justify-content:center;
+    background:rgba(8,15,31,.72); backdrop-filter:blur(3px);
+  }
+  .banner-card {
+    max-width:560px; width:calc(100vw - 40px); background:var(--navy); border:1px solid var(--panel-line);
+    border-radius:18px; padding:26px 28px; text-align:center; box-shadow:0 24px 80px rgba(0,0,0,.6);
+  }
+  #event-banner.severe .banner-card { border-color:var(--sun); box-shadow:0 0 60px rgba(255,217,61,.2); }
+  #banner-title { font-family:var(--disp); font-weight:800; font-size:22px; line-height:1.2; margin-bottom:10px; }
+  #event-banner.severe #banner-title { color:var(--sun); }
+  #banner-body { font-size:14px; color:var(--muted); line-height:1.6; margin-bottom:18px; }
+
+  @media (max-width:760px) {
+    #topbar { gap:6px; }
+    .idx, #macro-inf, #macro-gdp, #hud-regime { display:none; }
+    #market-panel { width:200px; top:120px; }
+    #news-window { right:10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div id="login-screen">
+  <div class="login-inner">
+    <div class="eyebrow">The Genius Project presents</div>
+    <div class="login-hero">
+      <svg class="paint-stroke" viewBox="0 0 560 70" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M8 42 C 90 18, 180 14, 280 26 C 380 38, 470 34, 552 22 L 548 44 C 460 56, 360 60, 260 50 C 160 40, 70 48, 12 58 Z" fill="#FFD93D" opacity="0.95"/>
+      </svg>
+      <h1>Harbour <span class="accent">Street</span></h1>
+    </div>
+    <p class="login-sub">The Jamaica Stock Exchange lives at 40 Harbour Street, Kingston. Now it lives on your screen.
+      Trade <b>49 real JSE companies</b> in a voxel city, ride bull runs, survive hurricanes, and grow
+      <b>J$1,000,000</b> into a fortune. Fast-forward months in seconds. Start here.</p>
+
+    <div class="login-facts">
+      <div class="fact"><b>49</b><span>REAL JSE STOCKS</span></div>
+      <div class="fact"><b>J$1M</b><span>STARTING CASH</span></div>
+      <div class="fact"><b>#1</b><span>WORLD'S BEST MARKET 2015 &amp; 2018</span></div>
+      <div class="fact"><b>15%</b><span>CIRCUIT BREAKER RULE</span></div>
+    </div>
+
+    <div class="login-card">
+      <h2>Traders on this device</h2>
+      <div id="account-list"></div>
+    </div>
+
+    <div class="login-card">
+      <h2>New trader</h2>
+      <div class="create-row">
+        <input id="new-name" maxlength="24" placeholder="Your name" autocomplete="off">
+        <button class="color-swatch" data-c="#1FC8C8"></button>
+        <button class="color-swatch" data-c="#FFD93D"></button>
+        <button class="color-swatch" data-c="#4FB5E6"></button>
+        <button class="color-swatch" data-c="#EE5A52"></button>
+        <button class="color-swatch" data-c="#F5A623"></button>
+        <button id="btn-create" class="cta-pill">Open Account</button>
+      </div>
+    </div>
+
+    <div class="sponsor-row">
+      <span class="sponsor-row__label">Sponsored by</span>
+      <div class="sponsor-row__logos">
+        <span>CAIA</span><span class="sponsor-row__sep"></span>
+        <span>AI JAMAICA</span><span class="sponsor-row__sep"></span>
+        <span>MAESTRO AI LABS</span>
+      </div>
+      <svg class="gp-wordmark" viewBox="0 0 1200 480" font-family="Nunito, Quicksand, sans-serif" aria-label="The Genius Project">
+        <text x="40" y="80" font-size="64" font-weight="800" fill="#FFFFFF">The</text>
+        <text x="40" y="240" font-size="200" font-weight="800" letter-spacing="-2"><tspan fill="#1FC8C8">G</tspan><tspan fill="#4FB5E6">e</tspan><tspan fill="#2563EB">n</tspan><tspan fill="#FFFFFF">i</tspan><tspan fill="#FFFFFF">u</tspan><tspan fill="#EE5A52">s</tspan></text>
+        <circle cx="610" cy="105" r="20" fill="#F5A623"/>
+        <text x="40" y="380" font-size="130" font-weight="800" letter-spacing="-1" fill="#FFFFFF">Pr<tspan>oje</tspan>ct</text>
+        <circle cx="183" cy="338" r="24" fill="#0A1A3A"/>
+        <circle cx="183" cy="338" r="38" fill="none" stroke="#F5A623" stroke-width="14"/>
+      </svg>
+    </div>
+    <p class="login-disclaimer">An educational simulation for learning, not financial advice. Companies and starting prices are
+      real (mid-2026 snapshot); everything that happens after day one is simulated and cannot predict real market moves.
+      Your account and portfolio are saved on this device only.</p>
+  </div>
+</div>
+
+<!-- ================= GAME ================= -->
+<div id="game-ui">
+  <canvas id="scene-canvas"></canvas>
+
+  <div id="topbar">
+    <span class="brand-mini">HARBOUR <span>ST.</span></span>
+    <span id="hud-date" class="chip"></span>
+    <span id="hud-regime" class="chip flat"></span>
+    <span class="chip idx" id="idx-combined"><span class="idx-name">JSE Combined</span> <span class="idx-val"></span> <span class="idx-chg"></span></span>
+    <span class="chip idx" id="idx-junior"><span class="idx-name">Junior</span> <span class="idx-val"></span> <span class="idx-chg"></span></span>
+    <span class="chip" id="macro-rate"></span>
+    <span class="chip" id="macro-inf"></span>
+    <span class="chip" id="macro-fx"></span>
+    <span class="chip" id="macro-gdp"></span>
+    <span class="spacer"></span>
+    <div class="speed-group">
+      <button class="speed-btn" title="Pause">⏸</button>
+      <button class="speed-btn" title="1 day / 5 sec">▶</button>
+      <button class="speed-btn" title="1 day / sec">▶▶</button>
+      <button class="speed-btn" title="1 week / sec">▶▶▶</button>
+      <button class="speed-btn" title="1 month / sec">⏩</button>
+      <span id="speed-label"></span>
+    </div>
+    <div class="hud-money">
+      <span class="lbl">Cash</span>
+      <span id="hud-cash"></span>
+    </div>
+    <div class="hud-money">
+      <span class="lbl">Net worth</span>
+      <span id="hud-networth"></span>
+      <span id="hud-networth-chg" class="hud-sub"></span>
+    </div>
+    <button class="bar-btn" id="btn-portfolio">💼 Portfolio</button>
+    <button class="bar-btn" id="btn-news">📰 News</button>
+    <button class="bar-btn" id="btn-market">📊 Market</button>
+    <button class="bar-btn" id="btn-learn">🎓 Learn</button>
+    <button class="bar-btn" id="btn-exit" title="Save and return to login">⏏</button>
+  </div>
+
+  <div id="market-panel">
+    <div class="panel-head">Market Watch</div>
+    <input id="market-search" placeholder="Search stocks…" autocomplete="off">
+    <div id="market-list"></div>
+  </div>
+
+  <!-- stock window -->
+  <div class="window" id="stock-window">
+    <div class="win-title"><span id="sw-sym"></span><span id="sw-name"></span><button class="win-close">✕</button></div>
+    <div class="win-body">
+      <div class="sw-pricebar">
+        <span id="sw-price"></span>
+        <span id="sw-chg" class="sw-chg"></span>
+        <span id="sw-halt">⛔ HALTED 1HR</span>
+      </div>
+      <div id="sw-sector"></div>
+      <div id="sw-blurb"></div>
+      <div class="chart-controls">
+        <button class="range-btn" data-r="63">3M</button>
+        <button class="range-btn active" data-r="130">6M</button>
+        <button class="range-btn" data-r="252">1Y</button>
+        <button class="range-btn" data-r="9999">All</button>
+        <label class="ov-label"><input type="checkbox" class="ov-toggle" data-ov="sma20" checked>SMA 20</label>
+        <label class="ov-label"><input type="checkbox" class="ov-toggle" data-ov="sma50">SMA 50</label>
+        <label class="ov-label"><input type="checkbox" class="ov-toggle" data-ov="boll">Bollinger</label>
+        <label class="ov-label"><input type="checkbox" class="ov-toggle" data-ov="rsi" checked>RSI</label>
+      </div>
+      <canvas id="sw-chart"></canvas>
+      <div id="sw-stats"></div>
+      <div id="sw-pos"></div>
+      <div class="trade-box">
+        <div class="trade-row">
+          <input id="trade-qty" type="number" min="1" step="1" placeholder="Shares" inputmode="numeric">
+          <button class="qty-preset" data-q="100">100</button>
+          <button class="qty-preset" data-q="1000">1K</button>
+          <button class="qty-preset" data-q="10000">10K</button>
+          <button class="qty-preset" data-q="max">MAX</button>
+          <span class="spacer"></span>
+          <button class="btn-trade" id="btn-buy">BUY</button>
+          <button class="btn-trade" id="btn-sell">SELL</button>
+        </div>
+        <div id="trade-quote"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- portfolio window -->
+  <div class="window" id="portfolio-window">
+    <div class="win-title">💼 Your Portfolio<button class="win-close">✕</button></div>
+    <div class="win-body">
+      <div id="pf-summary"></div>
+      <div id="pf-bench"></div>
+      <div class="pf-section">Net worth over time</div>
+      <canvas id="pf-chart"></canvas>
+      <div class="pf-section">Holdings</div>
+      <table><thead><tr><th>Stock</th><th>Shares</th><th>Avg cost</th><th>Price</th><th>Value</th><th>P&amp;L</th></tr></thead>
+      <tbody id="pf-holdings"></tbody></table>
+      <div class="pf-section">Recent transactions</div>
+      <table><thead><tr><th>Date</th><th>Type</th><th>Stock</th><th>Details</th><th>Total</th></tr></thead>
+      <tbody id="pf-txs"></tbody></table>
+    </div>
+  </div>
+
+  <!-- news window -->
+  <div class="window" id="news-window">
+    <div class="win-title">📰 Market News<button class="win-close">✕</button></div>
+    <div class="win-body"><div id="news-list"></div></div>
+  </div>
+
+  <!-- learn window -->
+  <div class="window" id="learn-window">
+    <div class="win-title">🎓 Learn the Market<button class="win-close">✕</button></div>
+    <div class="win-body" id="learn-content"></div>
+  </div>
+
+  <div id="ticker-bar">
+    <span class="tick-label">JSE WIRE</span>
+    <div id="ticker-track"></div>
+  </div>
+
+  <div id="toasts"></div>
+
+  <div id="event-banner">
+    <div class="banner-card">
+      <div id="banner-title"></div>
+      <div id="banner-body"></div>
+      <button class="cta-pill" id="banner-close">Got it</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/three.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/news.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/voxel.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
