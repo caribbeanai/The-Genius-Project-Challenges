@@ -11,8 +11,10 @@
 Welcome. This repository teaches you to build real artificial intelligence models with no
 prior experience. You start by learning Python from scratch, then you train five different
 models to predict the winners of upcoming World Cup matches. From there you turn the same
-tools on money: budgeting, simulation, and forecasting the markets. By the end you
-will have used the same tools that professional AI engineers use every day.
+tools on money: budgeting, simulation, and forecasting the markets. Then you go deeper,
+building **neural networks and deep learning** models and teaching them to **see** with
+**computer vision**, all on Caribbean data. By the end you will have used the same tools
+that professional AI engineers use every day.
 
 **Football note:** this course uses the word *football* for the sport played with a round ball
 and a net (called *soccer* in some countries). Every stat is explained in plain words, so you
@@ -27,6 +29,8 @@ do not need to follow football to take part.
 - **Predict real fixtures.** Every model outputs the win chance for each team, the expected scoreline, and the stats that decided it.
 - **Submit your call.** Enter your prediction on the Week 2 quiz and prediction page.
 - **Take on finance.** In Week 3 you use statistics, Monte Carlo simulation, time-series forecasting, and machine learning on budgets and market prices.
+- **Go deep with neural networks.** In Week 4 you build a neuron from scratch, then deep networks in Keras, to predict Caribbean World Cup matches, stock and oil prices, GDP, and more.
+- **Teach a network to see.** In Week 5 you build Convolutional Neural Networks (CNNs) that recognise Caribbean flags and spot hurricanes in satellite images.
 
 ## Where to start
 
@@ -75,6 +79,36 @@ details are in `Week 3/README.md`.
 | `05-machine-learning-for-finance.ipynb` | Predict spending and the stock's next move |
 | `06-bonus-neural-network.ipynb` | A neural network takes on a near-random market |
 
+### 4. Week 4: Neural Networks and Deep Learning
+
+Ready to go deep? Open the **`Week 4`** folder. You build a single neuron by hand,
+then let **Keras** build deep networks that predict real Caribbean things. Every
+example uses Caribbean data and names Caribbean teams, people, and countries. Full
+details are in `Week 4/README.md`.
+
+| Notebook | The big idea |
+| --- | --- |
+| `01-what-is-a-neural-network.ipynb` | Build one neuron from scratch: weights, bias, sigmoid, and gradient descent |
+| `02-deep-learning-with-keras.ipynb` | A deep network in Keras predicts Caribbean World Cup matches |
+| `03-predicting-stock-prices.ipynb` | A network takes on the Jamaica Stock Exchange (and the humbling baseline) |
+| `04-predicting-oil-prices.ipynb` | Forecast Trinidad and Tobago crude oil from real drivers |
+| `05-predicting-gdp.ipynb` | Predict GDP growth for twelve Caribbean economies |
+| `06-predicting-crime.ipynb` | Predict monthly incidents for city planning, ethics first |
+
+### 5. Week 5: CNNs and Computer Vision
+
+Teach a network to see. Open the **`Week 5`** folder. You learn that an image is
+just numbers, meet the convolution, then build **CNNs** that recognise Caribbean
+flags and spot hurricanes. Full details are in `Week 5/README.md`.
+
+| Notebook | The big idea |
+| --- | --- |
+| `01-images-are-numbers.ipynb` | An image is a grid of numbers: pixels, grayscale, and RGB channels |
+| `02-convolutions-and-filters.ipynb` | The convolution, by hand: filters that find edges and shapes |
+| `03-first-cnn-caribbean-flags.ipynb` | A CNN in Keras classifies six Caribbean flags |
+| `04-spotting-hurricanes.ipynb` | A CNN spots hurricanes, plus dropout and data augmentation |
+| `05-computer-vision-in-the-caribbean.ipynb` | Look inside a CNN, and real Caribbean vision projects |
+
 ## Submit your prediction
 
 After you run a model, enter your prediction on the Week 2 page:
@@ -87,7 +121,7 @@ You need Python with a few common libraries. Install them once:
 
 ```bash
 pip install pandas numpy scikit-learn matplotlib jupyter
-# the bonus deep learning notebook also needs:
+# the Week 4 and Week 5 deep-learning notebooks (and the bonus ones) also need:
 pip install tensorflow
 ```
 
@@ -111,6 +145,14 @@ works the same way: believable numbers with real patterns, generated from a fixe
 but not records of any real person or company. Every column is explained in
 `Week 3/data/variable_dictionary.md`. Week 3 needs only the core libraries above, no
 TensorFlow required.
+
+The Week 4 data in `Week 4/data` is all Caribbean: international football matches, a Jamaica
+Stock Exchange company, Trinidad and Tobago oil prices, twelve countries' GDP, and city crime
+figures. The Week 5 data in `Week 5/data` is Caribbean **images**: flags of six nations and
+synthetic hurricane satellite tiles, drawn from a fixed seed by the included `make_images.py`.
+As before, everything is a believable teaching dataset with real patterns, not official
+records of any person, team, company, or country. Every dataset is explained in its folder's
+`variable_dictionary.md`. Weeks 4 and 5 use TensorFlow.
 
 ## Teens: Pitch & Win competition
 
