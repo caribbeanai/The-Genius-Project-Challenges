@@ -56,11 +56,18 @@
     }
     try { localStorage.setItem(STORE_KEY, JSON.stringify(accounts)); }
     catch (e) {
-      // storage full: shed old candles and retry once
-      if (player && player.simState) {
-        for (const s of Object.values(player.simState.stocks)) s.history = s.history.slice(-260);
-        try { localStorage.setItem(STORE_KEY, JSON.stringify(accounts)); } catch (e2) { /* give up quietly */ }
+      // storage full: shed old candles across EVERY saved account and retry —
+      // inactive traders' histories are usually what fills the quota
+      for (const acc of Object.values(accounts)) {
+        if (acc.simState) {
+          for (const s of Object.values(acc.simState.stocks || {})) s.history = (s.history || []).slice(-260);
+          for (const ix of Object.values(acc.simState.indices || {})) ix.history = (ix.history || []).slice(-260);
+          acc.simState.newsLog = (acc.simState.newsLog || []).slice(0, 20);
+        }
+        if (acc.netWorthHistory) acc.netWorthHistory = acc.netWorthHistory.slice(-780);
+        if (acc.txs) acc.txs = acc.txs.slice(0, 120);
       }
+      try { localStorage.setItem(STORE_KEY, JSON.stringify(accounts)); } catch (e2) { /* give up quietly */ }
     }
   }
 
@@ -668,15 +675,19 @@
       const st = sim.stocks[selectedSym];
       if (!st) return;
       if (b.dataset.q === 'max') {
-        // solve approx max shares affordable including ~2.5% fees and slippage
-        const q = sim.quote(st.sym, 100, 'buy');
-        let est = Math.floor(player.cash / (q.price * 1.05));
-        for (let k = 0; k < 6 && est > 0; k++) {
-          const qq = sim.quote(st.sym, est, 'buy');
-          const tot = est * qq.price + MarketSim.costs(est * qq.price).total;
-          if (tot > player.cash) est = Math.floor(est * 0.96); else break;
+        // binary-search the largest share count whose all-in cost (price
+        // impact + fees) fits the player's cash — total cost rises with qty
+        const affordable = (q) => {
+          const qq = sim.quote(st.sym, q, 'buy');
+          const val = q * qq.price;
+          return val + MarketSim.costs(val).total <= player.cash;
+        };
+        let lo = 0, hi = Math.max(1, Math.floor((player.cash / Math.max(0.01, st.price)) * 1.2));
+        while (lo < hi) {
+          const mid = Math.ceil((lo + hi) / 2);
+          if (affordable(mid)) lo = mid; else hi = mid - 1;
         }
-        $('trade-qty').value = Math.max(0, est);
+        $('trade-qty').value = lo;
       } else {
         $('trade-qty').value = b.dataset.q;
       }
