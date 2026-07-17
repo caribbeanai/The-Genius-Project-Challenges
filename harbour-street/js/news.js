@@ -118,24 +118,24 @@ const NEWS = (() => {
 
   // ---- random company news ----------------------------------------------
   const GOOD_CO = [
-    { h: (c) => `${c.name} lands major new contract`, s: () => 0.03 + 0.05 * Math.random(), l: 'New business means future earnings — the market prices it in today.' },
-    { h: (c) => `${c.name} announces expansion into the Eastern Caribbean`, s: () => 0.02 + 0.06 * Math.random(), l: 'Growth plans raise expected future profits, lifting the price now.' },
-    { h: (c) => `${c.name} declares special dividend`, s: () => 0.02 + 0.04 * Math.random(), l: 'Dividends are cash returned to shareholders — a signal of confidence.' },
-    { h: (c) => `Takeover talk: overseas investor eyes stake in ${c.name}`, s: () => 0.05 + 0.08 * Math.random(), l: 'Acquirers usually pay a premium over the market price, so rumours alone move stocks.' },
-    { h: (c) => `${c.name} wins export approval for US market`, s: () => 0.03 + 0.05 * Math.random(), l: 'Bigger markets mean bigger potential sales.' },
+    { h: (c) => `${c.name} lands major new contract`, s: (rng) => 0.03 + 0.05 * rng(), l: 'New business means future earnings — the market prices it in today.' },
+    { h: (c) => `${c.name} announces expansion into the Eastern Caribbean`, s: (rng) => 0.02 + 0.06 * rng(), l: 'Growth plans raise expected future profits, lifting the price now.' },
+    { h: (c) => `${c.name} declares special dividend`, s: (rng) => 0.02 + 0.04 * rng(), l: 'Dividends are cash returned to shareholders — a signal of confidence.' },
+    { h: (c) => `Takeover talk: overseas investor eyes stake in ${c.name}`, s: (rng) => 0.05 + 0.08 * rng(), l: 'Acquirers usually pay a premium over the market price, so rumours alone move stocks.' },
+    { h: (c) => `${c.name} wins export approval for US market`, s: (rng) => 0.03 + 0.05 * rng(), l: 'Bigger markets mean bigger potential sales.' },
   ];
   const BAD_CO = [
-    { h: (c) => `${c.name} warns profits will miss targets`, s: () => -(0.04 + 0.07 * Math.random()), l: 'A profit warning resets expectations downward — prices follow fast.' },
-    { h: (c) => `Fire disrupts operations at ${c.name} facility`, s: () => -(0.03 + 0.06 * Math.random()), l: 'One-off disasters hit the stock, but markets judge how permanent the damage is.' },
-    { h: (c) => `${c.name} CEO resigns unexpectedly`, s: () => -(0.02 + 0.05 * Math.random()), l: 'Markets hate uncertainty, and sudden leadership changes create it.' },
-    { h: (c) => `Regulator queries ${c.name} filings`, s: () => -(0.03 + 0.08 * Math.random()), l: 'Trust is an asset. Governance questions make investors demand a discount.' },
-    { h: (c) => `Supply chain trouble raises costs at ${c.name}`, s: () => -(0.02 + 0.04 * Math.random()), l: 'Higher input costs shrink profit margins unless prices can rise too.' },
+    { h: (c) => `${c.name} warns profits will miss targets`, s: (rng) => -(0.04 + 0.07 * rng()), l: 'A profit warning resets expectations downward — prices follow fast.' },
+    { h: (c) => `Fire disrupts operations at ${c.name} facility`, s: (rng) => -(0.03 + 0.06 * rng()), l: 'One-off disasters hit the stock, but markets judge how permanent the damage is.' },
+    { h: (c) => `${c.name} CEO resigns unexpectedly`, s: (rng) => -(0.02 + 0.05 * rng()), l: 'Markets hate uncertainty, and sudden leadership changes create it.' },
+    { h: (c) => `Regulator queries ${c.name} filings`, s: (rng) => -(0.03 + 0.08 * rng()), l: 'Trust is an asset. Governance questions make investors demand a discount.' },
+    { h: (c) => `Supply chain trouble raises costs at ${c.name}`, s: (rng) => -(0.02 + 0.04 * rng()), l: 'Higher input costs shrink profit margins unless prices can rise too.' },
   ];
 
   function companyNews(rng, co) {
     const good = rng() < 0.5;
     const t = pick(rng, good ? GOOD_CO : BAD_CO);
-    const shock = t.s();
+    const shock = t.s(rng);
     return {
       kind: 'company', severity: good ? 'good' : 'bad',
       headline: t.h(co),
